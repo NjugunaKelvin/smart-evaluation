@@ -1,15 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Button from './ui/Button';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 interface DropdownItem {
   name: string;
   href: string;
   description: string;
-  icon?: React.ReactNode;
 }
 
 interface NavItem {
@@ -21,6 +19,8 @@ interface NavItem {
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const navItems: NavItem[] = [
     { name: 'Home', href: '/' },
@@ -30,17 +30,22 @@ export default function Navbar() {
         {
           name: 'Why Choose Us',
           href: '/why-choose-us',
-          description: 'Discover our competitive advantages'
+          description: 'Discover our competitive advantages and unique value proposition'
         },
         {
           name: 'Our Process',
           href: '/our-process',
-          description: 'How our evaluation system works'
+          description: 'How our transparent evaluation system works'
         },
         {
           name: 'Success Stories',
           href: '/success-stories',
           description: 'Case studies and client testimonials'
+        },
+        {
+          name: 'Industries Served',
+          href: '/industries',
+          description: 'Sectors and industries we specialize in'
         }
       ]
     },
@@ -50,22 +55,27 @@ export default function Navbar() {
         {
           name: 'Browse Tenders',
           href: '/tenders',
-          description: 'Explore available opportunities'
+          description: 'Explore available opportunities across sectors'
         },
         {
           name: 'Categories',
           href: '/tenders/categories',
-          description: 'Tenders by industry and sector'
+          description: 'Tenders organized by industry and specialization'
         },
         {
-          name: 'Trending',
+          name: 'Trending Opportunities',
           href: '/tenders/trending',
-          description: 'Most popular opportunities'
+          description: 'Most popular and high-value opportunities'
         },
         {
           name: 'Recently Added',
           href: '/tenders/recent',
-          description: 'Newly posted tenders'
+          description: 'Newly posted tender opportunities'
+        },
+        {
+          name: 'Saved Tenders',
+          href: '/tenders/saved',
+          description: 'Your bookmarked tender opportunities'
         }
       ]
     },
@@ -73,29 +83,29 @@ export default function Navbar() {
       name: 'Resources',
       dropdown: [
         {
-          name: 'Blog',
-          href: '/blog',
-          description: 'Industry insights and updates'
+          name: 'Insights & Analysis',
+          href: '/insights',
+          description: 'Market trends and industry analysis'
         },
         {
-          name: 'Guidelines',
+          name: 'Proposal Guidelines',
           href: '/resources/guidelines',
           description: 'How to prepare winning proposals'
         },
         {
-          name: 'Webinars',
+          name: 'Webinars & Events',
           href: '/resources/webinars',
-          description: 'Educational sessions and workshops'
+          description: 'Educational sessions and industry events'
         },
         {
-          name: 'FAQ',
-          href: '/faq',
-          description: 'Frequently asked questions'
+          name: 'Documentation',
+          href: '/documentation',
+          description: 'Comprehensive platform guides'
         },
         {
           name: 'Support Center',
           href: '/support',
-          description: 'Get help with our platform'
+          description: 'Get assistance with our platform'
         }
       ]
     },
@@ -105,7 +115,7 @@ export default function Navbar() {
         {
           name: 'Plans & Features',
           href: '/pricing',
-          description: 'Compare subscription options'
+          description: 'Compare subscription options and benefits'
         },
         {
           name: 'Enterprise Solutions',
@@ -113,9 +123,9 @@ export default function Navbar() {
           description: 'Custom solutions for large organizations'
         },
         {
-          name: 'Free Trial',
-          href: '/free-trial',
-          description: 'Try our platform risk-free'
+          name: 'Government & NGOs',
+          href: '/government',
+          description: 'Specialized solutions for public sector'
         }
       ]
     },
@@ -125,55 +135,108 @@ export default function Navbar() {
         {
           name: 'Our Story',
           href: '/about',
-          description: 'How SmartEval began'
+          description: 'The vision and mission behind SmartEval'
         },
         {
-          name: 'Team',
+          name: 'Leadership Team',
           href: '/team',
-          description: 'Meet our leadership and experts'
+          description: 'Meet our executive leadership and experts'
         },
         {
           name: 'Careers',
           href: '/careers',
-          description: 'Join our growing team'
+          description: 'Join our innovative team'
         },
         {
-          name: 'Partners',
+          name: 'Partners & Alliances',
           href: '/partners',
-          description: 'Our strategic alliances'
+          description: 'Our strategic partnerships'
         },
         {
-          name: 'Contact',
+          name: 'Press & Media',
+          href: '/press',
+          description: 'Company news and media resources'
+        },
+        {
+          name: 'Contact Us',
           href: '/contact',
-          description: 'Get in touch with us'
+          description: 'Get in touch with our team'
         }
       ]
     }
   ];
 
   const handleDropdownEnter = (itemName: string) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
     setActiveDropdown(itemName);
   };
 
   const handleDropdownLeave = () => {
-    setActiveDropdown(null);
+    timeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 200);
   };
 
+  const handleDropdownClick = (itemName: string) => {
+    setActiveDropdown(activeDropdown === itemName ? null : itemName);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // SVG Chevron component
+  const ChevronIcon = ({ isActive }: { isActive: boolean }) => (
+    <svg 
+      className={`ml-1 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} 
+      width="12" 
+      height="12" 
+      viewBox="0 0 12 12" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path 
+        d="M3 4.5L6 7.5L9 4.5" 
+        stroke="currentColor" 
+        strokeWidth="1.5" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+
   return (
-    <nav className="sticky top-0 z-50 bg-gray-900 shadow-lg backdrop-blur-sm bg-opacity-95 border-b border-gray-700">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav className="sticky top-0 z-50 bg-gray-900 shadow-lg border-b border-gray-700">
+      <div className="max-w-8xl mx-auto px-6 py-3">
+        <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="text-xl font-bold text-white flex items-center">
-              <span className="bg-blue-600 text-white p-1 rounded mr-2">SE</span>
-              SmartEval
+            <Link href="/" className="flex items-center space-x-2">
+              <div className="bg-blue-600 text-white p-2 rounded-md">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <span className="text-xl font-semibold text-white">SmartEval</span>
             </Link>
           </div>
 
           {/* Middle Navigation */}
-          <div className="hidden lg:block">
-            <div className="ml-10 flex items-baseline space-x-1">
+          <div className="hidden xl:flex items-center justify-center flex-1 mx-10">
+            <div className="flex items-baseline space-x-1" ref={dropdownRef}>
               {navItems.map((item) => (
                 <div 
                   key={item.name}
@@ -184,40 +247,41 @@ export default function Navbar() {
                   {item.href ? (
                     <Link 
                       href={item.href}
-                      className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                      className="text-gray-300 hover:text-white px-4 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center"
                     >
                       {item.name}
                     </Link>
                   ) : (
                     <button
-                      className={`flex items-center text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${activeDropdown === item.name ? 'text-white' : ''}`}
+                      onClick={() => handleDropdownClick(item.name)}
+                      className={`flex items-center text-gray-300 hover:text-white px-4 py-2 rounded-md text-base font-medium transition-colors duration-200 ${activeDropdown === item.name ? 'text-white bg-gray-800' : ''}`}
                     >
                       {item.name}
-                      {item.dropdown && (
-                        <span className="ml-1">
-                          {activeDropdown === item.name ? (
-                            <ChevronUpIcon className="h-4 w-4" />
-                          ) : (
-                            <ChevronDownIcon className="h-4 w-4" />
-                          )}
-                        </span>
-                      )}
+                      {item.dropdown && <ChevronIcon isActive={activeDropdown === item.name} />}
                     </button>
                   )}
 
                   {/* Dropdown Menu */}
                   {item.dropdown && activeDropdown === item.name && (
-                    <div className="absolute left-0 mt-1 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 overflow-hidden">
-                      <div className="py-1">
+                    <div 
+                      className="absolute left-0 mt-2 w-72 rounded-lg shadow-xl bg-gray-800 border border-gray-700 overflow-hidden z-50"
+                      onMouseEnter={() => handleDropdownEnter(item.name)}
+                      onMouseLeave={handleDropdownLeave}
+                    >
+                      <div className="py-2">
                         {item.dropdown.map((dropdownItem) => (
                           <Link
                             key={dropdownItem.name}
                             href={dropdownItem.href}
-                            className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-150"
+                            className="block px-5 py-3 text-sm text-gray-300 hover:bg-gray-750 transition-all duration-200 group"
                             onClick={() => setActiveDropdown(null)}
                           >
-                            <div className="font-medium">{dropdownItem.name}</div>
-                            <div className="text-xs text-gray-400 mt-1">{dropdownItem.description}</div>
+                            <div className="font-medium text-white group-hover:text-blue-400 transition-colors duration-200">
+                              {dropdownItem.name}
+                            </div>
+                            <div className="text-xs text-gray-400 mt-1 leading-tight">
+                              {dropdownItem.description}
+                            </div>
                           </Link>
                         ))}
                       </div>
@@ -228,46 +292,43 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="lg:hidden">
-            <button
-              className="text-gray-300 hover:text-white focus:outline-none"
-              onClick={() => {/* Add mobile menu toggle logic */}}
-            >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-
           {/* Right Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="flex items-center space-x-4">
             {isLoggedIn ? (
               <Link href="/dashboard">
-                <Button variant="primary" className="text-sm px-4 py-2">
+                <Button variant="primary" className="text-sm px-5 py-2.5">
                   Dashboard
                 </Button>
               </Link>
             ) : (
               <>
                 <Link href="/login">
-                  <Button variant="outline" className="text-sm px-4 py-2 border-gray-600 hover:bg-gray-800">
-                    Login
+                  <Button variant="outline" className="text-sm px-5 py-2.5 border-gray-600 hover:bg-gray-800">
+                    Sign In
                   </Button>
                 </Link>
                 <Link href="/register">
-                  <Button variant="primary" className="text-sm px-4 py-2">
-                    Register
+                  <Button variant="primary" className="text-sm px-5 py-2.5">
+                    Get Started
                   </Button>
                 </Link>
               </>
             )}
           </div>
+
+          {/* Mobile menu button */}
+          <div className="xl:hidden ml-4">
+            <button
+              className="text-gray-300 hover:text-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={() => {/* Add mobile menu toggle logic */}}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-
-      {/* Mobile menu, show/hide based on menu state */}
-      {/* You would implement the mobile menu toggle functionality here */}
     </nav>
   );
 }
