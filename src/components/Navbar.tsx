@@ -50,22 +50,22 @@ export default function Navbar() {
       ]
     },
     {
-      name: 'Tenders',
+      name: 'Opportunities',
       dropdown: [
         {
-          name: 'Browse Tenders',
+          name: 'Tenders',
           href: '/tenders',
-          description: 'Explore available opportunities across sectors'
+          description: 'Explore available tenders across different sectors'
         },
         {
-          name: 'Categories',
-          href: '/tenders/categories',
-          description: 'Tenders organized by industry and specialization'
+          name: 'Fundings',
+          href: '/fundings',
+          description: 'Explore available funding opportunities across different sectors'
         },
         {
-          name: 'Trending Opportunities',
-          href: '/tenders/trending',
-          description: 'Most popular and high-value opportunities'
+          name: 'Projects',
+          href: '/projects',
+          description: 'Explore available projects across different sectors'
         },
         {
           name: 'Recently Added',

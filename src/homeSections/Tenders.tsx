@@ -38,7 +38,7 @@ export default function TendersSection() {
       title: 'Supply for Fire Fighting Equipments',
       description: 'Provision of fire fighting equipment and training for local communities.',
       deadline: '2023-12-10',
-      value: '$40,000 - $50,000',
+      value: 'Ksh 500K - Ksh 1.5M',
       category: 'Infrastructure',
       organization: 'National Treasury'
     },
@@ -56,18 +56,18 @@ export default function TendersSection() {
       title: 'Water Sanitation Project',
       description: 'Implementation of clean water solutions in underserved communities with monitoring and evaluation components.',
       deadline: '2024-01-05',
-      value: '$75,000 - $100,000',
+      value: 'Ksh 1M - Ksh 2M',
       category: 'Infrastructure',
       organization: 'World Bank'
     },
     {
       id: 6,
-      title: 'Agricultural Support Program',
-      description: 'Digital platform for connecting farmers with markets and providing agricultural extension services.',
-      deadline: '2024-01-15',
-      value: '$50,000 - $65,000',
-      category: 'Agriculture',
-      organization: 'FAO'
+      title: 'Solar Panels Installation',
+      description: 'Installation of solar panels in rural health clinics to ensure reliable power supply.',
+      deadline: '2026-01-15',
+      value: 'Ksh 500K - Ksh 1M',
+      category: 'Energy',
+      organization: 'Ecobank Kenya'
     }
   ];
 
@@ -90,6 +90,8 @@ export default function TendersSection() {
         return 'bg-yellow-500/20 text-yellow-400';
       case 'Agriculture':
         return 'bg-orange-500/20 text-orange-400';
+      case 'Energy':
+        return 'bg-purple-500/20 text-purple-400';
       default:
         return 'bg-gray-500/20 text-gray-400';
     }
