@@ -220,12 +220,12 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-gray-900 shadow-lg border-b border-gray-700">
-      <div className="max-w-8xl mx-auto px-6 py-3">
+      <div className="max-w-8xl mx-auto px-8 py-3">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="bg-blue-600 text-white p-2 rounded-md">
+              <div className="bg-emerald-600 text-white p-2 rounded-md">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -236,7 +236,7 @@ export default function Navbar() {
 
           {/* Middle Navigation */}
           <div className="hidden xl:flex items-center justify-center flex-1 mx-10">
-            <div className="flex items-baseline space-x-1" ref={dropdownRef}>
+            <div className="flex items-baseline space-x-2" ref={dropdownRef}>
               {navItems.map((item) => (
                 <div 
                   key={item.name}
@@ -247,14 +247,14 @@ export default function Navbar() {
                   {item.href ? (
                     <Link 
                       href={item.href}
-                      className="text-gray-300 hover:text-white px-4 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center"
+                      className="text-gray-300 hover:text-emerald-400 px-4 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center"
                     >
                       {item.name}
                     </Link>
                   ) : (
                     <button
                       onClick={() => handleDropdownClick(item.name)}
-                      className={`flex items-center text-gray-300 hover:text-white px-4 py-2 rounded-md text-base font-medium transition-colors duration-200 ${activeDropdown === item.name ? 'text-white bg-gray-800' : ''}`}
+                      className={`flex items-center text-gray-300 hover:text-emerald-400 px-4 py-2 rounded-md text-base font-medium transition-colors duration-200 ${activeDropdown === item.name ? 'text-emerald-400 bg-gray-800' : ''}`}
                     >
                       {item.name}
                       {item.dropdown && <ChevronIcon isActive={activeDropdown === item.name} />}
@@ -276,7 +276,7 @@ export default function Navbar() {
                             className="block px-5 py-3 text-sm text-gray-300 hover:bg-gray-750 transition-all duration-200 group"
                             onClick={() => setActiveDropdown(null)}
                           >
-                            <div className="font-medium text-white group-hover:text-blue-400 transition-colors duration-200">
+                            <div className="font-medium text-white group-hover:text-emerald-400 transition-colors duration-200">
                               {dropdownItem.name}
                             </div>
                             <div className="text-xs text-gray-400 mt-1 leading-tight">
@@ -296,19 +296,19 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             {isLoggedIn ? (
               <Link href="/dashboard">
-                <Button variant="primary" className="text-sm px-5 py-2.5">
+                <Button variant="primary" className="text-sm px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700">
                   Dashboard
                 </Button>
               </Link>
             ) : (
               <>
                 <Link href="/login">
-                  <Button variant="outline" className="text-sm px-5 py-2.5 border-gray-600 hover:bg-gray-800">
+                  <Button variant="outline" className="text-sm px-5 py-2.5 border-gray-600 hover:bg-gray-800 hover:text-emerald-400">
                     Sign In
                   </Button>
                 </Link>
                 <Link href="/register">
-                  <Button variant="primary" className="text-sm px-5 py-2.5">
+                  <Button variant="primary" className="text-sm px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700">
                     Get Started
                   </Button>
                 </Link>
@@ -319,7 +319,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <div className="xl:hidden ml-4">
             <button
-              className="text-gray-300 hover:text-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-gray-300 hover:text-emerald-400 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
               onClick={() => {/* Add mobile menu toggle logic */}}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
