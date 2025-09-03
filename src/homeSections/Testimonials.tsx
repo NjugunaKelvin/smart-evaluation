@@ -6,21 +6,21 @@ export default function TestimonialsSection() {
     {
       id: 1,
       content: "SmartEval has transformed how we find relevant projects. The transparency in evaluation means we know exactly where we stand and how to improve our proposals.",
-      author: "John Doe",
+      author: "Njuguna Kelvin",
       company: "Tech Solutions Inc.",
       role: "CEO"
     },
     {
       id: 2,
       content: "The quality of opportunities on SmartEval is unmatched. We've grown our business by 40% since joining the platform and secured funding we wouldn't have accessed otherwise.",
-      author: "Alice Smith",
+      author: "Mariam Mboya",
       company: "Cloud Innovations",
       role: "Director"
     },
     {
       id: 3,
       content: "As a small business, accessing government tenders was always challenging. SmartEval leveled the playing field and helped us win our first major contract.",
-      author: "Michael Johnson",
+      author: "James Mwangi",
       company: "GreenBuild Constructions",
       role: "Managing Partner"
     }

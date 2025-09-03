@@ -17,26 +17,26 @@ export default function TendersSection() {
   const tenders: Tender[] = [
     {
       id: 1,
-      title: 'Website Development for Ministry Portal',
-      description: 'Development of a comprehensive government service portal with e-commerce functionality and citizen engagement features.',
-      deadline: '2023-12-15',
-      value: '$15,000 - $20,000',
-      category: 'Technology',
-      organization: 'Ministry of ICT'
+      title: 'Urban Road Constructions',
+      description: 'Construction of urban roads in Nairobi to improve traffic flow and accessibility.',
+      deadline: '2026-02-15',
+      value: 'Ksh 1M - Ksh 3.5M',
+      category: 'Infrastructure',
+      organization: 'Ministry of Transport'
     },
     {
       id: 2,
-      title: 'Mobile App for Health Services',
-      description: 'Cross-platform mobile application for patient engagement and health service delivery in rural areas.',
-      deadline: '2023-12-20',
-      value: '$25,000 - $35,000',
-      category: 'Healthcare',
-      organization: 'Ministry of Health'
+      title: 'Supply for TextBooks & Learning Materials',
+      description: 'Provision of textbooks and digital learning materials for primary and secondary schools across the country.',
+      deadline: '2025-12-20',
+      value: 'Ksh 3M - Ksh 5M',
+      category: 'Education',
+      organization: 'Frankdale International School'
     },
     {
       id: 3,
-      title: 'Cloud Migration Project',
-      description: 'Migration of government on-premise infrastructure to secure cloud environment with enhanced security protocols.',
+      title: 'Supply for Fire Fighting Equipments',
+      description: 'Provision of fire fighting equipment and training for local communities.',
       deadline: '2023-12-10',
       value: '$40,000 - $50,000',
       category: 'Infrastructure',
@@ -47,7 +47,7 @@ export default function TendersSection() {
       title: 'Educational Content Development',
       description: 'Creation of digital learning materials for primary schools in alignment with new curriculum standards.',
       deadline: '2023-12-25',
-      value: '$30,000 - $45,000',
+      value: 'Ksh 2M - Ksh 4M',
       category: 'Education',
       organization: 'Ministry of Education'
     },

@@ -36,7 +36,7 @@ export default function Landing() {
         <div className="relative">
           <div className="relative h-96 w-full">
             <Image
-              src="/api/placeholder/600/500"
+              src="/images/home/bg.jpg"
               alt="Business growth illustration"
               fill
               className="rounded-lg object-cover"

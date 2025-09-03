@@ -9,6 +9,7 @@ const clients = [
   { name: 'Ministry of Education', logo: '/images/logos/education.jpg' },
   { name: 'USAID', logo: '/images/logos/usaid.png' },
   { name: 'UNICEF', logo: '/images/logos/unicef.png' },
+  { name: 'World Bank', logo: '/images/logos/worldbank.png' },
   { name: 'African Development Bank', logo: '/images/logos/africa.jpg' },
   { name: 'Kenya Power', logo: '/images/logos/kplc.jpg' },
 ];
@@ -23,7 +24,7 @@ export default function ClientShowcase() {
         <div className="flex overflow-hidden mb-8 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <div className="flex animate-marquee-left whitespace-nowrap py-2">
             {clients.concat(clients).map((client, index) => (
-              <div key={index} className="mx-8 flex items-center justify-center h-20 w-40 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+              <div key={index} className="mx-8 flex items-center justify-center h-20 w-40 opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                 <Image
                   src={client.logo}
                   alt={client.name}
@@ -40,7 +41,7 @@ export default function ClientShowcase() {
         <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <div className="flex animate-marquee-right whitespace-nowrap py-2">
             {clients.concat(clients).map((client, index) => (
-              <div key={index} className="mx-8 flex items-center justify-center h-20 w-40 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+              <div key={index} className="mx-8 flex items-center justify-center h-20 w-40 opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                 <Image
                   src={client.logo}
                   alt={client.name}
