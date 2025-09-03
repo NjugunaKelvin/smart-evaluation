@@ -1,4 +1,4 @@
-// components/home/Landing.tsx
+'use client'
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import Image from 'next/image';

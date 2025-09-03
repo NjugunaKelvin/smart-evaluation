@@ -1,4 +1,5 @@
 // components/home/ClientShowcase.tsx
+'use client'
 import Image from 'next/image';
 
 const clients = [
