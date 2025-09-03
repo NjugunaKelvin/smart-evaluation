@@ -59,7 +59,7 @@ export default function TestimonialsSection() {
               <div className="text-sm text-gray-400">Satisfaction Rate</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-500 mb-1">$10M+</div>
+              <div className="text-2xl font-bold text-green-500 mb-1">Ksh 10B+</div>
               <div className="text-sm text-gray-400">Funding Accessed</div>
             </div>
             <div className="text-center">

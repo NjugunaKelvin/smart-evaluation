@@ -63,9 +63,9 @@ export default function Navbar() {
           description: 'Explore available funding opportunities across different sectors'
         },
         {
-          name: 'Projects',
-          href: '/projects',
-          description: 'Explore available projects across different sectors'
+          name: 'Contracts',
+          href: '/opportunities/contracts',
+          description: 'Explore contract opportunities from different clients on different categories.'
         },
         {
           name: 'Recently Added',
@@ -96,11 +96,6 @@ export default function Navbar() {
           name: 'Webinars & Events',
           href: '/resources/webinars',
           description: 'Educational sessions and industry events'
-        },
-        {
-          name: 'Documentation',
-          href: '/documentation',
-          description: 'Comprehensive platform guides'
         },
         {
           name: 'Support Center',

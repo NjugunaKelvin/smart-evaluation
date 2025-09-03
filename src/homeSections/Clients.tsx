@@ -12,6 +12,8 @@ const clients = [
   { name: 'UNICEF', logo: '/images/logos/unicef.png' },
   { name: 'African Development Bank', logo: '/images/logos/africa.jpg' },
   { name: 'Kenya Power', logo: '/images/logos/kplc.jpg' },
+  { name: 'Safaricom', logo: '/images/logos/safaricom.png' },
+    { name: 'Kenha', logo: '/images/logos/kenha.jpg' },
 ];
 
 export default function ClientShowcase() {
@@ -54,7 +56,7 @@ export default function ClientShowcase() {
             Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Global Organizations</span>
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg">
-            We partner with renowned organizations to deliver exceptional solutions and drive innovation forward.
+            We have partners from renowned organizations to deliver exceptional solutions and drive innovation forward.
           </p>
         </div>
         
@@ -109,12 +111,12 @@ export default function ClientShowcase() {
         {/* Stats section */}
         <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="text-center p-6 bg-gray-800/50 rounded-xl border border-gray-700 backdrop-blur-sm">
-            <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2">50+</div>
-            <div className="text-gray-300">Projects Completed</div>
+            <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2">500+</div>
+            <div className="text-gray-300">Patnered Organizations</div>
           </div>
           <div className="text-center p-6 bg-gray-800/50 rounded-xl border border-gray-700 backdrop-blur-sm">
-            <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2">15+</div>
-            <div className="text-gray-300">Years Experience</div>
+            <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2">30+</div>
+            <div className="text-gray-300">Different Sectors</div>
           </div>
           <div className="text-center p-6 bg-gray-800/50 rounded-xl border border-gray-700 backdrop-blur-sm">
             <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-2">100%</div>
