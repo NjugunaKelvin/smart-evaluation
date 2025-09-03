@@ -3,7 +3,7 @@
 import Image from 'next/image';
 
 const clients = [
-  { name: 'World Bank', logo: '/api/placeholder/160/80' },
+  { name: 'World Bank', logo: '/images/logos/unicef.png' },
   { name: 'Equity Bank', logo: '/api/placeholder/160/80' },
   { name: 'Nairobi Government', logo: '/api/placeholder/160/80' },
   { name: 'Ministry of Education', logo: '/api/placeholder/160/80' },
