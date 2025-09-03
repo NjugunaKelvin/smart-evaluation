@@ -4,13 +4,13 @@ import Image from 'next/image';
 
 const clients = [
   { name: 'World Bank', logo: '/images/logos/unicef.png' },
-  { name: 'Equity Bank', logo: '/api/placeholder/160/80' },
-  { name: 'Nairobi Government', logo: '/api/placeholder/160/80' },
-  { name: 'Ministry of Education', logo: '/api/placeholder/160/80' },
-  { name: 'USAID', logo: '/api/placeholder/160/80' },
-  { name: 'UNICEF', logo: '/api/placeholder/160/80' },
-  { name: 'African Development Bank', logo: '/api/placeholder/160/80' },
-  { name: 'Kenya Power', logo: '/api/placeholder/160/80' },
+  { name: 'Equity Bank', logo: '/images/logos/equity.png' },
+  { name: 'Nairobi Government', logo: '/images/logos/nairobi.jpg' },
+  { name: 'Ministry of Education', logo: '/images/logos/education.jpg' },
+  { name: 'USAID', logo: '/images/logos/usaid.png' },
+  { name: 'UNICEF', logo: '/images/logos/unicef.png' },
+  { name: 'African Development Bank', logo: '/images/logos/africa.jpg' },
+  { name: 'Kenya Power', logo: '/images/logos/kplc.jpg' },
 ];
 
 export default function ClientShowcase() {
