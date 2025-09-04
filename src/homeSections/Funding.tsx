@@ -1,7 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client'
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
-import Image from 'next/image';
 
 export default function FundingSection() {
   return (
