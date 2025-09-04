@@ -75,12 +75,12 @@ export default function Navbar() {
         {
           name: 'Grants',
           href: '/tenders/recent',
-          description: 'Newly posted tender opportunities'
+          description: 'For research, innovation, or development.'
         },
         {
           name: 'Patnerships',
           href: '/tenders/saved',
-          description: 'Your bookmarked tender opportunities'
+          description: 'Collaborations or joint ventures with institutions or companies.'
         }
       ]
     },
