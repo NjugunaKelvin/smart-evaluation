@@ -31,7 +31,7 @@ export default function FundingSection() {
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
                 </div>
-                <span className="text-gray-300">NGO funding for community development projects</span>
+                <span className="text-gray-300">NGO funding for development projects</span>
               </li>
               <li className="flex items-start">
                 <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center mr-3 mt-1">

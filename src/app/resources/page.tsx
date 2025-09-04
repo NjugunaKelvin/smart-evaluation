@@ -49,19 +49,19 @@ const blogPosts = [
 const faqs = [
   {
     question: 'How do I create an account?',
-    answer: 'Click on the Register button in the top navigation and fill out the registration form with your company details.'
+    answer: 'Click on the "Get Started" button in the top navigation and fill out the registration form with your company details.'
   },
   {
-    question: 'What types of tenders are available?',
-    answer: 'We have tenders across various industries including technology, construction, consulting, marketing, and more.'
+    question: 'What types of Opportunities are available?',
+    answer: 'We have opportunities across various industries including technology, construction, consulting, marketing, and more.'
   },
   {
     question: 'How does the evaluation process work?',
-    answer: 'Each tender has specific evaluation criteria. Proposals are evaluated based on technical merit, price, and other factors specified in the tender documents.'
+    answer: 'Each opportunity has specific evaluation criteria. Proposals are evaluated based on technical merit, price, and other factors specified in the opportunity documents.'
   },
   {
-    question: 'Can I save tenders to review later?',
-    answer: 'Yes, you can save tenders to your watchlist by clicking the Save button on any tender listing.'
+    question: 'Can I save opportunities to review later?',
+    answer: 'Yes, you can save opportunities to your watchlist by clicking the Save button on any opportunity listing.'
   },
   {
     question: 'What payment methods do you accept?',
