@@ -1,5 +1,6 @@
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
+import Navbar from '@/components/Navbar';
 
 const pricingTiers = [
   {
@@ -52,6 +53,7 @@ const pricingTiers = [
 export default function PricingPage() {
   return (
     <div className="min-h-screen py-12 bg-gray-900">
+      <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-white mb-4">Simple, Transparent Pricing</h1>
