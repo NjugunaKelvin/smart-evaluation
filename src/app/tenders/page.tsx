@@ -24,7 +24,7 @@ const tenders: Tender[] = [
     industry: 'Technology',
     deadline: '2023-12-15',
     location: 'Remote',
-    value: '$15,000 - $20,000',
+    value: 'Ksh 1M - Ksh 1.5M',
     organization: 'Ministry of ICT'
   },
   {
@@ -34,7 +34,7 @@ const tenders: Tender[] = [
     industry: 'Healthcare',
     deadline: '2023-12-20',
     location: 'Remote',
-    value: '$25,000 - $35,000',
+    value: 'Ksh 800K - Ksh 1.2M',
     organization: 'Ministry of Health'
   },
   {
@@ -44,7 +44,7 @@ const tenders: Tender[] = [
     industry: 'Technology',
     deadline: '2023-12-10',
     location: 'Nairobi, Kenya',
-    value: '$40,000 - $50,000',
+    value: 'Ksh 2M - Ksh 2.5M',
     organization: 'National Treasury'
   },
   {
@@ -54,7 +54,7 @@ const tenders: Tender[] = [
     industry: 'Education',
     deadline: '2023-12-25',
     location: 'Remote',
-    value: '$30,000 - $45,000',
+    value: 'Ksh 2M - Ksh 4M',
     organization: 'Ministry of Education'
   },
   {
@@ -64,7 +64,7 @@ const tenders: Tender[] = [
     industry: 'Infrastructure',
     deadline: '2024-01-05',
     location: 'Kisumu, Kenya',
-    value: '$75,000 - $100,000',
+    value: 'Ksh 1M - Ksh 2M',
     organization: 'World Bank'
   },
   {
@@ -74,7 +74,7 @@ const tenders: Tender[] = [
     industry: 'Agriculture',
     deadline: '2024-01-15',
     location: 'Remote',
-    value: '$50,000 - $65,000',
+    value: 'Ksh 1.5M - Ksh 2.5M',
     organization: 'FAO'
   }
 ];

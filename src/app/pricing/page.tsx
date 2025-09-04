@@ -4,7 +4,7 @@ import Button from '@/components/ui/Button';
 const pricingTiers = [
   {
     name: 'Free',
-    price: '$0',
+    price: 'Ksh 0',
     description: 'For individual service providers starting out',
     features: [
       'Access to public tenders',
@@ -17,7 +17,7 @@ const pricingTiers = [
   },
   {
     name: 'Professional',
-    price: '$49',
+    price: 'Ksh 4999',
     period: '/month',
     description: 'For growing businesses and freelancers',
     features: [
