@@ -21,10 +21,10 @@ const tenderData = {
     'Experience with government projects is a plus',
     'Ability to meet tight deadlines'
   ],
-  deadline: '2023-12-15',
+  deadline: '2026-12-15',
   publishedDate: '2023-11-01',
   evaluationDate: '2023-12-20',
-  awardDate: '2023-12-25',
+  awardDate: '2026-12-25',
   value: '$15,000 - $20,000',
   industry: 'Technology',
   location: 'Remote',
