@@ -73,12 +73,12 @@ export default function Navbar() {
           description: 'Explore contract opportunities from different clients on different categories.'
         },
         {
-          name: 'Recently Added',
+          name: 'Grants',
           href: '/tenders/recent',
           description: 'Newly posted tender opportunities'
         },
         {
-          name: 'Saved Tenders',
+          name: 'Patnerships',
           href: '/tenders/saved',
           description: 'Your bookmarked tender opportunities'
         }
