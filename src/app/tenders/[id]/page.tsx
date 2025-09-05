@@ -51,7 +51,7 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
   // Function to handle document actions
   const handleDocumentAction = (action: 'view' | 'download', documentName: string) => {
     console.log(`${action}ing ${documentName}`);
-    // In a real app, this would open a modal or download the file
+    // This will open a modal or download the file
   };
   
   // Function to handle proposal submission
