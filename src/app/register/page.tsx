@@ -131,7 +131,7 @@ export default function RegisterPage() {
                   id="phone"
                   name="phone"
                   className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-white placeholder-gray-400"
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="+254 700 000 000"
                   value={formData.phone}
                   onChange={handleChange}
                 />
