@@ -25,14 +25,14 @@ export default function Landing() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
         <div className="text-left">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            Push Your Services to <span className="text-green-500">The Next Level</span>
+            Push Your Services to <span className="text-blue-500">The Next Level</span>
           </h1>
           <p className="text-xl text-gray-200 mb-10">
             Access projects, tenders, and funding from governments, NGOs, institutions, and global organizations like the World Bank through our transparent evaluation platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/tenders">
-              <Button variant="primary" className="w-full sm:w-auto px-8 py-4 text-lg bg-green-600 hover:bg-green-700 transition-colors">
+              <Button variant="primary" className="w-full sm:w-auto px-8 py-4 text-lg bg-blue-600 hover:bg-blue-700 transition-colors">
                 Explore Opportunities
               </Button>
             </Link>

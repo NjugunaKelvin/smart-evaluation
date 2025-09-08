@@ -34,7 +34,7 @@ export default function FinalCTA() {
         
         <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
           <Link href="/register" className="w-full sm:w-auto">
-            <Button variant="primary" className="w-full sm:w-auto px-8 py-4 text-lg font-medium bg-green-600 hover:bg-green-500 transition-colors shadow-lg hover:shadow-green-500/20">
+            <Button variant="primary" className="w-full sm:w-auto px-8 py-4 text-lg font-medium bg-blue-600 hover:bg-blue-500 transition-colors shadow-lg hover:shadow-green-500/20">
               Get Started Free
             </Button>
           </Link>

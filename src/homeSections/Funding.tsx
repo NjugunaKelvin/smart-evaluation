@@ -44,7 +44,7 @@ export default function FundingSection() {
             </ul>
             
             <Link href="/funding">
-              <Button variant="primary" className="bg-green-600 hover:bg-green-700">
+              <Button variant="primary" className="bg-blue-600 hover:bg-blue-700">
                 Explore Funding Opportunities
               </Button>
             </Link>
