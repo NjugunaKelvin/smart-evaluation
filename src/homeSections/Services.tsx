@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import Card from '@/components/ui/Card';
 import { useEffect, useRef, useState } from 'react';
@@ -25,7 +26,8 @@ const services = [
           <circle cx="100" cy="100" r="10" fill="currentColor"/>
         </svg>
       </div>
-    )
+    ),
+    color: "from-blue-500 to-cyan-500"
   },
   {
     title: "Tender Submissions",
@@ -50,7 +52,8 @@ const services = [
           <path d="M170 40L180 30V70" stroke="currentColor" strokeWidth="6" strokeLinecap="round"/>
         </svg>
       </div>
-    )
+    ),
+    color: "from-amber-500 to-orange-500"
   },
   {
     title: "Funding Access",
@@ -73,7 +76,8 @@ const services = [
           <circle cx="100" cy="100" r="15" fill="currentColor"/>
         </svg>
       </div>
-    )
+    ),
+    color: "from-emerald-500 to-green-500"
   },
   {
     title: "Proposal Evaluation",
@@ -94,13 +98,15 @@ const services = [
           <circle cx="100" cy="100" r="50" stroke="currentColor" strokeWidth="4"/>
         </svg>
       </div>
-    )
+    ),
+    color: "from-purple-500 to-violet-500"
   },
 ];
 
 export default function ServicesSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -123,14 +129,36 @@ export default function ServicesSection() {
     };
   }, []);
 
+  const handleMouseMove = (e: { clientX: number; clientY: number; }) => {
+    if (sectionRef.current) {
+      const rect = sectionRef.current.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      setMousePosition({ x, y });
+    }
+  };
+
   return (
-    <section ref={sectionRef} className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
+    <section 
+      ref={sectionRef} 
+      onMouseMove={handleMouseMove}
+      className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden"
+      style={{
+        background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(79, 70, 229, 0.15) 0%, transparent 50%)`
+      }}
+    >
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 animate-pulse-slow"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-emerald-500/5 to-amber-500/5 animate-pulse-medium" style={{animationDelay: '2s'}}></div>
+      </div>
+      
+      {/* Grid pattern */}
+      <div className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.2"/>
+            <pattern id="smallGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+              <path d="M 30 0 L 0 0 0 30" fill="none" stroke="currentColor" strokeWidth="0.5"/>
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#smallGrid)" />
@@ -138,15 +166,16 @@ export default function ServicesSection() {
       </div>
       
       {/* Floating elements */}
-      <div className="absolute top-20 left-10 w-40 h-40 rounded-full bg-green-500/10 blur-xl animate-pulse-slow"></div>
-      <div className="absolute bottom-20 right-10 w-32 h-32 rounded-full bg-blue-500/10 blur-xl animate-pulse-slow" style={{animationDelay: '2s'}}></div>
+      <div className="absolute top-20 left-10 w-40 h-40 rounded-full bg-blue-500/20 blur-xl animate-float-slow"></div>
+      <div className="absolute bottom-20 right-10 w-32 h-32 rounded-full bg-purple-500/20 blur-xl animate-float-medium" style={{animationDelay: '2s'}}></div>
+      <div className="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-amber-500/15 blur-lg animate-float-fast" style={{animationDelay: '1s'}}></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Our <span className="text-green-400">Comprehensive</span> Services
+            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Comprehensive</span> Services
           </h2>
-          <div className="w-24 h-1 bg-green-500 mx-auto mb-6"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-cyan-500 to-emerald-500 mx-auto mb-6"></div>
           <p className="text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed">
             Discover how our platform empowers businesses to secure valuable contracts, 
             funding, and projects through our streamlined, transparent processes.
@@ -157,19 +186,26 @@ export default function ServicesSection() {
           {services.map((service, index) => (
             <Card 
               key={index} 
-              className={`bg-gray-800/50 backdrop-blur-sm border border-gray-700 p-8 text-center hover:border-green-400/30 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-500 group transform hover:-translate-y-2 relative overflow-hidden ${
+              className={`bg-gray-800/40 backdrop-blur-md border border-gray-700/50 p-8 text-center hover:shadow-2xl transition-all duration-500 group transform hover:-translate-y-2 relative overflow-hidden ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
+              // Add transitionDelay inline to the Card's wrapper div if needed
+              // and use Tailwind for background and boxShadow
+              // Example:
+              // style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
             >
               {/* Visual element for each card */}
               {service.visual}
               
+              {/* Hover gradient overlay */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-lg`}></div>
+              
               {/* Main icon */}
-              <div className="w-20 h-20 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 text-green-400 group-hover:from-green-500 group-hover:to-green-600 group-hover:text-white transition-all duration-500 shadow-lg group-hover:shadow-green-500/25 relative z-10">
+              <div className={`w-20 h-20 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-300 group-hover:text-white transition-all duration-500 shadow-lg group-hover:shadow-xl relative z-10 ${service.color.replace('from-', 'group-hover:from-').replace('to-', 'group-hover:to-')} group-hover:bg-gradient-to-br`}>
                 {service.icon}
               </div>
               
-              <h3 className="text-xl font-semibold text-white mb-4 group-hover:text-green-400 transition-colors duration-300 relative z-10">
+              <h3 className="text-xl font-semibold text-white mb-4 group-hover:text-cyan-300 transition-colors duration-300 relative z-10">
                 {service.title}
               </h3>
               
@@ -177,8 +213,8 @@ export default function ServicesSection() {
                 {service.description}
               </p>
               
-              <div className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 relative z-10">
-                <span className="inline-flex items-center text-green-400 text-sm font-medium">
+              <div className="mt-6 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500 relative z-10">
+                <span className="inline-flex items-center text-cyan-400 text-sm font-medium">
                   Learn more
                   <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -188,9 +224,32 @@ export default function ServicesSection() {
             </Card>
           ))}
         </div>
-
-        
       </div>
+
+      {/* Add custom animations to global CSS */}
+      <style jsx global>{`
+        @keyframes float-slow {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          50% { transform: translateY(-20px) translateX(10px); }
+        }
+        @keyframes float-medium {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          50% { transform: translateY(-15px) translateX(-15px); }
+        }
+        @keyframes float-fast {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          50% { transform: translateY(-10px) translateX(5px); }
+        }
+        .animate-float-slow {
+          animation: float-slow 8s ease-in-out infinite;
+        }
+        .animate-float-medium {
+          animation: float-medium 6s ease-in-out infinite;
+        }
+        .animate-float-fast {
+          animation: float-fast 4s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 }

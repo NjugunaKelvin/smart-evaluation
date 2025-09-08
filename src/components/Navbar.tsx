@@ -102,11 +102,6 @@ export default function Navbar() {
           href: '/resources/webinars',
           description: 'Educational sessions and industry events'
         },
-        {
-          name: 'Support Center',
-          href: '/support',
-          description: 'Get assistance with our platform'
-        }
       ]
     },
     {
@@ -146,11 +141,6 @@ export default function Navbar() {
           name: 'Partners & Alliances',
           href: '/partners',
           description: 'Our strategic partnerships'
-        },
-        {
-          name: 'Press & Media',
-          href: '/press',
-          description: 'Company news and media resources'
         },
         {
           name: 'Contact Us',
