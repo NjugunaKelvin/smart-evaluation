@@ -9,31 +9,31 @@ export default function TestimonialsSection() {
   const testimonials = [
     {
       id: 1,
-      content: "SmartEval has transformed how we find relevant projects. The transparency in evaluation means we know exactly where we stand and how to improve our proposals.",
+      content: "SmartEval has completely changed the way we discover and evaluate relevant projects. The clear and transparent evaluation process gives us confidence in where we stand, while also showing us exactly what we need to work on to make our proposals stronger and more competitive. It’s taken a lot of the guesswork out of the process.",
       author: "Njuguna Kelvin",
       company: "Tech Solutions Inc.",
       role: "CEO",
-      image: "/images/home/bg2.jpg"
+      image: "/images/home/2.jpg"
     },
     {
       id: 2,
-      content: "The quality of opportunities on SmartEval is unmatched. We've grown our business by 40% since joining the platform and secured funding we wouldn't have accessed otherwise.",
+      content: "The quality of opportunities we’ve found on SmartEval is truly unmatched. Since joining the platform, we’ve seen our business grow by more than 40%, which is a milestone we didn’t expect to hit this quickly. Beyond growth, we’ve been able to secure funding that we never would have had access to otherwise. SmartEval hasn’t just helped us find opportunities. it’s helped shape the future of our business in a way that feels strategic and sustainable.",
       author: "Mariam Mboya",
       company: "Cloud Innovations",
       role: "Director",
-      image: "/images/home/bg3.jpg"
+      image: "/images/home/1.jpg"
     },
     {
       id: 3,
-      content: "As a small business, accessing government tenders was always challenging. SmartEval leveled the playing field and helped us win our first major contract.",
+      content: "As a small business, breaking into government tenders always felt like an uphill battle. The process was overwhelming, and we often felt like we didn’t stand a chance against bigger competitors. SmartEval completely leveled the playing field, giving us the insight, guidance, and confidence we needed. Thanks to the platform, we were able to put together a winning proposal and secure our very first major contract, which has been a turning point for our growth.",
       author: "James Mwangi",
       company: "GreenBuild Constructions",
       role: "Managing Partner",
-      image: "/images/home/bg4.jpg"
+      image: "/images/home/3.jpeg"
     },
     {
       id: 4,
-      content: "The analytics tools provided invaluable insights into our proposal strengths and weaknesses. We've increased our success rate by 65% since using SmartEval.",
+      content: "The analytics tools on SmartEval have given us invaluable insight into the strengths and weaknesses of our proposals. For the first time, we can clearly see what’s working, what’s not, and where to focus our efforts. By making data-driven improvements, we’ve managed to boost our success rate by an incredible 65%, turning more proposals into real opportunities and measurable results.",
       author: "Sarah Otieno",
       company: "DataDrive Analytics",
       role: "CTO",
@@ -61,11 +61,11 @@ export default function TestimonialsSection() {
           alt={testimonials[currentSlide].author}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20" />
       </div>
 
       {/* Testimonial Content - pushed closer to true vertical center */}
-      <div className="relative z-10 max-w-4xl mx-auto h-full flex items-center justify-end pr-6 md:pr-12 lg:pr-20">
+      <div className="relative z-10 max-w-4xl h-full flex items-center justify-end pr-6 md:pr-12 lg:pr-20">
         <AnimatePresence mode="wait">
           <motion.div
             key={testimonials[currentSlide].id}
