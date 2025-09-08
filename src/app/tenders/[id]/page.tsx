@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface TenderDetailPageProps {
   params: {
@@ -42,6 +43,7 @@ const tenderData = {
 
 export default function TenderDetailPage({ params }: TenderDetailPageProps) {
   const router = useRouter();
+  const [showSubmissionOptions, setShowSubmissionOptions] = useState(false);
   
   // Calculate days until deadline
   const deadlineDate = new Date(tenderData.deadline);
@@ -54,11 +56,23 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
     // This will open a modal or download the file
   };
   
-  // Function to handle proposal submission
-  const handleSubmitProposal = () => {
-    router.push(`/tenders/${params.id}/apply`);
+  // Function to handle proposal submission options
+  const handleShowSubmissionOptions = () => {
+    setShowSubmissionOptions(true);
   };
   
+  // Function to handle PDF submission
+  const handlePdfSubmission = () => {
+    // Logic to handle PDF upload
+    console.log('PDF submission selected');
+    // This would typically open a file upload dialog
+  };
+  
+  // Function to handle form submission
+  const handleFormSubmission = () => {
+    router.push(`/tenders/${params.id}/apply`);
+  };
+
   return (
     <div className="min-h-screen py-12 bg-gradient-to-b from-gray-900 to-gray-800">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,6 +115,67 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
             </div>
           </div>
         </Card>
+
+        {/* Submission Options Modal */}
+        {showSubmissionOptions && (
+          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+            <Card className="bg-gray-800 border-gray-700 max-w-md w-full">
+              <h2 className="text-xl font-semibold text-white mb-4">Choose Submission Method</h2>
+              <p className="text-gray-400 mb-6">Select how you would like to submit your proposal for this tender.</p>
+              
+              <div className="space-y-4">
+                <div 
+                  className="p-4 border border-gray-700 rounded-lg cursor-pointer hover:bg-gray-700/50 transition-colors"
+                  onClick={handlePdfSubmission}
+                >
+                  <div className="flex items-center">
+                    <div className="bg-blue-900/30 p-3 rounded-lg mr-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-white font-medium">Upload PDF Document</h3>
+                      <p className="text-gray-400 text-sm">Submit your complete proposal as a single PDF file</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div 
+                  className="p-4 border border-gray-700 rounded-lg cursor-pointer hover:bg-gray-700/50 transition-colors"
+                  onClick={handleFormSubmission}
+                >
+                  <div className="flex items-center">
+                    <div className="bg-green-900/30 p-3 rounded-lg mr-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 5v14"></path>
+                        <path d="M5 12h14"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-white font-medium">Use Online Form</h3>
+                      <p className="text-gray-400 text-sm">Fill out our step-by-step proposal form</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-6 flex justify-end">
+                <Button 
+                  variant="outline" 
+                  className="mr-2 border-gray-600 text-gray-300"
+                  onClick={() => setShowSubmissionOptions(false)}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </Card>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
@@ -263,7 +338,7 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
               <Button 
                 variant="primary" 
                 className="bg-blue-600 hover:bg-blue-700 py-3 transition-all duration-300 shadow-lg shadow-blue-500/20"
-                onClick={handleSubmitProposal}
+                onClick={handleShowSubmissionOptions}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
