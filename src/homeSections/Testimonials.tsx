@@ -1,75 +1,109 @@
 /* eslint-disable react/no-unescaped-entities */
+/* eslint-disable @next/next/no-img-element */
 'use client'
-import Card from '@/components/ui/Card';
+import { useState, useEffect, SetStateAction } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function TestimonialsSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
   const testimonials = [
     {
       id: 1,
       content: "SmartEval has transformed how we find relevant projects. The transparency in evaluation means we know exactly where we stand and how to improve our proposals.",
       author: "Njuguna Kelvin",
       company: "Tech Solutions Inc.",
-      role: "CEO"
+      role: "CEO",
+      image: "/images/home/bg2.jpg"
     },
     {
       id: 2,
       content: "The quality of opportunities on SmartEval is unmatched. We've grown our business by 40% since joining the platform and secured funding we wouldn't have accessed otherwise.",
       author: "Mariam Mboya",
       company: "Cloud Innovations",
-      role: "Director"
+      role: "Director",
+      image: "/images/home/bg3.jpg"
     },
     {
       id: 3,
       content: "As a small business, accessing government tenders was always challenging. SmartEval leveled the playing field and helped us win our first major contract.",
       author: "James Mwangi",
       company: "GreenBuild Constructions",
-      role: "Managing Partner"
+      role: "Managing Partner",
+      image: "/images/home/bg4.jpg"
+    },
+    {
+      id: 4,
+      content: "The analytics tools provided invaluable insights into our proposal strengths and weaknesses. We've increased our success rate by 65% since using SmartEval.",
+      author: "Sarah Otieno",
+      company: "DataDrive Analytics",
+      role: "CTO",
+      image: "/images/home/bg.jpg"
     }
   ];
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
+
+  const goToSlide = (index: SetStateAction<number>) => setCurrentSlide(index);
+  const goToNext = () => setCurrentSlide((prev) => (prev + 1) % testimonials.length);
+  const goToPrev = () => setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+
   return (
-    <section className="py-16 bg-gray-800 border-t border-gray-700">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl font-bold text-white mb-12">Trusted by Service Providers</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.id} className="bg-gray-900 border-gray-700 p-6 text-left h-full">
-              <div className="mb-4 text-yellow-400">
-                {"★".repeat(5)}
-              </div>
-              <p className="text-gray-300 italic mb-4">"{testimonial.content}"</p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-gray-700 rounded-full mr-3 flex items-center justify-center text-green-500 font-bold">
-                  {testimonial.author.split(' ').map(n => n[0]).join('')}
-                </div>
-                <div>
-                  <div className="font-medium text-white">{testimonial.author}</div>
-                  <div className="text-sm text-gray-500">{testimonial.role}, {testimonial.company}</div>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-        
-        <div className="bg-gray-900 rounded-lg p-8 border border-gray-700">
-          <h3 className="text-xl font-bold text-white mb-4">Join Our Growing Community</h3>
-          <p className="text-gray-400 mb-6">1,200+ service providers are already growing their business through SmartEval</p>
-          <div className="grid grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-500 mb-1">95%</div>
-              <div className="text-sm text-gray-400">Satisfaction Rate</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-500 mb-1">Ksh 10B+</div>
-              <div className="text-sm text-gray-400">Funding Accessed</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-green-500 mb-1">500+</div>
-              <div className="text-sm text-gray-400">Active Tenders</div>
-            </div>
-          </div>
-        </div>
+    <section className="relative w-full min-h-[500px] md:min-h-[550px] lg:min-h-[600px]">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src={testimonials[currentSlide].image}
+          alt={testimonials[currentSlide].author}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
       </div>
+
+      {/* Testimonial Content - pushed closer to true vertical center */}
+      <div className="relative z-10 max-w-4xl mx-auto h-full flex items-center justify-end pr-6 md:pr-12 lg:pr-20">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={testimonials[currentSlide].id}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col items-start text-left max-w-2xl translate-y-[5%] md:translate-y-[10%]"
+          >
+            <p className="text-lg md:text-xl lg:text-2xl italic font-light text-gray-100 leading-relaxed mb-4">
+              "{testimonials[currentSlide].content}"
+            </p>
+            <h4 className="text-lg md:text-xl font-semibold text-white">
+              {testimonials[currentSlide].author}
+            </h4>
+            <p className="text-gray-300 text-sm">
+              {testimonials[currentSlide].role}, {testimonials[currentSlide].company}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Navigation Buttons */}
+      <button
+        onClick={goToPrev}
+        className="absolute top-1/2 left-3 md:left-6 -translate-y-1/2 bg-black/30 hover:bg-black/50 backdrop-blur-sm p-3 rounded-full text-white transition shadow-lg"
+      >
+        &#8592;
+      </button>
+      <button
+        onClick={goToNext}
+        className="absolute top-1/2 right-3 md:right-6 -translate-y-1/2 bg-black/30 hover:bg-black/50 backdrop-blur-sm p-3 rounded-full text-white transition shadow-lg"
+      >
+        &#8594;
+      </button>
+
+      {/* Indicators */}
+      
     </section>
   );
 }
