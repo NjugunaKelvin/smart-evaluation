@@ -3,6 +3,7 @@
 // src/pages/Resources/ProposalGuidelines.tsx
 'use client'
 import React, { useState } from 'react';
+import Navbar from '@/components/Navbar';
 
 const ProposalGuidelines = () => {
   const [activeSection, setActiveSection] = useState('introduction');
@@ -53,6 +54,8 @@ const ProposalGuidelines = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 py-8">
+      <Navbar />
+      <br /><br />
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="mb-12 text-center">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">

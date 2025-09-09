@@ -3,6 +3,7 @@
 // src/pages/Resources/ProposalTemplates.tsx
 'use client'
 import React, { useState } from 'react';
+import Navbar from '@/components/Navbar';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -280,6 +281,8 @@ const ProposalTemplates = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 py-8">
+      <Navbar />
+      <br /><br />
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="mb-12 text-center">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
