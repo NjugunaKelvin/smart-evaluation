@@ -34,22 +34,17 @@ export default function Navbar() {
       dropdown: [
         {
           name: 'Why Choose Us',
-          href: '/why-choose-us',
+          href: '/what-we-do/why-choose-us',
           description: 'Discover our competitive advantages and unique value proposition'
         },
         {
-          name: 'Our Process',
-          href: '/our-process',
-          description: 'How our transparent evaluation system works'
-        },
-        {
           name: 'Success Stories',
-          href: '/success-stories',
+          href: '/what-we-do/success-stories',
           description: 'Case studies and client testimonials'
         },
         {
           name: 'Industries Served',
-          href: '/industries',
+          href: '/what-we-do/industries',
           description: 'Sectors and industries we specialize in'
         }
       ]
