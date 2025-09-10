@@ -54,12 +54,12 @@ export default function Navbar() {
       dropdown: [
         {
           name: 'Tenders',
-          href: '/tenders',
+          href: '/opportunities?category=Tender',
           description: 'Explore available tenders across different sectors'
         },
         {
           name: 'Fundings',
-          href: '/fundings',
+          href: '/opportunities?category=Funding',
           description: 'Explore available funding opportunities across different sectors'
         },
         {

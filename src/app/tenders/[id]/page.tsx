@@ -1,393 +1,377 @@
 'use client';
-import Link from 'next/link';
-import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 
-interface TenderDetailPageProps {
-  params: {
-    id: string;
-  };
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Navbar from '@/components/Navbar';
+import { useSearchParams } from 'next/navigation';
+
+interface Opportunity {
+  id: number;
+  title: string;
+  description: string;
+  industry: string;
+  category: string;
+  deadline: string;
+  location: string;
+  value: string;
+  organization: string;
 }
 
-const tenderData = {
-  id: 1,
-  title: 'Website Development Project',
-  description: 'We are seeking an experienced web development team to create a comprehensive corporate website with e-commerce functionality. The project requires modern design, responsive layout, and integration with our existing systems.',
-  requirements: [
-    '5+ years of web development experience',
-    'Proficiency in React/Next.js and Node.js',
-    'Experience with e-commerce platforms',
-    'Strong UI/UX design skills',
-    'Knowledge of SEO best practices',
-    'Experience with government projects is a plus',
-    'Ability to meet tight deadlines'
-  ],
-  deadline: '2026-12-15',
-  publishedDate: '2023-11-01',
-  evaluationDate: '2023-12-20',
-  awardDate: '2026-12-25',
-  value: 'Ksh 150,000 - Ksh 200,000',
-  industry: 'Technology',
-  location: 'Remote',
-  duration: '3 months',
-  organization: 'Ministry of ICT',
-  documents: ['RFP Document', 'Technical Specifications', 'Contract Template', 'Evaluation Criteria'],
-  contact: {
-    name: 'Procurement Department',
-    email: 'procurement@ict.go.ke',
-    phone: '+254 700 123 456'
+const opportunities: Opportunity[] = [
+  {
+    id: 1,
+    title: 'Website Development for Ministry Portal',
+    description: 'Development of a comprehensive government service portal with e-commerce functionality and citizen engagement features.',
+    industry: 'Technology',
+    category: 'Tender',
+    deadline: '2023-12-15',
+    location: 'Remote',
+    value: 'Ksh 1M - Ksh 1.5M',
+    organization: 'Ministry of ICT'
+  },
+  {
+    id: 2,
+    title: 'Mobile App for Health Services',
+    description: 'Cross-platform mobile application for patient engagement and health service delivery in rural areas.',
+    industry: 'Healthcare',
+    category: 'Grant',
+    deadline: '2023-12-20',
+    location: 'Remote',
+    value: 'Ksh 800K - Ksh 1.2M',
+    organization: 'Ministry of Health'
+  },
+  {
+    id: 3,
+    title: 'Cloud Migration Project',
+    description: 'Migration of government on-premise infrastructure to secure cloud environment with enhanced security protocols.',
+    industry: 'Technology',
+    category: 'Contract',
+    deadline: '2023-12-10',
+    location: 'Nairobi, Kenya',
+    value: 'Ksh 2M - Ksh 2.5M',
+    organization: 'National Treasury'
+  },
+  {
+    id: 4,
+    title: 'Educational Content Development',
+    description: 'Creation of digital learning materials for primary schools in alignment with new curriculum standards.',
+    industry: 'Education',
+    category: 'Funding',
+    deadline: '2023-12-25',
+    location: 'Remote',
+    value: 'Ksh 2M - Ksh 4M',
+    organization: 'Ministry of Education'
+  },
+  {
+    id: 5,
+    title: 'Water Sanitation Project',
+    description: 'Implementation of clean water solutions in underserved communities with monitoring and evaluation components.',
+    industry: 'Infrastructure',
+    category: 'Partnership',
+    deadline: '2024-01-05',
+    location: 'Kisumu, Kenya',
+    value: 'Ksh 1M - Ksh 2M',
+    organization: 'World Bank'
+  },
+  {
+    id: 6,
+    title: 'Agricultural Support Program',
+    description: 'Digital platform for connecting farmers with markets and providing agricultural extension services.',
+    industry: 'Agriculture',
+    category: 'Funding',
+    deadline: '2024-01-15',
+    location: 'Remote',
+    value: 'Ksh 1.5M - Ksh 2.5M',
+    organization: 'FAO'
+  },
+  {
+    id: 7,
+    title: 'Renewable Energy Initiative',
+    description: 'Development of solar power solutions for rural communities without grid access.',
+    industry: 'Energy',
+    category: 'Grant',
+    deadline: '2024-02-10',
+    location: 'Remote',
+    value: 'Ksh 3M - Ksh 4.5M',
+    organization: 'UNDP'
+  },
+  {
+    id: 8,
+    title: 'Road Construction Project',
+    description: 'Construction of 50km access road in Western Kenya region with drainage systems.',
+    industry: 'Infrastructure',
+    category: 'Tender',
+    deadline: '2024-01-30',
+    location: 'Kakamega, Kenya',
+    value: 'Ksh 5M - Ksh 7M',
+    organization: 'KeNHA'
   }
-};
+];
 
-export default function TenderDetailPage({ params }: TenderDetailPageProps) {
-  const router = useRouter();
-  const [showSubmissionOptions, setShowSubmissionOptions] = useState(false);
+export default function OpportunitiesPage() {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get('category');
   
-  // Calculate days until deadline
-  const deadlineDate = new Date(tenderData.deadline);
-  const today = new Date();
-  const daysUntilDeadline = Math.ceil((deadlineDate.getTime() - today.getTime()) / (1000 * 3600 * 24));
-  
-  // Function to handle document actions
-  const handleDocumentAction = (action: 'view' | 'download', documentName: string) => {
-    console.log(`${action}ing ${documentName}`);
-    // This will open a modal or download the file
-  };
-  
-  // Function to handle proposal submission options
-  const handleShowSubmissionOptions = () => {
-    setShowSubmissionOptions(true);
-  };
-  
-  // Function to handle PDF submission
-  const handlePdfSubmission = () => {
-    // Logic to handle PDF upload
-    console.log('PDF submission selected');
-    // This would typically open a file upload dialog
-  };
-  
-  // Function to handle form submission
-  const handleFormSubmission = () => {
-    router.push(`/tenders/${params.id}/apply`);
+  const [filters, setFilters] = useState({
+    industry: '',
+    location: '',
+    category: categoryParam || '',
+    search: ''
+  });
+
+  const [showFilters, setShowFilters] = useState(false);
+
+  // Update filters when category param changes
+  useEffect(() => {
+    if (categoryParam) {
+      setFilters(prev => ({...prev, category: categoryParam}));
+    }
+  }, [categoryParam]);
+
+  const filteredOpportunities = opportunities.filter(opportunity => {
+    return (
+      (filters.industry === '' || opportunity.industry === filters.industry) &&
+      (filters.location === '' || opportunity.location.includes(filters.location)) &&
+      (filters.category === '' || opportunity.category === filters.category) &&
+      (filters.search === '' || 
+        opportunity.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+        opportunity.description.toLowerCase().includes(filters.search.toLowerCase()) ||
+        opportunity.organization.toLowerCase().includes(filters.search.toLowerCase()))
+    );
+  });
+
+  const industries = [...new Set(opportunities.map(t => t.industry))];
+  const locations = [...new Set(opportunities.map(t => t.location))];
+  const categories = ['Tender', 'Funding', 'Contract', 'Grant', 'Partnership'];
+
+  // Format date to more readable form
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
   };
 
   return (
-    <div className="min-h-screen py-12 bg-gradient-to-b from-gray-900 to-gray-800">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link href="/tenders" className="inline-flex items-center text-blue-400 hover:text-blue-300 mb-6 transition-colors duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-          Back to Tenders
-        </Link>
-
-        {/* Header with status badge */}
-        <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-4">
-          <div className="flex-1">
-            <span className="inline-block px-3 py-1 bg-blue-900/40 text-blue-300 rounded-full text-sm font-medium mb-4 border border-blue-700/30">
-              {tenderData.industry}
-            </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 leading-tight">{tenderData.title}</h1>
-            <p className="text-gray-400 text-lg">Published by {tenderData.organization}</p>
+    <div className="min-h-screen bg-gray-900">
+      <Navbar />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-white mb-1">Available Opportunities</h1>
+          <p className="text-gray-400 text-sm">Discover projects from government agencies, NGOs, and international institutions</p>
+        </div>
+        
+        {/* Search and Filter Bar */}
+        <div className="mb-5">
+          <div className="flex flex-col md:flex-row gap-3 items-start md:items-center">
+            <div className="flex-1 w-full">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search opportunities..."
+                  className="block w-full pl-9 pr-3 py-2 border border-gray-700 rounded-lg bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:border-green-500 text-sm"
+                  value={filters.search}
+                  onChange={(e) => setFilters({...filters, search: e.target.value})}
+                />
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-2 w-full md:w-auto">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="inline-flex items-center px-3 py-2 border border-gray-700 rounded-lg text-xs font-medium text-gray-300 bg-gray-800 hover:bg-gray-750"
+              >
+                <svg className="mr-1.5 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
+                </svg>
+                Filters
+              </button>
+              
+              <button 
+                className="px-3 py-2 border border-gray-700 rounded-lg text-xs text-gray-300 hover:bg-gray-750"
+                onClick={() => setFilters({industry: '', location: '', category: '', search: ''})}
+              >
+                Clear
+              </button>
+            </div>
           </div>
-          <div className="text-right bg-gray-800/50 p-4 rounded-lg border border-gray-700/50">
-            <div className="text-sm text-gray-400 uppercase tracking-wide">Reference #</div>
-            <div className="text-white font-mono text-lg">ICT/{tenderData.id.toString().padStart(4, '0')}/2023</div>
+          
+          {/* Expandable Filters */}
+          {showFilters && (
+            <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 pt-3 border-t border-gray-800">
+              <div>
+                <label className="block text-xs font-medium text-gray-400 mb-1">Category</label>
+                <select
+                  className="block w-full px-2.5 py-1.5 text-sm border-gray-700 rounded-lg bg-gray-800 text-white focus:outline-none focus:border-green-500"
+                  value={filters.category}
+                  onChange={(e) => setFilters({...filters, category: e.target.value})}
+                >
+                  <option value="">All Categories</option>
+                  {categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-xs font-medium text-gray-400 mb-1">Industry</label>
+                <select
+                  className="block w-full px-2.5 py-1.5 text-sm border-gray-700 rounded-lg bg-gray-800 text-white focus:outline-none focus:border-green-500"
+                  value={filters.industry}
+                  onChange={(e) => setFilters({...filters, industry: e.target.value})}
+                >
+                  <option value="">All Industries</option>
+                  {industries.map(industry => (
+                    <option key={industry} value={industry}>{industry}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-xs font-medium text-gray-400 mb-1">Location</label>
+                <select
+                  className="block w-full px-2.5 py-1.5 text-sm border-gray-700 rounded-lg bg-gray-800 text-white focus:outline-none focus:border-green-500"
+                  value={filters.location}
+                  onChange={(e) => setFilters({...filters, location: e.target.value})}
+                >
+                  <option value="">All Locations</option>
+                  {locations.map(location => (
+                    <option key={location} value={location}>{location}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        {/* Quick Category Filters */}
+        <div className="flex flex-wrap gap-1.5 mb-5">
+          <button
+            onClick={() => setFilters({...filters, category: ''})}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium ${filters.category === '' ? 'bg-green-600 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-750'}`}
+          >
+            All
+          </button>
+          {categories.map(category => (
+            <button
+              key={category}
+              onClick={() => setFilters({...filters, category})}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${filters.category === category ? 'bg-green-800 text-white' : 'bg-gray-800 text-gray-300 hover:bg-gray-750'}`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        {/* Results count and sort */}
+        <div className="mb-5 flex justify-between items-center">
+          <p className="text-gray-400 text-sm">
+            Showing <span className="font-medium text-white">{filteredOpportunities.length}</span> of <span className="font-medium text-white">{opportunities.length}</span> opportunities
+            {filters.category && (
+              <span className="ml-2">
+                in <span className="px-2 py-1 rounded-md text-xs font-medium bg-green-900 text-green-200">{filters.category}</span>
+              </span>
+            )}
+          </p>
+          <div className="flex items-center">
+            <label className="text-xs text-gray-400 mr-2">Sort by:</label>
+            <select className="bg-gray-800 border border-gray-700 rounded-lg px-2 py-1 text-white text-xs focus:outline-none focus:border-green-500">
+              <option>Newest First</option>
+              <option>Deadline</option>
+              <option>Value (High to Low)</option>
+              <option>Value (Low to High)</option>
+            </select>
           </div>
         </div>
 
-        {/* Deadline alert */}
-        <Card className="bg-gradient-to-r from-blue-900/30 to-blue-800/30 border-blue-700/50 mb-8 shadow-lg">
-          <div className="flex items-center">
-            <div className="flex-shrink-0 w-12 h-12 bg-blue-700/20 rounded-full flex items-center justify-center text-blue-400 mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
+        {/* Opportunities Grid */}
+        {filteredOpportunities.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredOpportunities.map((opportunity) => (
+              <div key={opportunity.id} className="bg-gray-800 border border-gray-700 rounded-lg hover:border-green-500 transition-colors duration-150 group h-full flex flex-col overflow-hidden">
+                <div className="p-4 flex-1 flex flex-col">
+                  <div className="flex justify-between items-start mb-3">
+                    <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-750 text-gray-300">
+                      {opportunity.industry}
+                    </span>
+                    <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-green-900 text-green-200">
+                      {opportunity.category}
+                    </span>
+                  </div>
+                  
+                  <div className="mb-3">
+                    <div className="text-xs text-gray-400 mb-1">From {opportunity.organization}</div>
+                    <h3 className="text-base font-semibold text-white mb-2 group-hover:text-green-400 transition-colors line-clamp-2">
+                      {opportunity.title}
+                    </h3>
+                    <p className="text-gray-400 text-xs mb-3 line-clamp-3 flex-1">{opportunity.description}</p>
+                  </div>
+                  
+                  <div className="mt-auto">
+                    <div className="flex justify-between items-center mb-3 text-xs">
+                      <div className="text-gray-400">
+                        <div className="font-medium text-gray-300">Deadline:</div>
+                        <div>{formatDate(opportunity.deadline)}</div>
+                      </div>
+                      <div className="text-green-400 font-medium text-right">
+                        <div className="font-medium text-gray-300">Value:</div>
+                        <div>{opportunity.value}</div>
+                      </div>
+                    </div>
+                    <div className="flex space-x-2">
+                      <Link href={`/opportunities/${opportunity.id}`} className="flex-1">
+                        <button className="w-full bg-green-600 hover:bg-green-700 text-white text-xs font-medium py-2 rounded-lg transition-colors">
+                          View Details
+                        </button>
+                      </Link>
+                      <button className="p-2 border border-gray-700 text-gray-400 hover:bg-gray-750 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8 bg-gray-800 border border-gray-700 rounded-lg">
+            <div className="w-12 h-12 bg-gray-750 rounded-full flex items-center justify-center mx-auto mb-3 text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
               </svg>
             </div>
-            <div>
-              <h3 className="text-lg font-semibold text-white">
-                {daysUntilDeadline > 0 ? `${daysUntilDeadline} days left to apply` : 'Deadline passed'}
-              </h3>
-              <p className="text-gray-400">Submission deadline: {tenderData.deadline}</p>
-            </div>
-          </div>
-        </Card>
-
-        {/* Submission Options Modal */}
-        {showSubmissionOptions && (
-          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-            <Card className="bg-gray-800 border-gray-700 max-w-md w-full">
-              <h2 className="text-xl font-semibold text-white mb-4">Choose Submission Method</h2>
-              <p className="text-gray-400 mb-6">Select how you would like to submit your proposal for this tender.</p>
-              
-              <div className="space-y-4">
-                <div 
-                  className="p-4 border border-gray-700 rounded-lg cursor-pointer hover:bg-gray-700/50 transition-colors"
-                  onClick={handlePdfSubmission}
-                >
-                  <div className="flex items-center">
-                    <div className="bg-blue-900/30 p-3 rounded-lg mr-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-white font-medium">Upload PDF Document</h3>
-                      <p className="text-gray-400 text-sm">Submit your complete proposal as a single PDF file</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div 
-                  className="p-4 border border-gray-700 rounded-lg cursor-pointer hover:bg-gray-700/50 transition-colors"
-                  onClick={handleFormSubmission}
-                >
-                  <div className="flex items-center">
-                    <div className="bg-green-900/30 p-3 rounded-lg mr-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 5v14"></path>
-                        <path d="M5 12h14"></path>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-white font-medium">Use Online Form</h3>
-                      <p className="text-gray-400 text-sm">Fill out our step-by-step proposal form</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="mt-6 flex justify-end">
-                <Button 
-                  variant="outline" 
-                  className="mr-2 border-gray-600 text-gray-300"
-                  onClick={() => setShowSubmissionOptions(false)}
-                >
-                  Cancel
-                </Button>
-              </div>
-            </Card>
+            <h3 className="text-base font-medium text-white mb-1">No opportunities found</h3>
+            <p className="text-gray-400 text-xs mb-3">Try adjusting your filters to see more results</p>
+            <button 
+              className="px-3 py-1.5 border border-gray-700 text-gray-300 text-xs rounded-lg hover:bg-gray-750"
+              onClick={() => setFilters({industry: '', location: '', category: '', search: ''})}
+            >
+              Clear Filters
+            </button>
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            {/* Description */}
-            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
-              <h2 className="text-xl font-semibold text-white mb-4 flex items-center border-b border-gray-700/50 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-blue-400">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                  <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
-                Project Description
-              </h2>
-              <p className="text-gray-300 leading-relaxed mt-4">{tenderData.description}</p>
-            </Card>
-
-            {/* Requirements */}
-            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
-              <h2 className="text-xl font-semibold text-white mb-4 flex items-center border-b border-gray-700/50 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-green-400">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                Requirements
-              </h2>
-              <ul className="space-y-3 mt-4">
-                {tenderData.requirements.map((req, index) => (
-                  <li key={index} className="flex items-start p-2 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-400 mr-3 mt-1 flex-shrink-0">
-                      <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                    <span className="text-gray-300">{req}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-
-            {/* Documents */}
-            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
-              <h2 className="text-xl font-semibold text-white mb-4 flex items-center border-b border-gray-700/50 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-blue-400">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                </svg>
-                Documents
-              </h2>
-              <div className="space-y-3 mt-4">
-                {tenderData.documents.map((doc, index) => (
-                  <div key={index} className="flex justify-between items-center p-3 bg-gray-700/30 rounded-md hover:bg-gray-700/50 transition-all duration-200 border border-gray-700/30">
-                    <div className="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 mr-3">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                      </svg>
-                      <span className="text-white">{doc}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button 
-                        variant="outline" 
-                        className="border-blue-600/50 hover:bg-blue-600/20 text-blue-300 text-xs py-1 px-3 transition-all duration-200"
-                        onClick={() => handleDocumentAction('view', doc)}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                          <circle cx="12" cy="12" r="3"></circle>
-                        </svg>
-                        View
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        className="border-green-600/50 hover:bg-green-600/20 text-green-300 text-xs py-1 px-3 transition-all duration-200"
-                        onClick={() => handleDocumentAction('download', doc)}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                          <polyline points="7 10 12 15 17 10"></polyline>
-                          <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        Download
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
+        {/* Pagination */}
+        {filteredOpportunities.length > 0 && (
+          <div className="flex justify-center mt-6">
+            <nav className="flex space-x-2">
+              <button className="px-3 py-1.5 border border-gray-700 text-gray-400 text-xs rounded-lg hover:bg-gray-800" disabled>Previous</button>
+              <button className="px-3 py-1.5 bg-green-600 text-white text-xs rounded-lg">1</button>
+              <button className="px-3 py-1.5 border border-gray-700 text-gray-400 text-xs rounded-lg hover:bg-gray-800">2</button>
+              <button className="px-3 py-1.5 border border-gray-700 text-gray-400 text-xs rounded-lg hover:bg-gray-800">3</button>
+              <button className="px-3 py-1.5 border border-gray-700 text-gray-400 text-xs rounded-lg hover:bg-gray-800">Next</button>
+            </nav>
           </div>
-
-          <div className="space-y-6">
-            {/* Key Information */}
-            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm overflow-hidden">
-              <h2 className="text-xl font-semibold text-white mb-4 flex items-center border-b border-gray-700/50 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-blue-400">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="8" x2="12" y2="12"></line>
-                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                </svg>
-                Key Information
-              </h2>
-              <div className="space-y-4 max-h-96 overflow-y-auto smooth-scroll pr-2 py-2">
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Project Value</h3>
-                  <p className="text-green-400 font-semibold">{tenderData.value}</p>
-                </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Location</h3>
-                  <p className="text-white">{tenderData.location}</p>
-                </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Duration</h3>
-                  <p className="text-white">{tenderData.duration}</p>
-                </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Published</h3>
-                  <p className="text-blue-300">{tenderData.publishedDate}</p>
-                </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Deadline</h3>
-                  <p className="text-red-400 font-medium">{tenderData.deadline}</p>
-                </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Evaluation</h3>
-                  <p className="text-yellow-400">{tenderData.evaluationDate}</p>
-                </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Award Notification</h3>
-                  <p className="text-green-300">{tenderData.awardDate}</p>
-                </div>
-              </div>
-            </Card>
-
-            {/* Contact Information */}
-            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
-              <h2 className="text-xl font-semibold text-white mb-4 flex items-center border-b border-gray-700/50 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-blue-400">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-                Contact Information
-              </h2>
-              <div className="space-y-4 mt-4">
-                <div className="p-3 rounded-md bg-gray-700/30">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Contact Person</h3>
-                  <p className="text-white">{tenderData.contact.name}</p>
-                </div>
-                <div className="p-3 rounded-md bg-gray-700/30">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Email</h3>
-                  <p className="text-blue-300 break-all">{tenderData.contact.email}</p>
-                </div>
-                <div className="p-3 rounded-md bg-gray-700/30">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Phone</h3>
-                  <p className="text-white">{tenderData.contact.phone}</p>
-                </div>
-              </div>
-            </Card>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col gap-3 sticky top-6">
-              <Button 
-                variant="primary" 
-                className="bg-blue-600 hover:bg-blue-700 py-3 transition-all duration-300 shadow-lg shadow-blue-500/20"
-                onClick={handleShowSubmissionOptions}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="17 8 12 3 7 8"></polyline>
-                  <line x1="12" y1="3" x2="12" y2="15"></line>
-                </svg>
-                Submit Proposal
-              </Button>
-              <Button variant="outline" className="border-gray-600 hover:bg-gray-700/50 text-gray-300 py-3 transition-all duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                </svg>
-                Save for Later
-              </Button>
-              <Button variant="outline" className="border-gray-600 hover:bg-gray-700/50 text-gray-300 py-3 transition-all duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <path d="M16 10a4 4 0 0 1-8 0"></path>
-                </svg>
-                Print Details
-              </Button>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
-
-      <style jsx global>{`
-        html {
-          scroll-behavior: smooth;
-        }
-        .smooth-scroll {
-          scroll-behavior: smooth;
-        }
-        .smooth-scroll::-webkit-scrollbar {
-          width: 6px;
-        }
-        .smooth-scroll::-webkit-scrollbar-track {
-          background: rgba(31, 41, 55, 0.4);
-          border-radius: 10px;
-        }
-        .smooth-scroll::-webkit-scrollbar-thumb {
-          background: rgba(59, 130, 246, 0.5);
-          border-radius: 10px;
-        }
-        .smooth-scroll::-webkit-scrollbar-thumb:hover {
-          background: rgba(59, 130, 246, 0.7);
-        }
-      `}</style>
     </div>
   );
 }
