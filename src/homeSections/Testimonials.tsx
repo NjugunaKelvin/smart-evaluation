@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @next/next/no-img-element */
 'use client'
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function TestimonialsSection() {
@@ -48,7 +48,7 @@ export default function TestimonialsSection() {
     return () => clearInterval(interval);
   }, [testimonials.length]);
 
-  const goToSlide = (index: SetStateAction<number>) => setCurrentSlide(index);
+  
   const goToNext = () => setCurrentSlide((prev) => (prev + 1) % testimonials.length);
   const goToPrev = () => setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 

@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable @next/next/no-img-element */
 // src/pages/Resources/ProposalGuidelines.tsx
 'use client'
 import React, { useState } from 'react';

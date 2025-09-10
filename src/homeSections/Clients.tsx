@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // components/home/ClientShowcase.tsx
 'use client'
 import Image from 'next/image';
