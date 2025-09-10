@@ -64,17 +64,17 @@ export default function Navbar() {
         },
         {
           name: 'Contracts',
-          href: '/opportunities/contracts',
+          href: '/opportunities?category=Contract',
           description: 'Explore contract opportunities from different clients on different categories.'
         },
         {
           name: 'Grants',
-          href: '/tenders/recent',
+          href: '/opportunities?category=Grant',
           description: 'For research, innovation, or development.'
         },
         {
           name: 'Patnerships',
-          href: '/tenders/saved',
+          href: '/opportunities?category=Partnership',
           description: 'Collaborations or joint ventures with institutions or companies.'
         }
       ]
