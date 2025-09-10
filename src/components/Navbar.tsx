@@ -54,7 +54,7 @@ export default function Navbar() {
       dropdown: [
         {
           name: 'Tenders',
-          href: '/opportunities?category=Tender',
+          href: '/opportunities?category=Tender', 
           description: 'Explore available tenders across different sectors'
         },
         {
