@@ -66,7 +66,7 @@ const WhyChooseUs = () => {
     { label: "Client Success Rate", value: "91%" },
     { label: "Active Opportunities", value: "12,500+" }
   ];
-
+                            
   return (
     <div className="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
         <Navbar />
