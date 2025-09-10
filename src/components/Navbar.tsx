@@ -124,24 +124,19 @@ export default function Navbar() {
       dropdown: [
         {
           name: 'Our Story',
-          href: '/about',
+          href: '/about/story',
           description: 'The vision and mission behind SmartEval'
         },
         {
           name: 'Careers',
-          href: '/careers',
+          href: '/about/careers',
           description: 'Join our innovative team'
         },
         {
           name: 'Partners & Alliances',
-          href: '/partners',
+          href: '/about/partners',
           description: 'Our strategic partnerships'
         },
-        {
-          name: 'Contact Us',
-          href: '/contact',
-          description: 'Get in touch with our team'
-        }
       ]
     }
   ];
