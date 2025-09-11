@@ -124,7 +124,7 @@ export default function TendersSection() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Active Tenders & Opportunities</h2>
             <p className="text-gray-400 text-lg">Latest projects from government agencies, NGOs, and international institutions</p>
           </div>
-          <Link href="/tenders" className="mt-4 md:mt-0">
+          <Link href="/opportunities" className="mt-4 md:mt-0">
             <Button variant="outline" className="border-gray-600 hover:bg-gray-800/50 hover:border-gray-500 group">
               <span>View All Tenders</span>
               <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -193,7 +193,7 @@ export default function TendersSection() {
         </div>
         
         <div className="mt-12 text-center">
-          <Link href="/tenders">
+          <Link href="/opportunities">
             <Button variant="outline" className="border-gray-600 hover:bg-gray-800/50 hover:border-gray-500 px-8 py-3 group">
               <span>Browse All Opportunities</span>
               <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
