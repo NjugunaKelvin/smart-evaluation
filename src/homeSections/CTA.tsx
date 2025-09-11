@@ -37,7 +37,7 @@ export default function FinalCTA() {
               Get Started Free
             </Button>
           </Link>
-          <Link href="/tenders" className="w-full sm:w-auto">
+          <Link href="/opportunities" className="w-full sm:w-auto">
             <Button variant="secondary" className="w-full sm:w-auto px-8 py-4 text-lg font-medium border-gray-600 hover:bg-gray-700/50 transition-colors">
               <div className="flex items-center justify-center">
                 Explore Opportunities

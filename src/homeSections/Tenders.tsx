@@ -177,7 +177,7 @@ export default function TendersSection() {
                       </div>
                     </div>
                     
-                    <Link href={`/tenders/${tender.id}`}>
+                    <Link href={`/opportunities/${tender.id}`}>
                       <Button variant="primary" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/20">
                         View Details & Apply
                         <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
