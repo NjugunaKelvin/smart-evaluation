@@ -87,7 +87,7 @@ export default function TendersSection() {
     if (diffDays < 0) return { status: 'expired', text: 'Expired', color: 'text-red-400 bg-red-400/10' };
     if (diffDays <= 7) return { status: 'urgent', text: 'Urgent', color: 'text-amber-400 bg-amber-400/10' };
     if (diffDays <= 30) return { status: 'soon', text: 'Soon', color: 'text-blue-400 bg-blue-400/10' };
-    return { status: 'normal', text: 'Open', color: 'text-green-400 bg-green-400/10' };
+    return { status: 'normal', text: 'Open', color: 'text-blue-400 bg-blue-400/10' };
   };
 
   // Get category color class
@@ -98,7 +98,7 @@ export default function TendersSection() {
       case 'Healthcare':
         return 'bg-pink-500/20 text-pink-400 border-pink-500/30';
       case 'Infrastructure':
-        return 'bg-green-500/20 text-green-400 border-green-500/30';
+        return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
       case 'Education':
         return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
       case 'Agriculture':
@@ -173,7 +173,7 @@ export default function TendersSection() {
                       </div>
                       <div className="text-sm text-right">
                         <div className="text-gray-500 font-medium mb-1">Value:</div>
-                        <div className="text-green-400 font-medium">{tender.value}</div>
+                        <div className="text-blue-400 font-medium">{tender.value}</div>
                       </div>
                     </div>
                     

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
+import Navbar from './Navbar';
 
 interface FormsProps {
   tenderId: string;
@@ -921,6 +922,8 @@ export default function Forms({ tenderId }: FormsProps) {
 
   return (
     <div className="min-h-screen py-12 bg-gray-900">
+      <Navbar />
+      <br /><br />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-white mb-2">Submit Proposal</h1>

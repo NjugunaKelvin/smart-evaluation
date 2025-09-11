@@ -173,7 +173,7 @@ function OpportunitiesContent() {
               <input
                 type="text"
                 placeholder="Search opportunities..."
-                className="block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md leading-5 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                className="block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md leading-5 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={filters.search}
                 onChange={(e) => setFilters({...filters, search: e.target.value})}
               />
@@ -183,7 +183,7 @@ function OpportunitiesContent() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="inline-flex items-center px-4 py-2 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="inline-flex items-center px-4 py-2 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <svg className="-ml-1 mr-2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
@@ -207,7 +207,7 @@ function OpportunitiesContent() {
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-1">Category</label>
               <select
-                className="block w-full pl-3 pr-10 py-2 text-base border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                className="block w-full pl-3 pr-10 py-2 text-base border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 value={filters.category}
                 onChange={(e) => setFilters({...filters, category: e.target.value})}
               >
@@ -221,7 +221,7 @@ function OpportunitiesContent() {
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-1">Industry</label>
               <select
-                className="block w-full pl-3 pr-10 py-2 text-base border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                className="block w-full pl-3 pr-10 py-2 text-base border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 value={filters.industry}
                 onChange={(e) => setFilters({...filters, industry: e.target.value})}
               >
@@ -235,7 +235,7 @@ function OpportunitiesContent() {
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-1">Location</label>
               <select
-                className="block w-full pl-3 pr-10 py-2 text-base border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                className="block w-full pl-3 pr-10 py-2 text-base border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 value={filters.location}
                 onChange={(e) => setFilters({...filters, location: e.target.value})}
               >
@@ -253,7 +253,7 @@ function OpportunitiesContent() {
       <div className="flex flex-wrap gap-2 mb-6">
         <button
           onClick={() => setFilters({...filters, category: ''})}
-          className={`px-4 py-2 rounded-md text-sm font-medium ${filters.category === '' ? 'bg-green-600 text-white' : 'bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700'}`}
+          className={`px-4 py-2 rounded-md text-sm font-medium ${filters.category === '' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700'}`}
         >
           All Opportunities
         </button>
@@ -261,7 +261,7 @@ function OpportunitiesContent() {
           <button
             key={category}
             onClick={() => setFilters({...filters, category})}
-            className={`px-4 py-2 rounded-md text-sm font-medium border ${filters.category === category ? 'bg-green-800 text-white border-green-700' : 'bg-gray-800 text-gray-300 border-gray-700 hover:bg-gray-700'}`}
+            className={`px-4 py-2 rounded-md text-sm font-medium border ${filters.category === category ? 'bg-blue-800 text-white border-blue-700' : 'bg-gray-800 text-gray-300 border-gray-700 hover:bg-gray-700'}`}
           >
             {category}
           </button>
@@ -274,13 +274,13 @@ function OpportunitiesContent() {
           Showing <span className="font-medium text-white">{filteredOpportunities.length}</span> of <span className="font-medium text-white">{opportunities.length}</span> opportunities
           {filters.category && (
             <span className="ml-2">
-              in <span className="px-2 py-1 rounded-md text-xs font-medium bg-green-900 text-green-200">{filters.category}</span>
+              in <span className="px-2 py-1 rounded-md text-xs font-medium bg-blue-900 text-blue-200">{filters.category}</span>
             </span>
           )}
         </p>
         <div className="flex items-center">
           <label className="text-sm text-gray-400 mr-2">Sort by:</label>
-          <select className="bg-gray-800 border border-gray-700 rounded-md px-3 py-1 text-white text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+          <select className="bg-gray-800 border border-gray-700 rounded-md px-3 py-1 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             <option>Newest First</option>
             <option>Deadline</option>
             <option>Value (High to Low)</option>
@@ -293,20 +293,20 @@ function OpportunitiesContent() {
       {filteredOpportunities.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredOpportunities.map((opportunity) => (
-            <Card key={opportunity.id} className="bg-gray-800 border border-gray-700 hover:border-green-500 transition-all duration-200 group h-full flex flex-col overflow-hidden">
+            <Card key={opportunity.id} className="bg-gray-800 border border-gray-700 hover:border-blue-500 transition-all duration-200 group h-full flex flex-col overflow-hidden">
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-4">
                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-700 text-gray-300">
                     {opportunity.industry}
                   </span>
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-900 text-green-200">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900 text-blue-200">
                     {opportunity.category}
                   </span>
                 </div>
                 
                 <div className="mb-4">
                   <div className="text-xs text-gray-400 mb-1">From {opportunity.organization}</div>
-                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-green-400 transition-colors line-clamp-2">
+                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">
                     {opportunity.title}
                   </h3>
                   <p className="text-gray-400 text-sm mb-4 line-clamp-3 flex-1">{opportunity.description}</p>
@@ -318,14 +318,14 @@ function OpportunitiesContent() {
                       <div className="font-medium text-gray-300">Deadline:</div>
                       <div>{formatDate(opportunity.deadline)}</div>
                     </div>
-                    <div className="text-green-400 font-medium text-right">
+                    <div className="text-blue-400 font-medium text-right">
                       <div className="font-medium text-gray-300">Value:</div>
                       <div>{opportunity.value}</div>
                     </div>
                   </div>
                   <div className="flex space-x-2">
                     <Link href={`/opportunities/${opportunity.id}`} className="flex-1">
-                      <Button variant="primary" className="w-full bg-green-600 hover:bg-green-700">
+                      <Button variant="primary" className="w-full bg-blue-600 hover:bg-blue-700">
                         View Details
                       </Button>
                     </Link>
@@ -364,7 +364,7 @@ function OpportunitiesContent() {
         <div className="flex justify-center mt-8">
           <nav className="flex space-x-2">
             <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700" disabled>Previous</Button>
-            <Button variant="primary" className="bg-green-600 hover:bg-green-700">1</Button>
+            <Button variant="primary" className="bg-blue-600 hover:bg-blue-700">1</Button>
             <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">2</Button>
             <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">3</Button>
             <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">Next</Button>

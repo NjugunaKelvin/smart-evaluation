@@ -38,7 +38,7 @@ export default function FundingSection() {
             
             <ul className="space-y-4 mb-8">
               <li className="flex items-start animate-fadeIn" style={{ animationDelay: '0.1s' }}>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center mr-3 mt-1">
+                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center mr-3 mt-1">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
@@ -46,7 +46,7 @@ export default function FundingSection() {
                 <span className="text-gray-100">Grants from international development organizations</span>
               </li>
               <li className="flex items-start animate-fadeIn" style={{ animationDelay: '0.2s' }}>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center mr-3 mt-1">
+                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center mr-3 mt-1">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
@@ -54,7 +54,7 @@ export default function FundingSection() {
                 <span className="text-gray-100">NGO funding for development projects</span>
               </li>
               <li className="flex items-start animate-fadeIn" style={{ animationDelay: '0.3s' }}>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center mr-3 mt-1">
+                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center mr-3 mt-1">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
@@ -71,8 +71,8 @@ export default function FundingSection() {
           </div>
           
           <div className="grid grid-cols-2 gap-6">
-            <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 h-48 flex flex-col items-center justify-center transition-all duration-300 hover:border-green-400/30 hover:scale-[1.02]">
-              <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mb-4 text-green-500">
+            <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 h-48 flex flex-col items-center justify-center transition-all duration-300 hover:border-blue-400/30 hover:scale-[1.02]">
+              <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mb-4 text-blue-500">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
                   <path d="M2 17l10 5 10-5"></path>
@@ -83,8 +83,8 @@ export default function FundingSection() {
               <p className="text-gray-300 text-sm text-center mt-2">For infrastructure and community projects</p>
             </div>
             
-            <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 h-48 flex flex-col items-center justify-center transition-all duration-300 hover:border-green-400/30 hover:scale-[1.02]">
-              <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mb-4 text-green-500">
+            <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 h-48 flex flex-col items-center justify-center transition-all duration-300 hover:border-blue-400/30 hover:scale-[1.02]">
+              <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mb-4 text-blue-500">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
                   <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
@@ -94,8 +94,8 @@ export default function FundingSection() {
               <p className="text-gray-300 text-sm text-center mt-2">For academic and innovation projects</p>
             </div>
             
-            <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 h-48 flex flex-col items-center justify-center transition-all duration-300 hover:border-green-400/30 hover:scale-[1.02]">
-              <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mb-4 text-green-500">
+            <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 h-48 flex flex-col items-center justify-center transition-all duration-300 hover:border-blue-400/30 hover:scale-[1.02]">
+              <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mb-4 text-blue-500">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                   <circle cx="9" cy="7" r="4"></circle>
@@ -107,8 +107,8 @@ export default function FundingSection() {
               <p className="text-gray-300 text-sm text-center mt-2">Collaborate with international NGOs</p>
             </div>
             
-            <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 h-48 flex flex-col items-center justify-center transition-all duration-300 hover:border-green-400/30 hover:scale-[1.02]">
-              <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mb-4 text-green-500">
+            <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 h-48 flex flex-col items-center justify-center transition-all duration-300 hover:border-blue-400/30 hover:scale-[1.02]">
+              <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mb-4 text-blue-500">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="12" y1="1" x2="12" y2="23"></line>
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
