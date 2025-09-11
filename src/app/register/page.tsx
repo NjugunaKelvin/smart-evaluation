@@ -43,8 +43,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen py-12 bg-gray-900 flex items-center justify-center">
-      <div className="max-w-2xl w-full">
+    <div className="min-h-screen py-12 bg-[url(/images/home/bg.jpg)] flex items-center justify-center">
+      <div className="max-w-2xl w-full backdrop-blur-xs">
         <Card className="p-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-white mb-2">Create Your Account</h1>
@@ -211,4 +211,4 @@ export default function RegisterPage() {
       </div>
     </div>
   );
-}
+}                     
