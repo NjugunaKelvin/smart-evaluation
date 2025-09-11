@@ -31,7 +31,7 @@ export default function Landing() {
             Access projects, tenders, and funding from governments, NGOs, institutions, and global organizations like the World Bank through our transparent evaluation platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/tenders">
+            <Link href="/opportunities">
               <Button variant="primary" className="w-full sm:w-auto px-8 py-4 text-lg bg-blue-600 hover:bg-blue-700 transition-colors">
                 Explore Opportunities
               </Button>
