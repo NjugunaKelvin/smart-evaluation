@@ -108,14 +108,14 @@ export default function Footer() {
           <div>
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Resources</h3>
             <ul className="space-y-3">
-              <li><Link href="/blog" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
+              <li><Link href="/" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
                   <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                   <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                 </svg>
                 Blog
               </Link></li>
-              <li><Link href="/faq" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
+              <li><Link href="/" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
                   <circle cx="12" cy="12" r="10"></circle>
                   <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
@@ -123,7 +123,7 @@ export default function Footer() {
                 </svg>
                 FAQ
               </Link></li>
-              <li><Link href="/guides" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
+              <li><Link href="/" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
                   <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                   <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
@@ -145,7 +145,7 @@ export default function Footer() {
           <div>
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Platform</h3>
             <ul className="space-y-3">
-              <li><Link href="/tenders" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
+              <li><Link href="/opportunities" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
                   <line x1="8" y1="6" x2="21" y2="6"></line>
                   <line x1="8" y1="12" x2="21" y2="12"></line>
@@ -154,23 +154,23 @@ export default function Footer() {
                   <line x1="3" y1="12" x2="3.01" y2="12"></line>
                   <line x1="3" y1="18" x2="3.01" y2="18"></line>
                 </svg>
-                Browse Tenders
+                Browse Opportunities
               </Link></li>
-              <li><Link href="/funding" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
+              <li><Link href="/opportunities" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
                   <line x1="12" y1="1" x2="12" y2="23"></line>
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                 </svg>
                 Funding Opportunities
               </Link></li>
-              <li><Link href="/pricing" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
+              <li><Link href="/pricing/plan" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
                   <line x1="12" y1="1" x2="12" y2="23"></line>
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                 </svg>
                 Pricing
               </Link></li>
-              <li><Link href="/api" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
+              <li><Link href="/" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
                   <polyline points="4 17 10 11 4 5"></polyline>
                   <line x1="12" y1="19" x2="20" y2="19"></line>
@@ -188,13 +188,13 @@ export default function Footer() {
           </p>
           
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="text-gray-500 hover:text-blue-400 text-sm transition-colors">
+            <Link href="/" className="text-gray-500 hover:text-blue-400 text-sm transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-gray-500 hover:text-blue-400 text-sm transition-colors">
+            <Link href="/" className="text-gray-500 hover:text-blue-400 text-sm transition-colors">
               Terms of Service
             </Link>
-            <Link href="/cookies" className="text-gray-500 hover:text-blue-400 text-sm transition-colors">
+            <Link href="/" className="text-gray-500 hover:text-blue-400 text-sm transition-colors">
               Cookie Policy
             </Link>
           </div>

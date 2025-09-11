@@ -105,17 +105,17 @@ export default function Navbar() {
       dropdown: [
         {
           name: 'Plans & Features',
-          href: '/pricing',
+          href: '/pricing/plans',
           description: 'Compare subscription options and benefits'
         },
         {
           name: 'Enterprise Solutions',
-          href: '/enterprise',
+          href: '/pricing/enterprise',
           description: 'Custom solutions for large organizations'
         },
         {
           name: 'Government & NGOs',
-          href: '/government',
+          href: '/pricing/government',
           description: 'Specialized solutions for public sector'
         }
       ]
