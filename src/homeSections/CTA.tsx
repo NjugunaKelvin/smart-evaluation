@@ -4,43 +4,43 @@ import Button from '@/components/ui/Button';
 
 export default function FinalCTA() {
   return (
-    <section className="relative py-20 bg-gradient-to-r from-gray-900 to-gray-800 overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-10">
+    <section className="relative py-28 bg-[#ebe1f2] overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-15">
         <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundSize: '100px 100px'
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%235c3b6f' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+          backgroundSize: '600px 600px'
         }}></div>
       </div>
       
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        {/* Icon/Visual Element */}
-        <div className="mb-6 flex justify-center">
-          <div className="bg-green-500/10 p-4 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        {/* Elegant icon with more presence */}
+        <div className="mb-10 flex justify-center">
+          <div className="bg-white p-6 rounded-full shadow-lg border border-gray-200">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-14 w-14 text-purple-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
             </svg>
           </div>
         </div>
         
-        <h2 className="text-4xl font-bold text-white mb-6 leading-tight">
-          Unlock Premium Business Opportunities
+        <h2 className="text-5xl font-bold text-gray-900 mb-7 tracking-tight leading-tight">
+          Elevate Your <span className="text-purple-800">Business Potential</span>
         </h2>
         
-        <p className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto leading-relaxed">
-          Join <span className="font-semibold text-green-400">500+</span> service providers growing their business through our transparent, streamlined platform
+        <p className="text-xl text-gray-800 mb-12 max-w-2xl mx-auto leading-relaxed font-semibold">
+          Join <span className="text-purple-800 font-bold">500+ established providers</span> expanding their enterprise through our premium business network
         </p>
         
-        <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <Link href="/register" className="w-full sm:w-auto">
-            <Button variant="primary" className="w-full sm:w-auto px-8 py-4 text-lg font-medium bg-blue-600 hover:bg-blue-500 transition-colors shadow-lg hover:shadow-green-500/20">
-              Get Started Free
+            <Button variant="primary" className="w-full sm:w-auto px-10 py-4 text-lg font-bold bg-purple-800 hover:bg-purple-900 transition-all duration-300 shadow-lg hover:shadow-xl rounded-md">
+              Begin Your Journey
             </Button>
           </Link>
           <Link href="/opportunities" className="w-full sm:w-auto">
-            <Button variant="secondary" className="w-full sm:w-auto px-8 py-4 text-lg font-medium border-gray-600 hover:bg-gray-700/50 transition-colors">
+            <Button variant="secondary" className="w-full sm:w-auto px-10 py-4 text-lg font-bold border-2 border-purple-800 text-purple-800 hover:bg-purple-50 transition-colors rounded-md">
               <div className="flex items-center justify-center">
-                Explore Opportunities
+                View Enterprise Solutions
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -49,29 +49,35 @@ export default function FinalCTA() {
           </Link>
         </div>
         
-        <div className="mt-10 pt-6 border-t border-gray-700/40">
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 text-gray-400 text-sm">
+        <div className="mt-14 pt-10 border-t border-gray-400/30">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-10 text-gray-700 text-base font-semibold">
             <div className="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              No credit card required
+              <div className="bg-purple-100 p-2 rounded-full mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              No financial commitment
             </div>
             <div className="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              Set up in minutes
+              <div className="bg-purple-100 p-2 rounded-full mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              Enterprise-grade security
             </div>
             <div className="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              Premium support
+              <div className="bg-purple-100 p-2 rounded-full mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              Dedicated account management
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-}
+} 
