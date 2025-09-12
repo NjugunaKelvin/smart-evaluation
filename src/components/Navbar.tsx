@@ -27,6 +27,7 @@ export default function Navbar() {
   const hamburgerButtonRef = useRef<HTMLButtonElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastScrollY = useRef(0);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const navItems: NavItem[] = [
     { name: 'Home', href: '/' },
@@ -215,6 +216,28 @@ export default function Navbar() {
     setMobileDropdown(mobileDropdown === itemName ? null : itemName);
   };
 
+  // Track scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 10);
+      
+      if (mobileMenuOpen) {
+        // Only close if we've scrolled a significant amount
+        if (Math.abs(currentScrollY - lastScrollY.current) > 50) {
+          closeMobileMenu();
+        }
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [mobileMenuOpen]);
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -239,46 +262,6 @@ export default function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  // Close mobile menu when scrolling outside the menu
-  useEffect(() => {
-    const handleScroll = () => {
-      if (mobileMenuOpen) {
-        // Check if we're scrolling outside the menu area
-        const currentScrollY = window.scrollY;
-        
-        // Only close if we've scrolled a significant amount (to avoid closing on tiny scroll movements)
-        if (Math.abs(currentScrollY - lastScrollY.current) > 10) {
-          closeMobileMenu();
-        }
-        
-        lastScrollY.current = currentScrollY;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [mobileMenuOpen]);
-
-  // Allow scrolling within the mobile menu
-  useEffect(() => {
-    const handleMenuScroll = (e: Event) => {
-      // Allow scrolling within the menu
-      e.stopPropagation();
-    };
-
-    if (mobileMenuOpen && mobileMenuRef.current) {
-      mobileMenuRef.current.addEventListener('scroll', handleMenuScroll);
-    }
-
-    return () => {
-      if (mobileMenuRef.current) {
-        mobileMenuRef.current.removeEventListener('scroll', handleMenuScroll);
-      }
-    };
-  }, [mobileMenuOpen]);
-
   // SVG Chevron component
   const ChevronIcon = ({ isActive }: { isActive: boolean }) => (
     <svg 
@@ -300,7 +283,7 @@ export default function Navbar() {
   );
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#3e0369] shadow-xl border-b border-purple-500">
+    <nav className={`sticky top-0 z-50 bg-[#3e0369] shadow-xl border-b border-purple-500 transition-all duration-300 ${isScrolled ? 'py-1' : 'py-0'}`}>
       {/* Top Navigation Row */}
       <div className="hidden md:block bg-purple-800/30 border-b border-purple-500/30">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
