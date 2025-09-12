@@ -31,52 +31,37 @@ export default function Navbar() {
   const navItems: NavItem[] = [
     { name: 'Home', href: '/' },
     {
-      name: 'What We Do',
-      dropdown: [
-        {
-          name: 'Why Choose Us',
-          href: '/what-we-do/why-choose-us',
-          description: 'Discover our competitive advantages and unique value proposition'
-        },
-        {
-          name: 'Success Stories',
-          href: '/what-we-do/success-stories',
-          description: 'Case studies and client testimonials'
-        },
-        {
-          name: 'Industries Served',
-          href: '/what-we-do/industries',
-          description: 'Sectors and industries we specialize in'
-        }
-      ]
-    },
-    {
       name: 'Opportunities',
       dropdown: [
         {
+          name: 'All Opportunities',
+          href: '/opportunities',
+          description: 'Browse all available opportunities in one place'
+        },
+        {
           name: 'Tenders',
           href: '/opportunities?category=Tender', 
-          description: 'Explore available tenders across different sectors'
-        },
-        {
-          name: 'Fundings',
-          href: '/opportunities?category=Funding',
-          description: 'Explore available funding opportunities across different sectors'
-        },
-        {
-          name: 'Contracts',
-          href: '/opportunities?category=Contract',
-          description: 'Explore contract opportunities from different clients on different categories.'
+          description: 'Government and private sector tender notices'
         },
         {
           name: 'Grants',
           href: '/opportunities?category=Grant',
-          description: 'For research, innovation, or development.'
+          description: 'Funding opportunities for projects and research'
         },
         {
-          name: 'Patnerships',
+          name: 'Contracts',
+          href: '/opportunities?category=Contract',
+          description: 'Available contracts across various industries'
+        },
+        {
+          name: 'Funding',
+          href: '/opportunities?category=Funding',
+          description: 'Investment and funding opportunities'
+        },
+        {
+          name: 'Partnerships',
           href: '/opportunities?category=Partnership',
-          description: 'Collaborations or joint ventures with institutions or companies.'
+          description: 'Collaboration and joint venture opportunities'
         }
       ]
     },
@@ -84,39 +69,69 @@ export default function Navbar() {
       name: 'Resources',
       dropdown: [
         {
-          name: 'Proposals & Templates',
-          href: '/resources/proposals',
-          description: 'Market trends and industry analysis'
-        },
-        {
-          name: 'Proposal Guidelines',
+          name: 'Application Guides',
           href: '/resources/guidelines',
-          description: 'How to prepare winning proposals'
+          description: 'Step-by-step guides for successful applications'
         },
         {
-          name: 'Webinars & Events',
-          href: '/resources/webinars',
-          description: 'Educational sessions and industry events'
+          name: 'Proposal Templates',
+          href: '/resources/proposals',
+          description: 'Professional templates for various opportunity types'
         },
+        {
+          name: 'Webinars & Training',
+          href: '/resources/webinars',
+          description: 'Learn from experts through our training sessions'
+        },
+        {
+          name: 'Success Stories',
+          href: '/resources/success-stories',
+          description: 'Case studies of successful applications'
+        },
+        {
+          name: 'Industry Insights',
+          href: '/resources/insights',
+          description: 'Market trends and opportunity analysis'
+        },
+        {
+          name: 'Compliance Guidelines',
+          href: '/resources/compliance',
+          description: 'Regulatory requirements for different opportunities'
+        }
       ]
     },
     {
-      name: 'Pricing',
+      name: 'For Organizations',
       dropdown: [
         {
-          name: 'Plans & Features',
-          href: '/pricing/plans',
-          description: 'Compare subscription options and benefits'
+          name: 'Post Opportunities',
+          href: '/organizations/post',
+          description: 'Reach qualified applicants for your opportunities'
         },
         {
           name: 'Enterprise Solutions',
-          href: '/pricing/enterprise',
+          href: '/organizations/enterprise',
           description: 'Custom solutions for large organizations'
         },
         {
-          name: 'Government & NGOs',
-          href: '/pricing/government',
-          description: 'Specialized solutions for public sector'
+          name: 'Government Portal',
+          href: '/organizations/government',
+          description: 'Dedicated portal for government agencies'
+        },
+        {
+          name: 'NGO Programs',
+          href: '/organizations/ngo',
+          description: 'Tools for non-profit organizations'
+        },
+        {
+          name: 'Pricing Plans',
+          href: '/organizations/pricing',
+          description: 'Subscription options for organizations'
+        },
+        {
+          name: 'Client Success Stories',
+          href: '/organizations/success',
+          description: 'How organizations benefit from our platform'
         }
       ]
     },
@@ -124,22 +139,46 @@ export default function Navbar() {
       name: 'About Us',
       dropdown: [
         {
-          name: 'Our Story',
-          href: '/about/story',
-          description: 'The vision and mission behind SmartEval'
+          name: 'Our Mission',
+          href: '/about/mission',
+          description: 'How we\'re transforming opportunity access'
+        },
+        {
+          name: 'Leadership Team',
+          href: '/about/team',
+          description: 'Meet our experienced leadership team'
+        },
+        {
+          name: 'Global Reach',
+          href: '/about/global-reach',
+          description: 'Our presence and impact worldwide'
         },
         {
           name: 'Careers',
           href: '/about/careers',
-          description: 'Join our innovative team'
+          description: 'Join our team of passionate professionals'
         },
         {
-          name: 'Partners & Alliances',
-          href: '/about/partners',
-          description: 'Our strategic partnerships'
+          name: 'Press & Media',
+          href: '/about/press',
+          description: 'Latest news and media coverage'
         },
+        {
+          name: 'Contact Us',
+          href: '/about/contact',
+          description: 'Get in touch with our team'
+        }
       ]
     }
+  ];
+
+  const secondaryNavItems: NavItem[] = [
+    { name: 'Dashboard', href: '/login' },
+    { name: 'Saved Opportunities', href: '/login' },
+    { name: 'Application Tracker', href: '/login' },
+    { name: 'Notifications', href: '/login' },
+    { name: 'Help Center', href: '/help' },
+    { name: 'Contact Support', href: '/contact' }
   ];
 
   const handleDropdownEnter = (itemName: string) => {
@@ -153,7 +192,7 @@ export default function Navbar() {
   const handleDropdownLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 200);
+    }, 300);
   };
 
   const handleDropdownClick = (itemName: string) => {
@@ -261,24 +300,51 @@ export default function Navbar() {
   );
 
   return (
-    <nav className="sticky top-0 z-50 bg-gray-900 shadow-lg border-b border-gray-700">
+    <nav className="sticky top-0 z-50 bg-[#3e0369] shadow-xl border-b border-purple-500">
+      {/* Top Navigation Row */}
+      <div className="hidden md:block bg-purple-800/30 border-b border-purple-500/30">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-2">
+            <div className="flex items-center space-x-6 text-sm">
+              {secondaryNavItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href!}
+                  className="text-purple-200 hover:text-white transition-colors duration-300"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              <div className="text-sm text-purple-200">
+                Need help? Call <span className="text-white font-medium">+254 72000 000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Navigation Row */}
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="bg-blue-700 text-white p-2 rounded-md">
+              <div className="bg-white text-[#3e0369] p-2 rounded-md">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" 
+                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <span className="text-xl font-semibold text-white">SmartEval</span>
+              <span className="text-xl font-bold text-white">OpportunityPortal</span>
             </Link>
           </div>
 
           {/* Middle Navigation */}
           <div className="hidden xl:flex items-center justify-center flex-1 mx-10">
-            <div className="flex items-baseline space-x-2" ref={dropdownRef}>
+            <div className="flex items-baseline space-x-1" ref={dropdownRef}>
               {navItems.map((item) => (
                 <div 
                   key={item.name}
@@ -289,43 +355,46 @@ export default function Navbar() {
                   {item.href ? (
                     <Link 
                       href={item.href}
-                      className="text-gray-300 hover:text-blue-700 px-4 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center"
+                      className="text-purple-100 hover:text-white px-4 py-2 rounded-md text-sm font-semibold transition-all duration-300 flex items-center hover:bg-purple-700/40"
                     >
                       {item.name}
                     </Link>
                   ) : (
                     <button
                       onClick={() => handleDropdownClick(item.name)}
-                      className={`flex items-center text-gray-300 hover:text-blue-700 px-4 py-2 rounded-md text-base font-medium transition-colors duration-200 ${activeDropdown === item.name ? 'text-emerald-400 bg-gray-800' : ''}`}
+                      className={`flex items-center text-purple-100 hover:text-white px-4 py-2 rounded-md text-sm font-semibold transition-all duration-300 hover:bg-purple-700/40 ${activeDropdown === item.name ? 'text-white bg-purple-700/60' : ''}`}
                     >
                       {item.name}
                       {item.dropdown && <ChevronIcon isActive={activeDropdown === item.name} />}
                     </button>
                   )}
 
-                  {/* Dropdown Menu */}
+                  {/* Dropdown Menu - Large Card Style */}
                   {item.dropdown && activeDropdown === item.name && (
                     <div 
-                      className="absolute left-0 mt-2 w-72 rounded-lg shadow-xl bg-gray-800 border border-gray-700 overflow-hidden z-50"
+                      className="absolute left-1/2 transform -translate-x-1/2 mt-1 w-[90vw] max-w-6xl rounded-xl shadow-2xl bg-gradient-to-b from-[#4d047f] to-[#3e0369] border-2 border-purple-500 overflow-hidden z-50"
                       onMouseEnter={() => handleDropdownEnter(item.name)}
                       onMouseLeave={handleDropdownLeave}
                     >
-                      <div className="py-2">
-                        {item.dropdown.map((dropdownItem) => (
-                          <Link
-                            key={dropdownItem.name}
-                            href={dropdownItem.href}
-                            className="block px-5 py-3 text-sm text-gray-300 hover:bg-gray-750 transition-all duration-200 group"
-                            onClick={() => setActiveDropdown(null)}
-                          >
-                            <div className="font-medium text-white group-hover:text-blue-700 transition-colors duration-200">
-                              {dropdownItem.name}
-                            </div>
-                            <div className="text-xs text-gray-400 mt-1 leading-tight">
-                              {dropdownItem.description}
-                            </div>
-                          </Link>
-                        ))}
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold text-white mb-4 pb-2 border-b border-purple-400/30">{item.name}</h3>
+                        <div className="grid grid-cols-2 gap-6">
+                          {item.dropdown.map((dropdownItem) => (
+                            <Link
+                              key={dropdownItem.name}
+                              href={dropdownItem.href}
+                              className="block p-4 rounded-lg hover:bg-purple-700/40 transition-all duration-300 group border border-transparent hover:border-purple-400/30"
+                              onClick={() => setActiveDropdown(null)}
+                            >
+                              <div className="font-bold text-white group-hover:text-purple-200 transition-colors duration-300">
+                                {dropdownItem.name}
+                              </div>
+                              <div className="text-sm text-purple-200/80 mt-2 leading-tight">
+                                {dropdownItem.description}
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -335,22 +404,27 @@ export default function Navbar() {
           </div>
 
           {/* Right Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-3">
             {isLoggedIn ? (
-              <Link href="/dashboard">
-                <Button variant="primary" className="text-sm px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700">
+              <Link href="/login">
+                <Button variant="primary" className="text-sm px-5 py-2.5 bg-white text-[#3e0369] hover:bg-purple-100 font-semibold transition-all duration-300">
                   Dashboard
                 </Button>
               </Link>
             ) : (
               <>
                 <Link href="/login">
-                  <Button variant="outline" className="text-sm px-5 py-2.5 border-gray-600 hover:bg-gray-800 hover:text-emerald-400">
+                  <Button variant="outline" className="text-sm px-4 py-2.5 border-white text-white hover:bg-white hover:text-[#3e0369] font-medium transition-all duration-300">
+                    Post Opportunities
+                  </Button>
+                </Link>
+                <Link href="/login">
+                  <Button variant="outline" className="text-sm px-4 py-2.5 border-purple-400 text-purple-200 hover:bg-purple-400 hover:text-[#3e0369] font-medium transition-all duration-300">
                     Sign In
                   </Button>
                 </Link>
                 <Link href="/register">
-                  <Button variant="primary" className="text-sm px-5 py-2.5 bg-blue-700 hover:bg-blue-900">
+                  <Button variant="primary" className="text-sm px-5 py-2.5 bg-white text-[#3e0369] hover:bg-purple-100 font-semibold transition-all duration-300 shadow-lg">
                     Get Started
                   </Button>
                 </Link>
@@ -358,11 +432,11 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu button - shown on devices below 1280px (xl breakpoint) */}
           <div className="xl:hidden flex items-center">
             <button
               ref={hamburgerButtonRef}
-              className="text-gray-300 hover:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 p-2 rounded-md"
+              className="text-purple-100 hover:text-white focus:outline-none focus:ring-2 focus:ring-purple-400 p-2 rounded-md transition-colors duration-300"
               onClick={toggleMobileMenu}
               aria-expanded={mobileMenuOpen}
             >
@@ -381,13 +455,31 @@ export default function Navbar() {
           ref={mobileMenuRef}
           className={`xl:hidden transition-all duration-300 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-[80vh] opacity-100 overflow-y-auto' : 'max-h-0 opacity-0'}`}
         >
-          <div className="pt-4 pb-6 space-y-1 border-t border-gray-700 mt-3">
+          <div className="pt-4 pb-6 space-y-1 border-t border-purple-500 mt-3">
+            {/* Secondary navigation items in mobile */}
+            <div className="px-4 py-2 text-xs font-semibold text-purple-300 uppercase tracking-wider">
+              Quick Links
+            </div>
+            {secondaryNavItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href!}
+                className="block py-2 px-4 text-sm text-purple-200 hover:text-white hover:bg-purple-700/40 rounded-md transition-colors duration-300"
+                onClick={closeMobileMenu}
+              >
+                {item.name}
+              </Link>
+            ))}
+            
+            <div className="border-t border-purple-500/30 my-2"></div>
+            
+            {/* Main navigation items in mobile */}
             {navItems.map((item) => (
-              <div key={item.name} className="border-b border-gray-800 last:border-b-0">
+              <div key={item.name} className="border-b border-purple-500/30 last:border-b-0">
                 {item.href ? (
                   <Link
                     href={item.href}
-                    className="block py-4 px-4 text-gray-300 hover:text-emerald-400 hover:bg-gray-800 rounded-md transition-colors duration-200 text-base font-medium"
+                    className="block py-4 px-4 text-purple-100 hover:text-white hover:bg-purple-700/40 rounded-md transition-colors duration-300 text-base font-semibold"
                     onClick={closeMobileMenu}
                   >
                     {item.name}
@@ -396,7 +488,7 @@ export default function Navbar() {
                   <div>
                     <button
                       onClick={() => toggleMobileDropdown(item.name)}
-                      className="flex justify-between items-center w-full py-4 px-4 text-left text-gray-300 hover:text-emerald-400 hover:bg-gray-800 rounded-md transition-colors duration-200 text-base font-medium"
+                      className="flex justify-between items-center w-full py-4 px-4 text-left text-purple-100 hover:text-white hover:bg-purple-700/40 rounded-md transition-colors duration-300 text-base font-semibold"
                     >
                       <span>{item.name}</span>
                       <ChevronIcon isActive={mobileDropdown === item.name} />
@@ -406,16 +498,17 @@ export default function Navbar() {
                     <div
                       className={`transition-all duration-300 ease-in-out overflow-hidden ${mobileDropdown === item.name ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
                     >
-                      <div className="pl-6 pb-2 space-y-2 bg-gray-850">
+                      <div className="pl-6 pb-2 space-y-2 bg-purple-800/20">
+                        <h4 className="text-sm font-bold text-purple-200 pt-3 pl-4">{item.name}</h4>
                         {item.dropdown?.map((dropdownItem) => (
                           <Link
                             key={dropdownItem.name}
                             href={dropdownItem.href}
-                            className="block py-3 px-4 text-sm text-gray-300 hover:text-emerald-400 hover:bg-gray-800 rounded-md transition-colors duration-200"
+                            className="block py-3 px-4 text-sm text-purple-200 hover:text-white hover:bg-purple-700/40 rounded-md transition-colors duration-300"
                             onClick={closeMobileMenu}
                           >
                             <div className="font-medium">{dropdownItem.name}</div>
-                            <div className="text-xs text-gray-400 mt-1">
+                            <div className="text-xs text-purple-200/70 mt-1">
                               {dropdownItem.description}
                             </div>
                           </Link>
@@ -428,11 +521,11 @@ export default function Navbar() {
             ))}
             
             {/* Mobile Auth Buttons */}
-            <div className="pt-4 border-t border-gray-700 mt-2 px-4">
+            <div className="pt-4 border-t border-purple-500 mt-2 px-4">
               {isLoggedIn ? (
                 <Link 
                   href="/dashboard" 
-                  className="block w-full text-center py-3 px-4 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors duration-200 mb-2 font-medium"
+                  className="block w-full text-center py-3 px-4 bg-white text-[#3e0369] rounded-md hover:bg-purple-100 transition-all duration-300 mb-2 font-semibold"
                   onClick={closeMobileMenu}
                 >
                   Dashboard
@@ -440,15 +533,22 @@ export default function Navbar() {
               ) : (
                 <>
                   <Link 
+                    href="/post-opportunity" 
+                    className="block w-full text-center py-3 px-4 border border-white text-white rounded-md hover:bg-white hover:text-[#3e0369] transition-all duration-300 mb-2 font-medium"
+                    onClick={closeMobileMenu}
+                  >
+                    Post Opportunities
+                  </Link>
+                  <Link 
                     href="/login" 
-                    className="block w-full text-center py-3 px-4 border border-gray-600 text-gray-300 rounded-md hover:bg-gray-800 hover:text-emerald-400 transition-colors duration-200 mb-2 font-medium"
+                    className="block w-full text-center py-3 px-4 border border-purple-400 text-purple-200 rounded-md hover:bg-purple-400 hover:text-[#3e0369] transition-all duration-300 mb-2 font-medium"
                     onClick={closeMobileMenu}
                   >
                     Sign In
                   </Link>
                   <Link 
                     href="/register" 
-                  className="block w-full text-center py-3 px-4 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors duration-200 font-medium"
+                  className="block w-full text-center py-3 px-4 bg-white text-[#3e0369] rounded-md hover:bg-purple-100 transition-all duration-300 font-semibold"
                     onClick={closeMobileMenu}
                   >
                     Get Started

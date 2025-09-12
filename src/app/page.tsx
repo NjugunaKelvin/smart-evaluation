@@ -17,7 +17,6 @@ export default function Home() {
       <Clients />
       <Services />
       <Funding />
-      <Tenders />
       <Testimonials />
       <CTA />
       <Footer />

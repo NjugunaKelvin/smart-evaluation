@@ -2,10 +2,8 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
-import Navbar from '@/components/Navbar';
 import { useSearchParams } from 'next/navigation';
+import Navbar from '@/components/Navbar';
 
 interface Opportunity {
   id: number;
@@ -17,100 +15,42 @@ interface Opportunity {
   location: string;
   value: string;
   organization: string;
+  status: string;
+  postedDate: string;
+  applications: number;
 }
 
 const opportunities: Opportunity[] = [
   {
-      id: 1,
-      title: 'Website Development for Ministry Portal',
-      description: 'Development of a comprehensive government service portal with e-commerce functionality and citizen engagement features.',
-      industry: 'Technology',
-      category: 'Tender',
-      deadline: '2023-12-15',
-      location: 'Remote',
-      value: 'Ksh 1M - Ksh 1.5M',
-      organization: 'Ministry of ICT'
-    },
-    {
-      id: 2,
-      title: 'Mobile App for Health Services',
-      description: 'Cross-platform mobile application for patient engagement and health service delivery in rural areas.',
-      industry: 'Healthcare',
-      category: 'Grant',
-      deadline: '2023-12-20',
-      location: 'Remote',
-      value: 'Ksh 800K - Ksh 1.2M',
-      organization: 'Ministry of Health'
-    },
-    {
-      id: 3,
-      title: 'Cloud Migration Project',
-      description: 'Migration of government on-premise infrastructure to secure cloud environment with enhanced security protocols.',
-      industry: 'Technology',
-      category: 'Contract',
-      deadline: '2023-12-10',
-      location: 'Nairobi, Kenya',
-      value: 'Ksh 2M - Ksh 2.5M',
-      organization: 'National Treasury'
-    },
-    {
-      id: 4,
-      title: 'Educational Content Development',
-      description: 'Creation of digital learning materials for primary schools in alignment with new curriculum standards.',
-      industry: 'Education',
-      category: 'Funding',
-      deadline: '2023-12-25',
-      location: 'Remote',
-      value: 'Ksh 2M - Ksh 4M',
-      organization: 'Ministry of Education'
-    },
-    {
-      id: 5,
-      title: 'Water Sanitation Project',
-      description: 'Implementation of clean water solutions in underserved communities with monitoring and evaluation components.',
-      industry: 'Infrastructure',
-      category: 'Partnership',
-      deadline: '2024-01-05',
-      location: 'Kisumu, Kenya',
-      value: 'Ksh 1M - Ksh 2M',
-      organization: 'World Bank'
-    },
-    {
-      id: 6,
-      title: 'Agricultural Support Program',
-      description: 'Digital platform for connecting farmers with markets and providing agricultural extension services.',
-      industry: 'Agriculture',
-      category: 'Funding',
-      deadline: '2024-01-15',
-      location: 'Remote',
-      value: 'Ksh 1.5M - Ksh 2.5M',
-      organization: 'FAO'
-    },
-    {
-      id: 7,
-      title: 'Renewable Energy Initiative',
-      description: 'Development of solar power solutions for rural communities without grid access.',
-      industry: 'Energy',
-      category: 'Grant',
-      deadline: '2024-02-10',
-      location: 'Remote',
-      value: 'Ksh 3M - Ksh 4.5M',
-      organization: 'UNDP'
-    },
-    {
-      id: 8,
-      title: 'Road Construction Project',
-      description: 'Construction of 50km access road in Western Kenya region with drainage systems.',
-      industry: 'Infrastructure',
-      category: 'Tender',
-      deadline: '2024-01-30',
-      location: 'Kakamega, Kenya',
-      value: 'Ksh 5M - Ksh 7M',
-      organization: 'KeNHA'
-    }
+    id: 1,
+    title: 'Website Development for Ministry Portal',
+    description: 'Development of a comprehensive government service portal with e-commerce functionality and citizen engagement features.',
+    industry: 'Technology',
+    category: 'Tender',
+    deadline: '2023-12-15',
+    location: 'Remote',
+    value: 'Ksh 1M - Ksh 1.5M',
+    organization: 'Ministry of ICT',
+    status: 'Active',
+    postedDate: '2023-11-01',
+    applications: 24
+  },
+  {
+    id: 2,
+    title: 'Mobile App for Health Services',
+    description: 'Cross-platform mobile application for patient engagement and health service delivery in rural areas.',
+    industry: 'Healthcare',
+    category: 'Grant',
+    deadline: '2023-12-20',
+    location: 'Remote',
+    value: 'Ksh 800K - Ksh 1.2M',
+    organization: 'Ministry of Health',
+    status: 'Active',
+    postedDate: '2023-11-05',
+    applications: 18
+  }
 ];
 
-// Create a component that uses useSearchParams
 function OpportunitiesContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category');
@@ -119,9 +59,11 @@ function OpportunitiesContent() {
     industry: '',
     location: '',
     category: categoryParam || '',
+    status: '',
     search: ''
   });
 
+  const [sortBy, setSortBy] = useState('newest');
   const [showFilters, setShowFilters] = useState(false);
 
   // Update filters when category param changes
@@ -136,6 +78,7 @@ function OpportunitiesContent() {
       (filters.industry === '' || opportunity.industry === filters.industry) &&
       (filters.location === '' || opportunity.location.includes(filters.location)) &&
       (filters.category === '' || opportunity.category === filters.category) &&
+      (filters.status === '' || opportunity.status === filters.status) &&
       (filters.search === '' || 
         opportunity.title.toLowerCase().includes(filters.search.toLowerCase()) ||
         opportunity.description.toLowerCase().includes(filters.search.toLowerCase()) ||
@@ -143,9 +86,22 @@ function OpportunitiesContent() {
     );
   });
 
+  // Sort opportunities
+  const sortedOpportunities = [...filteredOpportunities].sort((a, b) => {
+    if (sortBy === 'newest') {
+      return new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime();
+    } else if (sortBy === 'deadline') {
+      return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+    } else if (sortBy === 'applications') {
+      return b.applications - a.applications;
+    }
+    return 0;
+  });
+
   const industries = [...new Set(opportunities.map(t => t.industry))];
   const locations = [...new Set(opportunities.map(t => t.location))];
-  const categories = ['Tender', 'Funding', 'Contract', 'Grant', 'Partnership'];
+  const categories = [...new Set(opportunities.map(t => t.category))];
+  const statuses = ['Active', 'Upcoming', 'Closed'];
 
   // Format date to more readable form
   const formatDate = (dateString: string) => {
@@ -153,224 +109,324 @@ function OpportunitiesContent() {
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
 
+  // Calculate days until deadline
+  const daysUntilDeadline = (deadline: string) => {
+    const today = new Date();
+    const deadlineDate = new Date(deadline);
+    const diffTime = deadlineDate.getTime() - today.getTime();
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">Available Opportunities</h1>
-        <p className="text-gray-400">Discover projects from government agencies, NGOs, and international institutions</p>
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      {/* Secondary Navigation */}
+      <div className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Opportunities Portal</h1>
+              <p className="text-sm text-gray-600">Discover and apply for tenders, grants, and contracts</p>
+            </div>
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center transition-colors font-semibold">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+              </svg>
+              Post Opportunity
+            </button>
+          </div>
+          
+          <div className="flex space-x-8 py-2">
+            <Link href="/opportunities" className="border-b-2 border-blue-600 text-blue-600 font-semibold py-2">
+              Browse Opportunities
+            </Link>
+            <Link href="/my-applications" className="text-gray-700 hover:text-blue-600 font-medium py-2">
+              My Applications
+            </Link>
+            <Link href="/saved" className="text-gray-700 hover:text-blue-600 font-medium py-2">
+              Saved Opportunities
+            </Link>
+            <Link href="/guidelines" className="text-gray-700 hover:text-blue-600 font-medium py-2">
+              Application Guidelines
+            </Link>
+          </div>
+        </div>
       </div>
-      
-      {/* Search and Filter Bar */}
-      <div className="bg-gray-800 rounded-lg p-4 mb-6 border border-gray-700">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-                </svg>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Page Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Available Opportunities</h1>
+          <p className="text-gray-700">Discover projects from government agencies, NGOs, and international institutions</p>
+        </div>
+        
+        {/* Search and Filter Section */}
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-200">
+          <div className="flex flex-col md:flex-row gap-4 mb-4">
+            <div className="flex-1">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search by title, description, or organization..."
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md leading-5 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-medium"
+                  value={filters.search}
+                  onChange={(e) => setFilters({...filters, search: e.target.value})}
+                />
               </div>
-              <input
-                type="text"
-                placeholder="Search opportunities..."
-                className="block w-full pl-10 pr-3 py-2 border border-gray-600 rounded-md leading-5 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                value={filters.search}
-                onChange={(e) => setFilters({...filters, search: e.target.value})}
-              />
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="inline-flex items-center px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <svg className="-ml-1 mr-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
+                </svg>
+                Filters
+              </button>
+              
+              <button 
+                className="inline-flex items-center px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onClick={() => setFilters({industry: '', location: '', category: '', status: '', search: ''})}
+              >
+                Clear
+              </button>
             </div>
           </div>
           
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="inline-flex items-center px-4 py-2 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <svg className="-ml-1 mr-2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
-              </svg>
-              Filters
-            </button>
-            
-            <Button 
-              variant="outline" 
-              className="border-gray-600 text-white hover:bg-gray-700"
-              onClick={() => setFilters({industry: '', location: '', category: '', search: ''})}
-            >
-              Clear
-            </Button>
-          </div>
+          {/* Expandable Filters */}
+          {showFilters && (
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-gray-200">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Category</label>
+                <select
+                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-medium"
+                  value={filters.category}
+                  onChange={(e) => setFilters({...filters, category: e.target.value})}
+                >
+                  <option value="">All Categories</option>
+                  {categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Industry</label>
+                <select
+                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-medium"
+                  value={filters.industry}
+                  onChange={(e) => setFilters({...filters, industry: e.target.value})}
+                >
+                  <option value="">All Industries</option>
+                  {industries.map(industry => (
+                    <option key={industry} value={industry}>{industry}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Location</label>
+                <select
+                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-medium"
+                  value={filters.location}
+                  onChange={(e) => setFilters({...filters, location: e.target.value})}
+                >
+                  <option value="">All Locations</option>
+                  {locations.map(location => (
+                    <option key={location} value={location}>{location}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Status</label>
+                <select
+                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-medium"
+                  value={filters.status}
+                  onChange={(e) => setFilters({...filters, status: e.target.value})}
+                >
+                  <option value="">All Statuses</option>
+                  {statuses.map(status => (
+                    <option key={status} value={status}>{status}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
         </div>
         
-        {/* Expandable Filters */}
-        {showFilters && (
-          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-gray-700">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Category</label>
-              <select
-                className="block w-full pl-3 pr-10 py-2 text-base border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                value={filters.category}
-                onChange={(e) => setFilters({...filters, category: e.target.value})}
+        {/* Quick Filters and Results Header */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setFilters({...filters, category: '', status: ''})}
+              className={`px-3 py-1.5 rounded-md text-sm font-semibold ${filters.category === '' && filters.status === '' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+            >
+              All Opportunities
+            </button>
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setFilters({...filters, category})}
+                className={`px-3 py-1.5 rounded-md text-sm font-semibold ${filters.category === category ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
               >
-                <option value="">All Categories</option>
-                {categories.map(category => (
-                  <option key={category} value={category}>{category}</option>
-                ))}
+                {category}s
+              </button>
+            ))}
+            <button
+              onClick={() => setFilters({...filters, status: 'Active'})}
+              className={`px-3 py-1.5 rounded-md text-sm font-semibold ${filters.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+            >
+              Active
+            </button>
+          </div>
+          
+          <div className="flex items-center gap-2 self-stretch md:self-auto">
+            <p className="text-sm text-gray-700 whitespace-nowrap font-medium">
+              <span className="text-gray-900">{filteredOpportunities.length}</span> of <span className="text-gray-900">{opportunities.length}</span> opportunities
+            </p>
+            <div className="h-4 w-px bg-gray-400"></div>
+            <div className="flex items-center">
+              <label className="text-sm text-gray-700 mr-2 whitespace-nowrap font-medium">Sort by:</label>
+              <select 
+                className="bg-white border border-gray-300 rounded-md px-2 py-1 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-medium"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="newest">Newest First</option>
+                <option value="deadline">Deadline</option>
+                <option value="applications">Most Applications</option>
               </select>
             </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Industry</label>
-              <select
-                className="block w-full pl-3 pr-10 py-2 text-base border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                value={filters.industry}
-                onChange={(e) => setFilters({...filters, industry: e.target.value})}
-              >
-                <option value="">All Industries</option>
-                {industries.map(industry => (
-                  <option key={industry} value={industry}>{industry}</option>
+          </div>
+        </div>
+
+        {/* Opportunities Table */}
+        {sortedOpportunities.length > 0 ? (
+          <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Opportunity
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Organization
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Value
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Deadline
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th scope="col" className="relative px-6 py-3">
+                    <span className="sr-only">Actions</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {sortedOpportunities.map((opportunity) => (
+                  <tr key={opportunity.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-md flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                        </div>
+                        <div className="ml-4">
+                          <div className="text-sm font-semibold text-gray-900">{opportunity.title}</div>
+                          <div className="text-sm text-gray-600">{opportunity.industry}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-semibold text-gray-900">{opportunity.organization}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-semibold text-gray-900">{opportunity.value}</div>
+                      <div className="text-sm text-gray-600">{opportunity.applications} applications</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-semibold text-gray-900">{formatDate(opportunity.deadline)}</div>
+                      <div className="text-sm text-gray-600">{daysUntilDeadline(opportunity.deadline)} days left</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${opportunity.status === 'Active' ? 'bg-green-100 text-green-800' : opportunity.status === 'Upcoming' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800'}`}>
+                        {opportunity.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <Link href={`/opportunities/${opportunity.id}`}>
+                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm transition-colors font-semibold">
+                          View Details
+                        </button>
+                      </Link>
+                    </td>
+                  </tr>
                 ))}
-              </select>
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="bg-white text-center py-12 rounded-lg border border-gray-200">
+            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              </svg>
             </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Location</label>
-              <select
-                className="block w-full pl-3 pr-10 py-2 text-base border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                value={filters.location}
-                onChange={(e) => setFilters({...filters, location: e.target.value})}
-              >
-                <option value="">All Locations</option>
-                {locations.map(location => (
-                  <option key={location} value={location}>{location}</option>
-                ))}
-              </select>
-            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">No opportunities found</h3>
+            <p className="text-gray-700 mb-4">Try adjusting your filters to see more results</p>
+            <button 
+              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={() => setFilters({industry: '', location: '', category: '', status: '', search: ''})}
+            >
+              Clear Filters
+            </button>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {sortedOpportunities.length > 0 && (
+          <div className="flex justify-center mt-8">
+            <nav className="flex items-center space-x-2">
+              <button className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50" disabled>
+                Previous
+              </button>
+              <button className="px-3 py-1.5 border border-blue-600 rounded-md text-sm font-semibold bg-blue-600 text-white">
+                1
+              </button>
+              <button className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50">
+                2
+              </button>
+              <button className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50">
+                3
+              </button>
+              <button className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50">
+                Next
+              </button>
+            </nav>
           </div>
         )}
       </div>
-      
-      {/* Quick Category Filters */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        <button
-          onClick={() => setFilters({...filters, category: ''})}
-          className={`px-4 py-2 rounded-md text-sm font-medium ${filters.category === '' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700'}`}
-        >
-          All Opportunities
-        </button>
-        {categories.map(category => (
-          <button
-            key={category}
-            onClick={() => setFilters({...filters, category})}
-            className={`px-4 py-2 rounded-md text-sm font-medium border ${filters.category === category ? 'bg-blue-800 text-white border-blue-700' : 'bg-gray-800 text-gray-300 border-gray-700 hover:bg-gray-700'}`}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
 
-      {/* Results count and sort */}
-      <div className="mb-6 flex justify-between items-center">
-        <p className="text-gray-400">
-          Showing <span className="font-medium text-white">{filteredOpportunities.length}</span> of <span className="font-medium text-white">{opportunities.length}</span> opportunities
-          {filters.category && (
-            <span className="ml-2">
-              in <span className="px-2 py-1 rounded-md text-xs font-medium bg-blue-900 text-blue-200">{filters.category}</span>
-            </span>
-          )}
-        </p>
-        <div className="flex items-center">
-          <label className="text-sm text-gray-400 mr-2">Sort by:</label>
-          <select className="bg-gray-800 border border-gray-700 rounded-md px-3 py-1 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-            <option>Newest First</option>
-            <option>Deadline</option>
-            <option>Value (High to Low)</option>
-            <option>Value (Low to High)</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Opportunities Grid */}
-      {filteredOpportunities.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredOpportunities.map((opportunity) => (
-            <Card key={opportunity.id} className="bg-gray-800 border border-gray-700 hover:border-blue-500 transition-all duration-200 group h-full flex flex-col overflow-hidden">
-              <div className="p-6 flex-1 flex flex-col">
-                <div className="flex justify-between items-start mb-4">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-700 text-gray-300">
-                    {opportunity.industry}
-                  </span>
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900 text-blue-200">
-                    {opportunity.category}
-                  </span>
-                </div>
-                
-                <div className="mb-4">
-                  <div className="text-xs text-gray-400 mb-1">From {opportunity.organization}</div>
-                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">
-                    {opportunity.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-3 flex-1">{opportunity.description}</p>
-                </div>
-                
-                <div className="mt-auto">
-                  <div className="flex justify-between items-center mb-4 text-sm">
-                    <div className="text-gray-400">
-                      <div className="font-medium text-gray-300">Deadline:</div>
-                      <div>{formatDate(opportunity.deadline)}</div>
-                    </div>
-                    <div className="text-blue-400 font-medium text-right">
-                      <div className="font-medium text-gray-300">Value:</div>
-                      <div>{opportunity.value}</div>
-                    </div>
-                  </div>
-                  <div className="flex space-x-2">
-                    <Link href={`/opportunities/${opportunity.id}`} className="flex-1">
-                      <Button variant="primary" className="w-full bg-blue-600 hover:bg-blue-700">
-                        View Details
-                      </Button>
-                    </Link>
-                    <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
-                      </svg>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <Card className="text-center py-12 bg-gray-800 border border-gray-700">
-          <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-500">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-            </svg>
-          </div>
-          <h3 className="text-lg font-medium text-white mb-2">No opportunities found</h3>
-          <p className="text-gray-400 mb-4">Try adjusting your filters to see more results</p>
-          <Button 
-            variant="outline" 
-            className="border-gray-600 text-gray-300 hover:bg-gray-700"
-            onClick={() => setFilters({industry: '', location: '', category: '', search: ''})}
-          >
-            Clear Filters
-          </Button>
-        </Card>
-      )}
-
-      {/* Pagination */}
-      {filteredOpportunities.length > 0 && (
-        <div className="flex justify-center mt-8">
-          <nav className="flex space-x-2">
-            <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700" disabled>Previous</Button>
-            <Button variant="primary" className="bg-blue-600 hover:bg-blue-700">1</Button>
-            <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">2</Button>
-            <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">3</Button>
-            <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700">Next</Button>
-          </nav>
-        </div>
-      )}
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+        body {
+          font-family: 'Montserrat', sans-serif;
+          color: #000;
+        }
+      `}</style>
     </div>
   );
 }
@@ -378,32 +434,45 @@ function OpportunitiesContent() {
 // Loading component
 function OpportunitiesLoading() {
   return (
-    <div className="min-h-screen bg-gray-900">
-      <Navbar />
+    <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="animate-pulse">
-          <div className="h-8 bg-gray-700 rounded w-1/3 mb-4"></div>
-          <div className="h-4 bg-gray-700 rounded w-1/2 mb-8"></div>
+          <div className="h-8 bg-gray-300 rounded w-1/3 mb-4"></div>
+          <div className="h-4 bg-gray-300 rounded w-1/2 mb-8"></div>
           
-          <div className="bg-gray-800 rounded-lg p-4 mb-6 border border-gray-700">
-            <div className="h-10 bg-gray-700 rounded mb-4"></div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="h-10 bg-gray-700 rounded"></div>
-              <div className="h-10 bg-gray-700 rounded"></div>
-              <div className="h-10 bg-gray-700 rounded"></div>
+          <div className="bg-white rounded-lg p-4 mb-6 border border-gray-300">
+            <div className="h-10 bg-gray-300 rounded mb-4"></div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="h-10 bg-gray-300 rounded"></div>
+              <div className="h-10 bg-gray-300 rounded"></div>
+              <div className="h-10 bg-gray-300 rounded"></div>
+              <div className="h-10 bg-gray-300 rounded"></div>
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map((n) => (
-              <div key={n} className="bg-gray-800 border border-gray-700 rounded-lg p-6 h-80">
-                <div className="h-4 bg-gray-700 rounded mb-4"></div>
-                <div className="h-6 bg-gray-700 rounded mb-2"></div>
-                <div className="h-4 bg-gray-700 rounded mb-4"></div>
-                <div className="h-20 bg-gray-700 rounded mb-6"></div>
-                <div className="h-10 bg-gray-700 rounded"></div>
-              </div>
-            ))}
+          <div className="bg-white shadow-sm rounded-lg border border-gray-300 overflow-hidden">
+            <table className="min-w-full divide-y divide-gray-300">
+              <thead className="bg-gray-100">
+                <tr>
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <th key={i} className="px-6 py-3">
+                      <div className="h-4 bg-gray-300 rounded"></div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-300">
+                {[1, 2, 3].map((row) => (
+                  <tr key={row}>
+                    {[1, 2, 3, 4, 5, 6].map((col) => (
+                      <td key={col} className="px-6 py-4">
+                        <div className="h-4 bg-gray-300 rounded"></div>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -415,10 +484,7 @@ function OpportunitiesLoading() {
 export default function OpportunitiesPage() {
   return (
     <Suspense fallback={<OpportunitiesLoading />}>
-      <div className="min-h-screen bg-gray-900">
-        <Navbar />
-        <OpportunitiesContent />
-      </div>
+      <OpportunitiesContent />
     </Suspense>
   );
 }
