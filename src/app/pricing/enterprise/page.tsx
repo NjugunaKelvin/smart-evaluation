@@ -10,7 +10,7 @@ const CountdownTimer = () => {
     seconds: 0
   });
 
-  // Set target date to 47 days from now
+
   const calculateTargetDate = () => {
     const target = new Date();
     target.setDate(target.getDate() + 47);

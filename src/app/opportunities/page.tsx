@@ -48,6 +48,20 @@ const opportunities: Opportunity[] = [
     status: 'Active',
     postedDate: '2023-11-05',
     applications: 18
+  },
+  {
+    id: 3,
+    title: 'Urban Road Construction',
+    description: 'Cross-platform mobile application for patient engagement and health service delivery in rural areas.',
+    industry: 'Construction',
+    category: 'Contract',
+    deadline: '2023-12-20',
+    location: 'Remote',
+    value: 'Ksh 800K - Ksh 1.2M',
+    organization: 'KENHA',
+    status: 'Active',
+    postedDate: '2023-11-05',
+    applications: 21
   }
 ];
 
