@@ -150,7 +150,7 @@ export default function ClientShowcase() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
               </svg>
             </div>
-            <div className="text-3xl font-medium text-white mb-3">$2.1B+</div>
+            <div className="text-3xl font-medium text-white mb-3">Ksh 2.1B+</div>
             <div className="text-gray-300">Annual Opportunity Value</div>
           </div>
           
