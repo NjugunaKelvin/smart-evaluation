@@ -5,6 +5,7 @@ import Card from '@/components/ui/Card';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
+import { use } from 'react';
 
 interface TenderDetailPageProps {
   params: {
@@ -47,7 +48,7 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
   const [showSubmissionOptions, setShowSubmissionOptions] = useState(false);
   
   // Use params directly (no need to unwrap)
-  const unwrappedParams = params;
+  // const unwrappedParams = use(params);
   
   // Calculate days until deadline
   const deadlineDate = new Date(tenderData.deadline);
@@ -72,9 +73,9 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
     // This would typically open a file upload dialog
   };
   
-  // Function to handle form submission - FIXED: Use unwrappedParams
+  // Function to handle form submission - FIXED: Use params directly
   const handleFormSubmission = () => {
-    router.push(`/opportunities/${unwrappedParams.id}/apply`);
+    router.push(`/opportunities/${params.id}/apply`);
   };
 
   return (

@@ -65,7 +65,7 @@ export default function Footer() {
           
           {/* Tender Categories */}
           <div>
-            <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Tender Categories</h3>
+            <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Categories</h3>
             <ul className="space-y-3">
               <li><Link href="/tenders/government" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
                 Government Contracts
@@ -105,7 +105,7 @@ export default function Footer() {
                 Verification Process
               </Link></li>
               <li><Link href="/providers/resources" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
-                Bid Preparation Resources
+                Go to the dashboard
               </Link></li>
               <li><Link href="/providers/success-stories" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
                 Success Stories
@@ -248,7 +248,7 @@ export default function Footer() {
           <div>
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Global Offices</h3>
             <ul className="space-y-3">
-              <li><span className="text-gray-400 text-sm block py-1 font-medium">United States</span></li>
+              <li><span className="text-gray-400 text-sm block py-1 font-medium">Nairobi, Kenya</span></li>
               <li><span className="text-gray-400 text-sm block py-1 font-medium">United Kingdom</span></li>
               <li><span className="text-gray-400 text-sm block py-1 font-medium">European Union</span></li>
               <li><span className="text-gray-400 text-sm block py-1 font-medium">Asia Pacific</span></li>
