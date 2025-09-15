@@ -140,7 +140,7 @@ function OpportunitiesContent() {
           <div className="flex justify-between items-center py-4">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Opportunities Portal</h1>
-              <p className="text-sm text-gray-600">Discover and apply for tenders, grants, and contracts</p>
+              <p className="text-sm text-gray-600">Discover and apply for tenders, grants, fundings, patnerships and contracts</p>
             </div>
             <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md flex items-center transition-colors font-semibold">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
