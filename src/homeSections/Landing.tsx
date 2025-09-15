@@ -93,7 +93,7 @@ export default function Landing() {
             </Link>
             <Link href="/register">
               <Button variant="secondary" className="w-full sm:w-auto px-8 py-3.5 text-base font-medium border-purple-200 bg-white/70 hover:bg-white hover:border-purple-300 transition-all duration-300 backdrop-blur-sm text-purple-700">
-                Register Your Business
+                Register to Offer Services
               </Button>
             </Link>
           </div>
