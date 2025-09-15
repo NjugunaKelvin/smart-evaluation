@@ -1,6 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // components/home/ClientShowcase.tsx
 'use client'
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 export default function ClientShowcase() {
