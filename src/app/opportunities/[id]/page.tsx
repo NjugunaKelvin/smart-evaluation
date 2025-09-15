@@ -75,93 +75,106 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
   };
 
   return (
-    <div className="min-h-screen py-12 bg-gradient-to-b from-gray-900 to-gray-800">
+    <div className="min-h-screen bg-[#ebe1f2]">
       <Navbar />
-      <br /><br />
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link href="/opportunities" className="inline-flex items-center text-blue-400 hover:text-blue-300 mb-6 transition-colors duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-          Back to Opportunities
-        </Link>
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Breadcrumb Navigation */}
+        <nav className="mb-6">
+          <ol className="flex items-center space-x-2 text-sm">
+            <li>
+              <Link href="/" className="text-purple-700 hover:text-purple-900 transition-colors">
+                Home
+              </Link>
+            </li>
+            <li className="text-gray-500">/</li>
+            <li>
+              <Link href="/opportunities" className="text-purple-700 hover:text-purple-900 transition-colors">
+                Opportunities
+              </Link>
+            </li>
+            <li className="text-gray-500">/</li>
+            <li className="text-gray-700 truncate">Tender Details</li>
+          </ol>
+        </nav>
 
-        {/* Header with status badge */}
-        <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-4">
-          <div className="flex-1">
-            <span className="inline-block px-3 py-1 bg-blue-900/40 text-blue-300 rounded-full text-sm font-medium mb-4 border border-blue-700/30">
-              {tenderData.industry}
-            </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 leading-tight">{tenderData.title}</h1>
-            <p className="text-gray-400 text-lg">Published by {tenderData.organization}</p>
-          </div>
-          <div className="text-right bg-gray-800/50 p-4 rounded-lg border border-gray-700/50">
-            <div className="text-sm text-gray-400 uppercase tracking-wide">Reference #</div>
-            <div className="text-white font-mono text-lg">ICT/{tenderData.id.toString().padStart(4, '0')}/2023</div>
+        {/* Header Section */}
+        <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-4">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="inline-block px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">
+                  {tenderData.industry}
+                </span>
+                <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
+                  {tenderData.location}
+                </span>
+              </div>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{tenderData.title}</h1>
+              <p className="text-gray-600">Published by <span className="font-semibold">{tenderData.organization}</span></p>
+            </div>
+            <div className="text-right bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <div className="text-xs text-gray-500 uppercase tracking-wide">Reference #</div>
+              <div className="text-gray-900 font-mono text-lg font-semibold">ICT/{tenderData.id.toString().padStart(4, '0')}/2023</div>
+            </div>
           </div>
         </div>
 
-        {/* Deadline alert */}
-        <Card className="bg-gradient-to-r from-blue-900/30 to-blue-800/30 border-blue-700/50 mb-8 shadow-lg">
+        {/* Deadline Alert */}
+        <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl shadow-md p-5 mb-6">
           <div className="flex items-center">
-            <div className="flex-shrink-0 w-12 h-12 bg-blue-700/20 rounded-full flex items-center justify-center text-blue-400 mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
+            <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-white">
+              <h3 className="text-lg font-semibold">
                 {daysUntilDeadline > 0 ? `${daysUntilDeadline} days left to apply` : 'Deadline passed'}
               </h3>
-              <p className="text-gray-400">Submission deadline: {tenderData.deadline}</p>
+              <p className="text-white/90">Submission deadline: {new Date(tenderData.deadline).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
           </div>
-        </Card>
+        </div>
 
         {/* Submission Options Modal */}
         {showSubmissionOptions && (
           <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-            <Card className="bg-gray-800 border-gray-700 max-w-md w-full">
-              <h2 className="text-xl font-semibold text-white mb-4">Choose Submission Method</h2>
-              <p className="text-gray-400 mb-6">Select how you would like to submit your proposal for this tender.</p>
+            <div className="bg-white rounded-xl max-w-md w-full p-6">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">Choose Submission Method</h2>
+              <p className="text-gray-600 mb-6">Select how you would like to submit your proposal for this tender.</p>
               
               <div className="space-y-4">
                 <div 
-                  className="p-4 border border-gray-700 rounded-lg cursor-pointer hover:bg-gray-700/50 transition-colors"
+                  className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
                   onClick={handlePdfSubmission}
                 >
                   <div className="flex items-center">
-                    <div className="bg-blue-900/30 p-3 rounded-lg mr-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
+                    <div className="bg-purple-100 p-3 rounded-lg mr-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-white font-medium">Upload PDF Document</h3>
-                      <p className="text-gray-400 text-sm">Submit your complete proposal as a single PDF file</p>
+                      <h3 className="text-gray-900 font-medium">Upload PDF Document</h3>
+                      <p className="text-gray-600 text-sm">Submit your complete proposal as a single PDF file</p>
                     </div>
                   </div>
                 </div>
                 
                 <div 
-                  className="p-4 border border-gray-700 rounded-lg cursor-pointer hover:bg-gray-700/50 transition-colors"
+                  className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
                   onClick={handleFormSubmission}
                 >
                   <div className="flex items-center">
-                    <div className="bg-green-900/30 p-3 rounded-lg mr-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 5v14"></path>
-                        <path d="M5 12h14"></path>
+                    <div className="bg-blue-100 p-3 rounded-lg mr-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-white font-medium">Use Online Form</h3>
-                      <p className="text-gray-400 text-sm">Fill out our step-by-step proposal form</p>
+                      <h3 className="text-gray-900 font-medium">Use Online Form</h3>
+                      <p className="text-gray-600 text-sm">Fill out our step-by-step proposal form</p>
                     </div>
                   </div>
                 </div>
@@ -170,94 +183,76 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
               <div className="mt-6 flex justify-end">
                 <Button 
                   variant="outline" 
-                  className="mr-2 border-gray-600 text-gray-300"
+                  className="mr-2 border-gray-300 text-gray-700"
                   onClick={() => setShowSubmissionOptions(false)}
                 >
                   Cancel
                 </Button>
               </div>
-            </Card>
+            </div>
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
             {/* Description */}
-            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
-              <h2 className="text-xl font-semibold text-white mb-4 flex items-center border-b border-gray-700/50 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-blue-400">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                  <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
-                Project Description
+            <Card className="bg-white rounded-xl shadow-sm border border-gray-200">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
+                Description
               </h2>
-              <p className="text-gray-300 leading-relaxed mt-4">{tenderData.description}</p>
+              <p className="text-gray-700 leading-relaxed">{tenderData.description}</p>
             </Card>
 
             {/* Requirements */}
-            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
-              <h2 className="text-xl font-semibold text-white mb-4 flex items-center border-b border-gray-700/50 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-green-400">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
+            <Card className="bg-white rounded-xl shadow-sm border border-gray-200">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
                 Requirements
               </h2>
-              <ul className="space-y-3 mt-4">
+              <ul className="space-y-3">
                 {tenderData.requirements.map((req, index) => (
-                  <li key={index} className="flex items-start p-2 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-400 mr-3 mt-1 flex-shrink-0">
-                      <polyline points="20 6 9 17 4 12"></polyline>
+                  <li key={index} className="flex items-start p-2 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
-                    <span className="text-gray-300">{req}</span>
+                    <span className="text-gray-700">{req}</span>
                   </li>
                 ))}
               </ul>
             </Card>
 
             {/* Documents */}
-            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
-              <h2 className="text-xl font-semibold text-white mb-4 flex items-center border-b border-gray-700/50 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-blue-400">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                </svg>
-                Documents
+            <Card className="bg-white rounded-xl shadow-sm border border-gray-200">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
+                Review Documents
               </h2>
-              <div className="space-y-3 mt-4">
+              <div className="space-y-3">
                 {tenderData.documents.map((doc, index) => (
-                  <div key={index} className="flex justify-between items-center p-3 bg-gray-700/30 rounded-md hover:bg-gray-700/50 transition-all duration-200 border border-gray-700/30">
+                  <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-all duration-200 border border-gray-200">
                     <div className="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 mr-3">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
-                      <span className="text-white">{doc}</span>
+                      <span className="text-gray-900 font-medium">{doc}</span>
                     </div>
                     <div className="flex gap-2">
                       <Button 
                         variant="outline" 
-                        className="border-blue-600/50 hover:bg-blue-600/20 text-blue-300 text-xs py-1 px-3 transition-all duration-200"
+                        className="border-purple-200 hover:bg-purple-50 text-purple-700 text-xs py-1 px-3 transition-all duration-200"
                         onClick={() => handleDocumentAction('view', doc)}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                          <circle cx="12" cy="12" r="3"></circle>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                         View
                       </Button>
                       <Button 
                         variant="outline" 
-                        className="border-green-600/50 hover:bg-green-600/20 text-green-300 text-xs py-1 px-3 transition-all duration-200"
+                        className="border-blue-200 hover:bg-blue-50 text-blue-700 text-xs py-1 px-3 transition-all duration-200"
                         onClick={() => handleDocumentAction('download', doc)}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                          <polyline points="7 10 12 15 17 10"></polyline>
-                          <line x1="12" y1="15" x2="12" y2="3"></line>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
                         Download
                       </Button>
@@ -270,68 +265,63 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
 
           <div className="space-y-6">
             {/* Key Information */}
-            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm overflow-hidden">
-              <h2 className="text-xl font-semibold text-white mb-4 flex items-center border-b border-gray-700/50 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-blue-400">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="8" x2="12" y2="12"></line>
-                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                </svg>
+            <Card className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
                 Key Information
               </h2>
-              <div className="space-y-4 max-h-96 overflow-y-auto smooth-scroll pr-2 py-2">
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Project Value</h3>
-                  <p className="text-green-400 font-semibold">{tenderData.value}</p>
+              <div className="space-y-4 max-h-96 overflow-y-auto pr-2 py-2">
+                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Project Value</h3>
+                  <p className="text-purple-700 font-semibold">{tenderData.value}</p>
                 </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Location</h3>
-                  <p className="text-white">{tenderData.location}</p>
+                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Location</h3>
+                  <p className="text-gray-900">{tenderData.location}</p>
                 </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Duration</h3>
-                  <p className="text-white">{tenderData.duration}</p>
+                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Duration</h3>
+                  <p className="text-gray-900">{tenderData.duration}</p>
                 </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Published</h3>
-                  <p className="text-blue-300">{tenderData.publishedDate}</p>
+                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Published</h3>
+                  <p className="text-gray-900">{new Date(tenderData.publishedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Deadline</h3>
-                  <p className="text-red-400 font-medium">{tenderData.deadline}</p>
+                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Deadline</h3>
+                  <p className="text-red-600 font-medium">{new Date(tenderData.deadline).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Evaluation</h3>
-                  <p className="text-yellow-400">{tenderData.evaluationDate}</p>
+                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Evaluation</h3>
+                  <p className="text-gray-900">{new Date(tenderData.evaluationDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </div>
-                <div className="p-3 rounded-md hover:bg-gray-700/30 transition-colors duration-200">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Award Notification</h3>
-                  <p className="text-green-300">{tenderData.awardDate}</p>
+                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Award Notification</h3>
+                  <p className="text-gray-900">{new Date(tenderData.awardDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </div>
               </div>
             </Card>
 
             {/* Contact Information */}
-            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
-              <h2 className="text-xl font-semibold text-white mb-4 flex items-center border-b border-gray-700/50 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-blue-400">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
+            <Card className="bg-white rounded-xl shadow-sm border border-gray-200">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
                 Contact Information
               </h2>
-              <div className="space-y-4 mt-4">
-                <div className="p-3 rounded-md bg-gray-700/30">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Contact Person</h3>
-                  <p className="text-white">{tenderData.contact.name}</p>
+              <div className="space-y-4">
+                <div className="p-3 rounded-md bg-gray-50">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Contact Person</h3>
+                  <p className="text-gray-900">{tenderData.contact.name}</p>
                 </div>
-                <div className="p-3 rounded-md bg-gray-700/30">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Email</h3>
-                  <p className="text-blue-300 break-all">{tenderData.contact.email}</p>
+                <div className="p-3 rounded-md bg-gray-50">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Email</h3>
+                  <a href={`mailto:${tenderData.contact.email}`} className="text-blue-600 hover:text-blue-800 break-all transition-colors">
+                    {tenderData.contact.email}
+                  </a>
                 </div>
-                <div className="p-3 rounded-md bg-gray-700/30">
-                  <h3 className="text-sm font-medium text-gray-400 mb-1">Phone</h3>
-                  <p className="text-white">{tenderData.contact.phone}</p>
+                <div className="p-3 rounded-md bg-gray-50">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Phone</h3>
+                  <a href={`tel:${tenderData.contact.phone}`} className="text-gray-900 hover:text-blue-600 transition-colors">
+                    {tenderData.contact.phone}
+                  </a>
                 </div>
               </div>
             </Card>
@@ -340,57 +330,45 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
             <div className="flex flex-col gap-3 sticky top-6">
               <Button 
                 variant="primary" 
-                className="bg-blue-600 hover:bg-blue-700 py-3 transition-all duration-300 shadow-lg shadow-blue-500/20"
+                className="bg-purple-600 hover:bg-purple-700 py-3 transition-all duration-300 shadow-md"
                 onClick={handleShowSubmissionOptions}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="17 8 12 3 7 8"></polyline>
-                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                 </svg>
                 Submit Proposal
               </Button>
-              <Button variant="outline" className="border-gray-600 hover:bg-gray-700/50 text-gray-300 py-3 transition-all duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              <Button variant="outline" className="border-gray-300 hover:bg-gray-100 text-gray-700 py-3 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                 </svg>
                 Save for Later
               </Button>
-              <Button variant="outline" className="border-gray-600 hover:bg-gray-700/50 text-gray-300 py-3 transition-all duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+              <Button variant="outline" className="border-gray-300 hover:bg-gray-100 text-gray-700 py-3 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2z" />
                 </svg>
                 Print Details
               </Button>
             </div>
           </div>
+          <div className="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
+          <div className="flex items-start">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-yellow-800">Important Notice</h3>
+              <div className="mt-2 text-sm text-yellow-700">
+                <p>Only apply through this portal. Any applications sent elsewhere will not be considered.</p>
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
-
-      <style jsx global>{`
-        html {
-          scroll-behavior: smooth;
-        }
-        .smooth-scroll {
-          scroll-behavior: smooth;
-        }
-        .smooth-scroll::-webkit-scrollbar {
-          width: 6px;
-        }
-        .smooth-scroll::-webkit-scrollbar-track {
-          background: rgba(31, 41, 55, 0.4);
-          border-radius: 10px;
-        }
-        .smooth-scroll::-webkit-scrollbar-thumb {
-          background: rgba(59, 130, 246, 0.5);
-          border-radius: 10px;
-        }
-        .smooth-scroll::-webkit-scrollbar-thumb:hover {
-          background: rgba(59, 130, 246, 0.7);
-        }
-      `}</style>
     </div>
   );
 }

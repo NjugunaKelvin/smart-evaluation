@@ -355,7 +355,7 @@ export default function Navbar() {
                   {/* Dropdown Menu - Large Card Style */}
                   {item.dropdown && activeDropdown === item.name && (
                     <div 
-                      className="absolute left-1/2 transform -translate-x-1/2 mt-1 w-[90vw] max-w-6xl rounded-xl shadow-2xl bg-gradient-to-b from-[#4d047f] to-[#3e0369] border-2 border-purple-500 overflow-hidden z-50"
+                      className="absolute left-1/2 transform -translate-x-1/2 mt-1 w-[60vw] max-w-6xl rounded-xl shadow-2xl bg-gradient-to-b from-[#4d047f] to-[#3e0369] border-2 border-purple-500 overflow-hidden z-50"
                       onMouseEnter={() => handleDropdownEnter(item.name)}
                       onMouseLeave={handleDropdownLeave}
                     >
