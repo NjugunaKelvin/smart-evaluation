@@ -142,7 +142,7 @@ function OpportunitiesContent() {
               <h1 className="text-2xl font-bold text-gray-900">Opportunities Portal</h1>
               <p className="text-sm text-gray-600">Discover and apply for tenders, grants, and contracts</p>
             </div>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center transition-colors font-semibold">
+            <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md flex items-center transition-colors font-semibold">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
               </svg>
@@ -151,16 +151,16 @@ function OpportunitiesContent() {
           </div>
           
           <div className="flex space-x-8 py-2">
-            <Link href="/opportunities" className="border-b-2 border-blue-600 text-blue-600 font-semibold py-2">
+            <Link href="/opportunities" className="border-b-2 border-purple-600 text-purple-600 font-semibold py-2">
               Browse Opportunities
             </Link>
-            <Link href="/my-applications" className="text-gray-700 hover:text-blue-600 font-medium py-2">
+            <Link href="/my-applications" className="text-gray-700 hover:text-purple-600 font-medium py-2">
               My Applications
             </Link>
-            <Link href="/saved" className="text-gray-700 hover:text-blue-600 font-medium py-2">
+            <Link href="/saved" className="text-gray-700 hover:text-purple-600 font-medium py-2">
               Saved Opportunities
             </Link>
-            <Link href="/guidelines" className="text-gray-700 hover:text-blue-600 font-medium py-2">
+            <Link href="/guidelines" className="text-gray-700 hover:text-purple-600 font-medium py-2">
               Application Guidelines
             </Link>
           </div>
@@ -187,7 +187,7 @@ function OpportunitiesContent() {
                 <input
                   type="text"
                   placeholder="Search by title, description, or organization..."
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md leading-5 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-medium"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md leading-5 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 font-medium"
                   value={filters.search}
                   onChange={(e) => setFilters({...filters, search: e.target.value})}
                 />
@@ -197,7 +197,7 @@ function OpportunitiesContent() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="inline-flex items-center px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="inline-flex items-center px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
                 <svg className="-ml-1 mr-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
@@ -206,7 +206,7 @@ function OpportunitiesContent() {
               </button>
               
               <button 
-                className="inline-flex items-center px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="inline-flex items-center px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 onClick={() => setFilters({industry: '', location: '', category: '', status: '', search: ''})}
               >
                 Clear
@@ -220,7 +220,7 @@ function OpportunitiesContent() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">Category</label>
                 <select
-                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-medium"
+                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 sm:text-sm font-medium"
                   value={filters.category}
                   onChange={(e) => setFilters({...filters, category: e.target.value})}
                 >
@@ -234,7 +234,7 @@ function OpportunitiesContent() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">Industry</label>
                 <select
-                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-medium"
+                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 sm:text-sm font-medium"
                   value={filters.industry}
                   onChange={(e) => setFilters({...filters, industry: e.target.value})}
                 >
@@ -248,7 +248,7 @@ function OpportunitiesContent() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">Location</label>
                 <select
-                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-medium"
+                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 sm:text-sm font-medium"
                   value={filters.location}
                   onChange={(e) => setFilters({...filters, location: e.target.value})}
                 >
@@ -262,7 +262,7 @@ function OpportunitiesContent() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">Status</label>
                 <select
-                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-medium"
+                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 sm:text-sm font-medium"
                   value={filters.status}
                   onChange={(e) => setFilters({...filters, status: e.target.value})}
                 >
@@ -281,7 +281,7 @@ function OpportunitiesContent() {
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setFilters({...filters, category: '', status: ''})}
-              className={`px-3 py-1.5 rounded-md text-sm font-semibold ${filters.category === '' && filters.status === '' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+              className={`px-3 py-1.5 rounded-md text-sm font-semibold ${filters.category === '' && filters.status === '' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
             >
               All Opportunities
             </button>
@@ -289,7 +289,7 @@ function OpportunitiesContent() {
               <button
                 key={category}
                 onClick={() => setFilters({...filters, category})}
-                className={`px-3 py-1.5 rounded-md text-sm font-semibold ${filters.category === category ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                className={`px-3 py-1.5 rounded-md text-sm font-semibold ${filters.category === category ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
               >
                 {category}s
               </button>
@@ -310,7 +310,7 @@ function OpportunitiesContent() {
             <div className="flex items-center">
               <label className="text-sm text-gray-700 mr-2 whitespace-nowrap font-medium">Sort by:</label>
               <select 
-                className="bg-white border border-gray-300 rounded-md px-2 py-1 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-medium"
+                className="bg-white border border-gray-300 rounded-md px-2 py-1 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 font-medium"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
               >
@@ -353,8 +353,8 @@ function OpportunitiesContent() {
                   <tr key={opportunity.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-md flex items-center justify-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div className="flex-shrink-0 h-10 w-10 bg-purple-100 rounded-md flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                           </svg>
                         </div>
@@ -382,7 +382,7 @@ function OpportunitiesContent() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <Link href={`/opportunities/${opportunity.id}`}>
-                        <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm transition-colors font-semibold">
+                        <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm transition-colors font-semibold">
                           View Details
                         </button>
                       </Link>
@@ -402,7 +402,7 @@ function OpportunitiesContent() {
             <h3 className="text-lg font-semibold text-gray-900 mb-2">No opportunities found</h3>
             <p className="text-gray-700 mb-4">Try adjusting your filters to see more results</p>
             <button 
-              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500"
               onClick={() => setFilters({industry: '', location: '', category: '', status: '', search: ''})}
             >
               Clear Filters
@@ -417,7 +417,7 @@ function OpportunitiesContent() {
               <button className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50" disabled>
                 Previous
               </button>
-              <button className="px-3 py-1.5 border border-blue-600 rounded-md text-sm font-semibold bg-blue-600 text-white">
+              <button className="px-3 py-1.5 border border-purple-600 rounded-md text-sm font-semibold bg-purple-600 text-white">
                 1
               </button>
               <button className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50">
