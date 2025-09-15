@@ -5,7 +5,6 @@ import Card from '@/components/ui/Card';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
-import { use } from 'react';
 
 interface TenderDetailPageProps {
   params: {
