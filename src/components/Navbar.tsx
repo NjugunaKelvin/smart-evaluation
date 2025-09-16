@@ -160,7 +160,7 @@ export default function Navbar() {
         },
         {
           name: 'Patners',
-          href: '/about/patners',
+          href: '/about/partners',
           description: 'Who we are collaborating with'
         },
         {
