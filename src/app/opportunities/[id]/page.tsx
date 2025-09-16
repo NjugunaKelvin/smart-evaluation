@@ -46,8 +46,6 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
   const router = useRouter();
   const [showSubmissionOptions, setShowSubmissionOptions] = useState(false);
   
-  // Use params directly (no need to unwrap)
-  // const unwrappedParams = use(params);
   
   // Calculate days until deadline
   const deadlineDate = new Date(tenderData.deadline);
@@ -57,7 +55,6 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
   // Function to handle document actions
   const handleDocumentAction = (action: 'view' | 'download', documentName: string) => {
     console.log(`${action}ing ${documentName}`);
-    // This will open a modal or download the file
   };
   
   // Function to handle proposal submission options
@@ -69,10 +66,10 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
   const handlePdfSubmission = () => {
     // Logic to handle PDF upload
     console.log('PDF submission selected');
-    // This would typically open a file upload dialog
+    
   };
   
-  // Function to handle form submission - FIXED: Use params directly
+  // Function to handle form submission 
   const handleFormSubmission = () => {
     router.push(`/opportunities/${params.id}/apply`);
   };

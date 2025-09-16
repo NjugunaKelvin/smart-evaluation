@@ -36,7 +36,6 @@ const PartnersAlliances = () => {
   return (
     <div className="bg-gray-900 text-white">
       <Navbar />
-      {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center opacity-30"
@@ -51,7 +50,7 @@ const PartnersAlliances = () => {
         </div>
       </section>
 
-      {/* Partnership Benefits Section */}
+      {/* Partnership Benefits */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center text-blue-400">Collaborating for Success</h2>
@@ -111,7 +110,7 @@ const PartnersAlliances = () => {
         </div>
       </section>
 
-      {/* Partner Network Section */}
+      {/* Partner Network */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">Our Partner Network</h2>
@@ -143,7 +142,7 @@ const PartnersAlliances = () => {
         </div>
       </section>
 
-      {/* Success Stories Section */}
+      {/* Success Stories*/}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">Success Stories</h2>
@@ -176,7 +175,7 @@ const PartnersAlliances = () => {
         </div>
       </section>
 
-      {/* Become a Partner Section */}
+      {/* Become a Partner*/}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Become a Partner</h2>

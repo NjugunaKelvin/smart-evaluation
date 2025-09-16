@@ -6,7 +6,6 @@ const OurStory = () => {
   return (
     <div className="bg-gray-900 text-white">
     <Navbar />
-      {/* Hero Section - Full Viewport */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center opacity-40"
@@ -20,7 +19,6 @@ const OurStory = () => {
         </div>
       </section>
 
-      {/* The Beginning Section */}
       <section className="min-h-screen flex items-center py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="order-2 lg:order-1">
@@ -63,7 +61,6 @@ const OurStory = () => {
         </div>
       </div>
 
-      {/* The Challenge Section */}
       <section className="min-h-screen flex items-center py-20 px-4 sm:px-6 lg:px-8 bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-blue-400">The Challenge We Faced</h2>
@@ -106,7 +103,6 @@ const OurStory = () => {
         </div>
       </section>
 
-      {/* The Solution Section */}
       <section className="min-h-screen flex items-center py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center text-blue-400">Our Solution</h2>
@@ -187,7 +183,6 @@ const OurStory = () => {
         </div>
       </section>
 
-      {/* Mission Statement - Full Viewport */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center opacity-30"

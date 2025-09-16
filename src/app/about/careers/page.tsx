@@ -62,7 +62,7 @@ const Careers = () => {
   return (
     <div className="bg-gray-900 text-white">
         <Navbar />
-      {/* Hero Section */}
+      {/* Landing */}
       <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center opacity-20"
@@ -88,7 +88,7 @@ const Careers = () => {
         </div>
       </section>
 
-      {/* Mission & Values Section */}
+      {/* Mission & Values */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">Our Mission & Values</h2>
@@ -135,7 +135,7 @@ const Careers = () => {
         </div>
       </section>
 
-      {/* Team Culture Section */}
+      {/* Team Culture */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Our Working Environment</h2>
@@ -183,7 +183,7 @@ const Careers = () => {
         </div>
       </section>
 
-      {/* Open Positions Section */}
+      {/* Open Positions */}
       <section id="open-positions" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Open Positions</h2>
@@ -247,7 +247,7 @@ const Careers = () => {
         </div>
       </section>
 
-      {/* Application Process Section */}
+      {/* Application Process */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Our Hiring Process</h2>
