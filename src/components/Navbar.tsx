@@ -159,14 +159,14 @@ export default function Navbar() {
           description: 'Join our team of passionate professionals'
         },
         {
-          name: 'Press & Media',
-          href: '/about/press',
-          description: 'Latest news and media coverage'
+          name: 'Patners',
+          href: '/about/patners',
+          description: 'Who we are collaborating with'
         },
         {
-          name: 'Contact Us',
-          href: '/about/contact',
-          description: 'Get in touch with our team'
+          name: 'Story',
+          href: '/about/story',
+          description: 'The story behind our company'
         }
       ]
     }
