@@ -68,25 +68,28 @@ export default function Footer() {
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Categories</h3>
             <ul className="space-y-3">
               <li><Link href="/tenders/government" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
-                Government Contracts
+                Constructions & Engineering
               </Link></li>
               <li><Link href="/tenders/construction" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
-                Construction Projects
+                Information Technology
               </Link></li>
               <li><Link href="/tenders/it" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
-                IT Services
+                Professional & Business services
               </Link></li>
               <li><Link href="/tenders/healthcare" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
-                Healthcare Services
+                Industrial Supply
               </Link></li>
               <li><Link href="/tenders/education" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
-                Education Programs
+                Logistics & Suppy Chain
               </Link></li>
               <li><Link href="/tenders/consulting" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
                 Consulting Services
               </Link></li>
               <li><Link href="/tenders/transportation" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
-                Transportation & Logistics
+                Medical, & Pharmaceutical
+              </Link></li>
+              <li><Link href="/tenders/transportation" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
+                Marketing, Media, & Creative
               </Link></li>
             </ul>
           </div>
@@ -124,7 +127,7 @@ export default function Footer() {
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">For Clients</h3>
             <ul className="space-y-3">
               <li><Link href="/clients/register" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
-                Post a Tender
+                Post an opportunity
               </Link></li>
               <li><Link href="/clients/evaluation" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
                 Evaluation Process
@@ -197,6 +200,9 @@ export default function Footer() {
               <li><Link href="/newsroom" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
                 Newsroom
               </Link></li>
+              <li><Link href="/newsroom" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
+                Contact Support
+              </Link></li>
             </ul>
           </div>
           
@@ -218,6 +224,9 @@ export default function Footer() {
               </Link></li>
               <li><Link href="/compliance" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
                 Compliance
+              </Link></li>
+              <li><Link href="/compliance" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
+                How we handle Data.
               </Link></li>
             </ul>
           </div>
