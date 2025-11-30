@@ -30,7 +30,7 @@ const opportunities: Opportunity[] = [
     deadline: '2023-12-15',
     location: 'Remote',
     value: 'Ksh 1M - Ksh 1.5M',
-    organization: 'Ministry of ICT',
+    organization: 'Logistics',
     status: 'Active',
     postedDate: '2023-11-01',
     applications: 24
@@ -42,9 +42,9 @@ const opportunities: Opportunity[] = [
     industry: 'Healthcare',
     category: 'Grant',
     deadline: '2023-12-20',
-    location: 'Remote',
+    location: 'Nairobi',
     value: 'Ksh 800K - Ksh 1.2M',
-    organization: 'Ministry of Health',
+    organization: 'Manufactring',
     status: 'Active',
     postedDate: '2023-11-05',
     applications: 18
