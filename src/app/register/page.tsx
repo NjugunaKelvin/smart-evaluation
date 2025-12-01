@@ -1,9 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -30,7 +30,6 @@ export default function RegisterPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle registration logic here
     console.log('Registration attempt:', formData);
   };
 
@@ -43,45 +42,42 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen py-12 bg-[url(/images/home/bg.jpg)] flex items-center justify-center">
-      <div className="max-w-2xl w-full backdrop-blur-xs">
-        <Card className="p-8">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Create Your Account</h1>
-            <p className="text-gray-300">Join SmartEval as a service provider</p>
+    <div className="flex min-h-screen">
+      {/* Left Form Panel */}
+      <div className="flex-1 flex flex-col justify-center px-6 md:px-12 lg:px-16 bg-gray-50">
+        <div className="max-w-md w-full mx-auto">
+          <div className="mb-8">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">Create Account</h1>
+            <p className="text-gray-600 text-sm font-medium">
+              Join The Opportunities Portal
+            </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label htmlFor="companyName" className="block text-sm font-medium text-gray-300 mb-1">
-                  Company Name *
-                </label>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Company Name *</label>
                 <input
                   type="text"
-                  id="companyName"
                   name="companyName"
                   required
-                  className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-white placeholder-gray-400"
-                  placeholder="Your company name"
                   value={formData.companyName}
                   onChange={handleChange}
+                  className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 bg-white text-gray-900"
+                  placeholder="Company name"
                 />
               </div>
 
               <div>
-                <label htmlFor="sector" className="block text-sm font-medium text-gray-300 mb-1">
-                  Industry Sector *
-                </label>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Industry Sector *</label>
                 <select
-                  id="sector"
                   name="sector"
                   required
-                  className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-white"
                   value={formData.sector}
                   onChange={handleChange}
+                  className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 bg-white text-gray-900"
                 >
-                  <option value="">Select your sector</option>
+                  <option value="">Select sector</option>
                   {sectors.map(sector => (
                     <option key={sector} value={sector}>{sector}</option>
                   ))}
@@ -90,125 +86,138 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
-                Email Address *
-              </label>
+              <label className="block text-xs font-bold text-gray-700 mb-1">Email Address *</label>
               <input
                 type="email"
-                id="email"
                 name="email"
                 required
-                className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-white placeholder-gray-400"
-                placeholder="company@example.com"
                 value={formData.email}
                 onChange={handleChange}
+                className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 bg-white text-gray-900"
+                placeholder="company@example.com"
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label htmlFor="contactName" className="block text-sm font-medium text-gray-300 mb-1">
-                  Contact Person *
-                </label>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Contact Person *</label>
                 <input
                   type="text"
-                  id="contactName"
                   name="contactName"
                   required
-                  className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-white placeholder-gray-400"
-                  placeholder="Full name"
                   value={formData.contactName}
                   onChange={handleChange}
+                  className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 bg-white text-gray-900"
+                  placeholder="Full name"
                 />
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-1">
-                  Phone Number
-                </label>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Phone Number</label>
                 <input
                   type="tel"
-                  id="phone"
                   name="phone"
-                  className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-white placeholder-gray-400"
-                  placeholder="+254 700 000 000"
                   value={formData.phone}
                   onChange={handleChange}
+                  className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 bg-white text-gray-900"
+                  placeholder="+254 700 000 000"
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
-                  Password *
-                </label>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Password *</label>
                 <input
                   type="password"
-                  id="password"
                   name="password"
                   required
-                  className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-white placeholder-gray-400"
-                  placeholder="Create a password"
                   value={formData.password}
                   onChange={handleChange}
+                  className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 bg-white text-gray-900"
+                  placeholder="Create password"
                 />
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-1">
-                  Confirm Password *
-                </label>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Confirm Password *</label>
                 <input
                   type="password"
-                  id="confirmPassword"
                   name="confirmPassword"
                   required
-                  className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-white placeholder-gray-400"
-                  placeholder="Confirm your password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
+                  className="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 bg-white text-gray-900"
+                  placeholder="Confirm password"
                 />
               </div>
             </div>
 
-            <div className="flex items-center">
+            <div className="flex items-start space-x-3 pt-2">
               <input
-                id="agreeToTerms"
-                name="agreeToTerms"
                 type="checkbox"
+                name="agreeToTerms"
                 required
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600 rounded"
                 checked={formData.agreeToTerms}
                 onChange={handleChange}
+                className="mt-0.5 h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
               />
-              <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-300">
+              <label className="text-xs text-gray-700 leading-tight">
                 I agree to the{' '}
-                <Link href="/terms" className="text-blue-400 hover:text-blue-300">
-                  Terms of Service
-                </Link>{' '}
+                <Link href="/terms" className="text-purple-600 font-medium hover:underline">Terms</Link>{' '}
                 and{' '}
-                <Link href="/privacy" className="text-blue-400 hover:text-blue-300">
-                  Privacy Policy
-                </Link>
+                <Link href="/privacy" className="text-purple-600 font-medium hover:underline">Privacy Policy</Link>
               </label>
             </div>
 
-            <Button type="submit" variant="primary" className="w-full">
+            <Button type="submit" className="w-full py-3 text-sm bg-purple-700 font-bold rounded-full">
               Create Account
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-gray-300">
-              Already have an account?{' '}
-              <Link href="/login" className="text-blue-400 hover:text-blue-300">
-                Sign in here
-              </Link>
-            </p>
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-4 bg-gray-50 text-gray-500">Or continue with</span>
+              </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                className="py-2.5 px-4 border border-gray-300 rounded-full text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Google
+              </button>
+              <button
+                type="button"
+                className="py-2.5 px-4 border border-gray-300 rounded-full text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                LinkedIn
+              </button>
+            </div>
           </div>
-        </Card>
+
+          <p className="text-center text-sm text-gray-600 mt-6">
+            Already have an account?{' '}
+            <Link href="/login" className="text-purple-600 font-bold hover:underline">Sign in</Link>
+          </p>
+        </div>
+      </div>
+
+      {/* Right Image Panel - Full Image Only */}
+      <div className="hidden lg:flex flex-1 relative overflow-hidden bg-gray-900">
+        <img
+          src="/images/login/1.jpg"
+          alt="Business professionals collaborating"
+          className="w-full h-full object-cover"
+        />
+        {/* Optional subtle overlay */}
+        <div className="absolute inset-0 bg-black/10"></div>
       </div>
     </div>
   );
-}                     
+}
