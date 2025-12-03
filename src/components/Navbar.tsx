@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 import Button from './ui/Button';
 import { JSX } from '@emotion/react/jsx-dev-runtime';
+import { isAuthenticated, logout, isProvider } from '@/lib/auth';
 
 interface DropdownItem {
   name: string;
@@ -143,7 +144,7 @@ const Icons = {
 };
 
 export default function Navbar() {
-  const [isLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
@@ -153,6 +154,10 @@ export default function Navbar() {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastScrollY = useRef(0);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(isAuthenticated());
+  }, []);
 
   const navItems: NavItem[] = [
     { name: 'Home', href: '/' },
@@ -167,7 +172,7 @@ export default function Navbar() {
         },
         {
           name: 'Tenders',
-          href: '/opportunities?category=Tender', 
+          href: '/opportunities?category=Tender',
           description: 'Government and private sector tender notices',
           icon: Icons.Tenders
         },
@@ -243,7 +248,7 @@ export default function Navbar() {
       dropdown: [
         {
           name: 'Post Opportunities',
-          href: '/organizations/post',
+          href: '/opportunities',
           description: 'Reach qualified applicants',
           icon: Icons.Post
         },
@@ -322,14 +327,23 @@ export default function Navbar() {
     }
   ];
 
-  const secondaryNavItems: NavItem[] = [
-    { name: 'Dashboard', href: '/login' },
-    { name: 'Saved Opportunities', href: '/login' },
-    { name: 'Application Tracker', href: '/login' },
-    { name: 'Notifications', href: '/login' },
+  // Secondary nav items for LOGGED IN users
+  const loggedInSecondaryNav: NavItem[] = [
+    { name: 'Dashboard', href: isProvider() ? '/provider/dashboard' : '/dashboard' },
+    { name: 'My Applications', href: '/applications' },
+    { name: 'Saved Opportunities', href: '/opportunities/saved' },
+    { name: 'Notifications', href: '/notifications' },
     { name: 'Help Center', href: '/help' },
     { name: 'Contact Support', href: '/contact' }
   ];
+
+  //Secondary nav items for GUESTS
+  const guestSecondaryNav: NavItem[] = [
+    { name: 'Help Center', href: '/help' },
+    { name: 'Contact Support', href: '/contact' }
+  ];
+
+  const secondaryNavItems = loggedIn ? loggedInSecondaryNav : guestSecondaryNav;
 
   const handleDropdownEnter = (itemName: string) => {
     if (timeoutRef.current) {
@@ -365,18 +379,22 @@ export default function Navbar() {
     setMobileDropdown(mobileDropdown === itemName ? null : itemName);
   };
 
+  const handleLogout = () => {
+    logout();
+  };
+
   // Track scroll position
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 10);
-      
+
       if (mobileMenuOpen) {
         if (Math.abs(currentScrollY - lastScrollY.current) > 50) {
           closeMobileMenu();
         }
       }
-      
+
       lastScrollY.current = currentScrollY;
     };
 
@@ -392,12 +410,12 @@ export default function Navbar() {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setActiveDropdown(null);
       }
-      
-      if (mobileMenuRef.current && 
-          mobileMenuOpen && 
-          !mobileMenuRef.current.contains(event.target as Node) &&
-          hamburgerButtonRef.current &&
-          !hamburgerButtonRef.current.contains(event.target as Node)) {
+
+      if (mobileMenuRef.current &&
+        mobileMenuOpen &&
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        hamburgerButtonRef.current &&
+        !hamburgerButtonRef.current.contains(event.target as Node)) {
         closeMobileMenu();
       }
     };
@@ -410,19 +428,19 @@ export default function Navbar() {
 
   // SVG Chevron component
   const ChevronIcon = ({ isActive }: { isActive: boolean }) => (
-    <svg 
-      className={`ml-1 transition-transform duration-200 ${isActive ? 'rotate-180' : ''}`} 
-      width="12" 
-      height="12" 
-      viewBox="0 0 12 12" 
-      fill="none" 
+    <svg
+      className={`ml-1 transition-transform duration-200 ${isActive ? 'rotate-180' : ''}`}
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path 
-        d="M3 4.5L6 7.5L9 4.5" 
-        stroke="currentColor" 
-        strokeWidth="1.5" 
-        strokeLinecap="round" 
+      <path
+        d="M3 4.5L6 7.5L9 4.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
         strokeLinejoin="round"
       />
     </svg>
@@ -445,7 +463,7 @@ export default function Navbar() {
                 </Link>
               ))}
             </div>
-            
+
             <div className="flex items-center space-x-4">
               <div className="text-sm text-purple-200">
                 Need help? <span className="text-white font-semibold">+254 72000 000</span>
@@ -463,8 +481,8 @@ export default function Navbar() {
             <Link href="/" className="flex items-center space-x-3 group">
               <div className="bg-white text-[#3e0369] p-2 rounded-lg group-hover:scale-105 transition-transform duration-300 shadow-lg">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" 
-                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <span className="text-2xl font-bold text-white bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
@@ -477,14 +495,14 @@ export default function Navbar() {
           <div className="hidden xl:flex items-center justify-center flex-1 mx-8">
             <div className="flex items-baseline space-x-1" ref={dropdownRef}>
               {navItems.map((item) => (
-                <div 
+                <div
                   key={item.name}
                   className="relative"
                   onMouseEnter={() => item.dropdown && handleDropdownEnter(item.name)}
                   onMouseLeave={handleDropdownLeave}
                 >
                   {item.href ? (
-                    <Link 
+                    <Link
                       href={item.href}
                       className="text-purple-100 hover:text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center hover:bg-purple-700/30 hover:shadow-lg"
                     >
@@ -493,9 +511,8 @@ export default function Navbar() {
                   ) : (
                     <button
                       onClick={() => handleDropdownClick(item.name)}
-                      className={`flex items-center text-purple-100 hover:text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 hover:bg-purple-700/30 hover:shadow-lg ${
-                        activeDropdown === item.name ? 'text-white bg-purple-700/50 shadow-lg' : ''
-                      }`}
+                      className={`flex items-center text-purple-100 hover:text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 hover:bg-purple-700/30 hover:shadow-lg ${activeDropdown === item.name ? 'text-white bg-purple-700/50 shadow-lg' : ''
+                        }`}
                     >
                       {item.name}
                       {item.dropdown && <ChevronIcon isActive={activeDropdown === item.name} />}
@@ -504,7 +521,7 @@ export default function Navbar() {
 
                   {/* Refined Dropdown Menu */}
                   {item.dropdown && activeDropdown === item.name && (
-                    <div 
+                    <div
                       className="absolute left-0 transform mt-2 w-80 rounded-xl shadow-2xl bg-gradient-to-br from-[#4d047f] to-[#3e0369] border border-purple-400/50 backdrop-blur-sm overflow-hidden z-50 animate-in fade-in-0 zoom-in-95 duration-200"
                       onMouseEnter={() => handleDropdownEnter(item.name)}
                       onMouseLeave={handleDropdownLeave}
@@ -553,15 +570,84 @@ export default function Navbar() {
 
           {/* Right Buttons */}
           <div className="hidden md:flex items-center space-x-3">
-            {isLoggedIn ? (
-              <Link href="/login">
-                <Button variant="primary" className="text-sm px-5 py-2.5 bg-white text-[#3e0369] hover:bg-purple-100 hover:scale-105 font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
-                  Dashboard
-                </Button>
-              </Link>
+            {loggedIn ? (
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => handleDropdownClick('user')}
+                  className="flex items-center space-x-2 text-purple-100 hover:text-white focus:outline-none bg-white/10 px-3 py-2 rounded-lg hover:bg-white/20 transition-all"
+                >
+                  <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold shadow-md border-2 border-purple-300">
+                    U
+                  </div>
+                  <span className="font-medium text-sm">Account</span>
+                  <ChevronIcon isActive={activeDropdown === 'user'} />
+                </button>
+
+                {activeDropdown === 'user' && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 animate-in fade-in-0 zoom-in-95 duration-200">
+                    <div className="p-3 border-b border-gray-100 bg-gray-50">
+                      <p className="text-sm font-bold text-gray-900">My Account</p>
+                      <p className="text-xs text-gray-500 truncate">Manage your preferences</p>
+                    </div>
+                    <div className="py-1">
+                      <Link
+                        href="/profile"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
+                        onClick={() => setActiveDropdown(null)}
+                      >
+                        <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        Profile
+                      </Link>
+                      <Link
+                        href={isProvider() ? '/provider/dashboard' : '/dashboard'}
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
+                        onClick={() => setActiveDropdown(null)}
+                      >
+                        <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                        </svg>
+                        Dashboard
+                      </Link>
+                      <Link
+                        href="/applications"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
+                        onClick={() => setActiveDropdown(null)}
+                      >
+                        <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        My Applications
+                      </Link>
+                      <Link
+                        href="/opportunities/saved"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
+                        onClick={() => setActiveDropdown(null)}
+                      >
+                        <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
+                        Saved Items
+                      </Link>
+                    </div>
+                    <div className="border-t border-gray-100 py-1">
+                      <button
+                        onClick={handleLogout}
+                        className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                      >
+                        <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             ) : (
               <>
-                <Link href="/login">
+                <Link href="/opportunities">
                   <Button variant="outline" className="text-sm px-4 py-2.5 border-white/80 text-white hover:bg-white hover:text-[#3e0369] font-medium transition-all duration-300 hover:scale-105">
                     Post Opportunities
                   </Button>
@@ -601,33 +687,15 @@ export default function Navbar() {
         {/* Mobile Menu */}
         <div
           ref={mobileMenuRef}
-          className={`xl:hidden transition-all duration-300 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-[80vh] opacity-100 overflow-y-auto mt-4' : 'max-h-0 opacity-0'}`}
+          className={`xl:hidden transition-all duration-300 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-screen opacity-100 mt-4' : 'max-h-0 opacity-0'}`}
         >
-          <div className="pt-4 pb-6 space-y-1 border-t border-purple-500/50 mt-3 bg-purple-900/20 rounded-2xl backdrop-blur-sm">
-            {/* Secondary navigation items in mobile */}
-            <div className="px-4 py-2 text-xs font-semibold text-purple-300 uppercase tracking-wider">
-              Quick Links
-            </div>
-            {secondaryNavItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href!}
-                className="block py-3 px-4 text-sm text-purple-200 hover:text-white hover:bg-purple-700/40 rounded-lg transition-all duration-300 mx-2"
-                onClick={closeMobileMenu}
-              >
-                {item.name}
-              </Link>
-            ))}
-            
-            <div className="border-t border-purple-500/30 my-2 mx-4"></div>
-            
-            {/* Main navigation items in mobile */}
+          <div className="bg-[#4d047f] rounded-xl shadow-inner p-4 space-y-2 border border-purple-500/30">
             {navItems.map((item) => (
-              <div key={item.name} className="border-b border-purple-500/30 last:border-b-0 mx-2">
+              <div key={item.name} className="border-b border-purple-500/30 last:border-0 pb-2 last:pb-0">
                 {item.href ? (
                   <Link
                     href={item.href}
-                    className="block py-4 px-4 text-purple-100 hover:text-white hover:bg-purple-700/40 rounded-lg transition-all duration-300 text-base font-semibold"
+                    className="block px-4 py-3 text-purple-100 hover:text-white hover:bg-purple-600/30 rounded-lg transition-colors font-medium"
                     onClick={closeMobileMenu}
                   >
                     {item.name}
@@ -636,80 +704,62 @@ export default function Navbar() {
                   <div>
                     <button
                       onClick={() => toggleMobileDropdown(item.name)}
-                      className="flex justify-between items-center w-full py-4 px-4 text-left text-purple-100 hover:text-white hover:bg-purple-700/40 rounded-lg transition-all duration-300 text-base font-semibold"
+                      className="flex items-center justify-between w-full px-4 py-3 text-purple-100 hover:text-white hover:bg-purple-600/30 rounded-lg transition-colors font-medium"
                     >
-                      <span>{item.name}</span>
+                      {item.name}
                       <ChevronIcon isActive={mobileDropdown === item.name} />
                     </button>
-                    
-                    {/* Mobile Dropdown Menu */}
                     <div
-                      className={`transition-all duration-300 ease-in-out overflow-hidden ${mobileDropdown === item.name ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+                      className={`pl-4 space-y-1 overflow-hidden transition-all duration-300 ${mobileDropdown === item.name ? 'max-h-96 mt-2 opacity-100' : 'max-h-0 opacity-0'}`}
                     >
-                      <div className="pl-6 pb-2 space-y-2 bg-purple-800/20 rounded-b-lg">
-                        <h4 className="text-sm font-bold text-purple-200 pt-3 pl-4 flex items-center">
-                          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                          {item.name}
-                        </h4>
-                        {item.dropdown?.map((dropdownItem) => (
-                          <Link
-                            key={dropdownItem.name}
-                            href={dropdownItem.href}
-                            className="flex items-center py-3 px-4 text-sm text-purple-200 hover:text-white hover:bg-purple-700/40 rounded-lg transition-all duration-300 mx-2"
-                            onClick={closeMobileMenu}
-                          >
-                            <div className="text-purple-200 mr-3">
-                              {dropdownItem.icon}
-                            </div>
-                            <div>
-                              <div className="font-medium">{dropdownItem.name}</div>
-                              <div className="text-xs text-purple-200/70 mt-1">
-                                {dropdownItem.description}
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
+                      {item.dropdown?.map((dropdownItem) => (
+                        <Link
+                          key={dropdownItem.name}
+                          href={dropdownItem.href}
+                          className="flex items-center px-4 py-2 text-sm text-purple-200 hover:text-white hover:bg-purple-600/20 rounded-lg transition-colors"
+                          onClick={closeMobileMenu}
+                        >
+                          <span className="mr-3 opacity-70">{dropdownItem.icon}</span>
+                          {dropdownItem.name}
+                        </Link>
+                      ))}
                     </div>
                   </div>
                 )}
               </div>
             ))}
-            
+
             {/* Mobile Auth Buttons */}
-            <div className="pt-4 border-t border-purple-500/30 mt-4 px-4 space-y-3">
-              {isLoggedIn ? (
-                <Link 
-                  href="/dashboard" 
-                  className="block w-full text-center py-3 px-4 bg-white text-[#3e0369] rounded-lg hover:bg-purple-100 hover:scale-105 transition-all duration-300 font-semibold shadow-lg"
-                  onClick={closeMobileMenu}
-                >
-                  Dashboard
-                </Link>
+            <div className="pt-4 mt-4 border-t border-purple-500/30 space-y-3">
+              {loggedIn ? (
+                <>
+                  <Link href="/profile" onClick={closeMobileMenu} className="block w-full">
+                    <Button variant="outline" className="w-full justify-center border-purple-400 text-purple-200 hover:bg-purple-400 hover:text-[#3e0369]">
+                      My Profile
+                    </Button>
+                  </Link>
+                  <Link href={isProvider() ? '/provider/dashboard' : '/dashboard'} onClick={closeMobileMenu} className="block w-full">
+                    <Button variant="primary" className="w-full justify-center bg-white text-[#3e0369] hover:bg-purple-100">
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="w-full">
+                    <Button variant="outline" className="w-full justify-center border-red-400 text-red-300 hover:bg-red-500 hover:text-white">
+                      Logout
+                    </Button>
+                  </button>
+                </>
               ) : (
                 <>
-                  <Link 
-                    href="/post-opportunity" 
-                    className="block w-full text-center py-3 px-4 border border-white/80 text-white rounded-lg hover:bg-white hover:text-[#3e0369] transition-all duration-300 font-medium hover:scale-105"
-                    onClick={closeMobileMenu}
-                  >
-                    Post Opportunities
+                  <Link href="/login" onClick={closeMobileMenu} className="block w-full">
+                    <Button variant="outline" className="w-full justify-center border-purple-400 text-purple-200 hover:bg-purple-400 hover:text-[#3e0369]">
+                      Sign In
+                    </Button>
                   </Link>
-                  <Link 
-                    href="/login" 
-                    className="block w-full text-center py-3 px-4 border border-purple-400 text-purple-200 rounded-lg hover:bg-purple-400 hover:text-[#3e0369] transition-all duration-300 font-medium hover:scale-105"
-                    onClick={closeMobileMenu}
-                  >
-                    Sign In
-                  </Link>
-                  <Link 
-                    href="/register" 
-                    className="block w-full text-center py-3 px-4 bg-gradient-to-r from-white to-purple-100 text-[#3e0369] rounded-lg hover:scale-105 transition-all duration-300 font-semibold shadow-lg"
-                    onClick={closeMobileMenu}
-                  >
-                    Get Started
+                  <Link href="/register" onClick={closeMobileMenu} className="block w-full">
+                    <Button variant="primary" className="w-full justify-center bg-gradient-to-r from-white to-purple-100 text-[#3e0369]">
+                      Get Started
+                    </Button>
                   </Link>
                 </>
               )}

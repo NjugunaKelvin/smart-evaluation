@@ -1,13 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     companyName: '',
     email: '',
@@ -19,6 +23,15 @@ export default function RegisterPage() {
     agreeToTerms: false,
     interests: [] as string[]
   });
+
+  // Validation State
+  const [passwordStrength, setPasswordStrength] = useState(0);
+  const [passwordError, setPasswordError] = useState('');
+  const [emailError, setEmailError] = useState('');
+
+  // Password Visibility State
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const sectors = [
     'Technology',
@@ -47,26 +60,71 @@ export default function RegisterPage() {
     'Medical Supplies'
   ];
 
+  // Calculate Password Strength
+  useEffect(() => {
+    const password = formData.password;
+    let strength = 0;
+    if (password.length >= 8) strength += 1;
+    if (/[A-Z]/.test(password)) strength += 1;
+    if (/[0-9]/.test(password)) strength += 1;
+    if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+    setPasswordStrength(strength);
+  }, [formData.password]);
+
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+
+    // Clear errors on change
+    if (name === 'email') setEmailError('');
+    if (name === 'password' || name === 'confirmPassword') setPasswordError('');
+  };
+
   const handleNext = () => {
+    if (step === 1) {
+      // Step 1 Validation
+      if (!formData.contactName || !formData.email || !formData.password || !formData.confirmPassword) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      if (!validateEmail(formData.email)) {
+        setEmailError("Please enter a valid email address.");
+        return;
+      }
+
+      if (formData.password !== formData.confirmPassword) {
+        setPasswordError("Passwords do not match.");
+        return;
+      }
+
+      if (passwordStrength < 3) {
+        setPasswordError("Password is too weak. Include uppercase, numbers, and symbols.");
+        return;
+      }
+    } else if (step === 2) {
+      // Step 2 Validation
+      if (!formData.companyName || !formData.sector) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+    }
+
     setStep(step + 1);
   };
 
   const handleBack = () => {
     setStep(step - 1);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Registration attempt:', formData);
-    // Here you would typically send the data to your backend
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
-    });
   };
 
   const toggleInterest = (interest: string) => {
@@ -76,6 +134,58 @@ export default function RegisterPage() {
         : [...prev.interests, interest];
       return { ...prev, interests };
     });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Final check before submit
+    if (formData.password !== formData.confirmPassword) {
+      setPasswordError("Passwords do not match!");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        router.push('/opportunities');
+      } else {
+        alert(data.message || 'Registration failed');
+      }
+    } catch (error) {
+      console.error('Registration Error:', error);
+      alert('An error occurred during registration.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Helper for password strength color
+  const getStrengthColor = () => {
+    if (passwordStrength === 0) return 'bg-gray-200';
+    if (passwordStrength <= 2) return 'bg-red-500';
+    if (passwordStrength === 3) return 'bg-yellow-500';
+    return 'bg-green-500';
+  };
+
+  const getStrengthText = () => {
+    if (passwordStrength === 0) return '';
+    if (passwordStrength <= 2) return 'Weak';
+    if (passwordStrength === 3) return 'Medium';
+    return 'Strong';
   };
 
   return (
@@ -138,36 +248,89 @@ export default function RegisterPage() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
+                      className={`w-full px-4 py-3 text-sm rounded-xl border ${emailError ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-200 focus:border-purple-600 focus:ring-purple-600/20'} focus:outline-none focus:ring-2 bg-white text-gray-900 transition-all`}
                       placeholder="john@company.com"
                     />
+                    {emailError && <p className="text-xs text-red-500 mt-1">{emailError}</p>}
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-bold text-gray-700 mb-1">Password *</label>
-                      <input
-                        type="password"
-                        name="password"
-                        required
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
-                        placeholder="Create password"
-                      />
+                      <div className="relative">
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          name="password"
+                          required
+                          value={formData.password}
+                          onChange={handleChange}
+                          className={`w-full px-4 py-3 text-sm rounded-xl border ${passwordError ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-200 focus:border-purple-600 focus:ring-purple-600/20'} focus:outline-none focus:ring-2 bg-white text-gray-900 transition-all pr-10`}
+                          placeholder="Create password"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        >
+                          {showPassword ? (
+                            <EyeSlashIcon className="h-5 w-5" />
+                          ) : (
+                            <EyeIcon className="h-5 w-5" />
+                          )}
+                        </button>
+                      </div>
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-gray-700 mb-1">Confirm *</label>
-                      <input
-                        type="password"
-                        name="confirmPassword"
-                        required
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
-                        placeholder="Confirm password"
-                      />
+                      <div className="relative">
+                        <input
+                          type={showConfirmPassword ? "text" : "password"}
+                          name="confirmPassword"
+                          required
+                          value={formData.confirmPassword}
+                          onChange={handleChange}
+                          className={`w-full px-4 py-3 text-sm rounded-xl border ${passwordError ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-200 focus:border-purple-600 focus:ring-purple-600/20'} focus:outline-none focus:ring-2 bg-white text-gray-900 transition-all pr-10`}
+                          placeholder="Confirm password"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        >
+                          {showConfirmPassword ? (
+                            <EyeSlashIcon className="h-5 w-5" />
+                          ) : (
+                            <EyeIcon className="h-5 w-5" />
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
+
+                  {/* Password Strength Indicator */}
+                  {formData.password && (
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-xs">
+                        <span className="text-gray-500">Strength</span>
+                        <span className={`font-medium ${passwordStrength <= 2 ? 'text-red-500' :
+                            passwordStrength === 3 ? 'text-yellow-600' : 'text-green-600'
+                          }`}>
+                          {getStrengthText()}
+                        </span>
+                      </div>
+                      <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full transition-all duration-300 ${getStrengthColor()}`}
+                          style={{ width: `${(passwordStrength / 4) * 100}%` }}
+                        />
+                      </div>
+                      <p className="text-[10px] text-gray-400">
+                        Use 8+ chars, uppercase, numbers & symbols.
+                      </p>
+                    </div>
+                  )}
+
+                  {passwordError && <p className="text-xs text-red-500">{passwordError}</p>}
+
                   <Button type="button" onClick={handleNext} className="w-full py-3.5 text-sm bg-purple-700 font-bold rounded-xl hover:bg-purple-800 transition-colors shadow-lg shadow-purple-700/20">
                     Continue
                   </Button>
@@ -241,7 +404,7 @@ export default function RegisterPage() {
                 >
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-3">
-                      Select opportunities you're interested in:
+                      Select opportunities you&apos;re interested in:
                     </label>
                     <div className="grid grid-cols-2 gap-3">
                       {interestCategories.map((interest) => (
@@ -250,8 +413,8 @@ export default function RegisterPage() {
                           type="button"
                           onClick={() => toggleInterest(interest)}
                           className={`p-3 text-xs font-medium rounded-xl border transition-all duration-200 text-left ${formData.interests.includes(interest)
-                              ? 'border-purple-600 bg-purple-50 text-purple-700 shadow-sm'
-                              : 'border-gray-200 bg-white text-gray-600 hover:border-purple-300 hover:bg-gray-50'
+                            ? 'border-purple-600 bg-purple-50 text-purple-700 shadow-sm'
+                            : 'border-gray-200 bg-white text-gray-600 hover:border-purple-300 hover:bg-gray-50'
                             }`}
                         >
                           <div className="flex items-center justify-between">
@@ -288,8 +451,8 @@ export default function RegisterPage() {
                     <Button type="button" variant="outline" onClick={handleBack} className="flex-1 py-3.5 text-sm font-bold rounded-xl border-gray-200 text-gray-700 hover:bg-gray-50">
                       Back
                     </Button>
-                    <Button type="submit" className="flex-1 py-3.5 text-sm bg-purple-700 font-bold rounded-xl hover:bg-purple-800 transition-colors shadow-lg shadow-purple-700/20">
-                      Create Account
+                    <Button type="submit" disabled={loading} className="flex-1 py-3.5 text-sm bg-purple-700 font-bold rounded-xl hover:bg-purple-800 transition-colors shadow-lg shadow-purple-700/20 disabled:opacity-70">
+                      {loading ? 'Creating Account...' : 'Create Account'}
                     </Button>
                   </div>
                 </motion.div>

@@ -2,11 +2,12 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
+import PostOpportunityModal from '@/components/PostOpportunityModal';
 
 interface Opportunity {
-    id: number;
+    id: string;
     title: string;
     description: string;
     industry: string;
@@ -20,54 +21,14 @@ interface Opportunity {
     applications: number;
 }
 
-const opportunities: Opportunity[] = [
-    {
-        id: 1,
-        title: 'Website Development for Ministry Portal',
-        description: 'Development of a comprehensive government service portal with e-commerce functionality and citizen engagement features.',
-        industry: 'Technology',
-        category: 'Tender',
-        deadline: '2023-12-15',
-        location: 'Remote',
-        value: 'Ksh 1M - Ksh 1.5M',
-        organization: 'Logistics',
-        status: 'Active',
-        postedDate: '2023-11-01',
-        applications: 24
-    },
-    {
-        id: 2,
-        title: 'Mobile App for Health Services',
-        description: 'Cross-platform mobile application for patient engagement and health service delivery in rural areas.',
-        industry: 'Healthcare',
-        category: 'Grant',
-        deadline: '2023-12-20',
-        location: 'Nairobi',
-        value: 'Ksh 800K - Ksh 1.2M',
-        organization: 'Manufactring',
-        status: 'Active',
-        postedDate: '2023-11-05',
-        applications: 18
-    },
-    {
-        id: 3,
-        title: 'Urban Road Construction',
-        description: 'Cross-platform mobile application for patient engagement and health service delivery in rural areas.',
-        industry: 'Construction',
-        category: 'Contract',
-        deadline: '2023-12-20',
-        location: 'Remote',
-        value: 'Ksh 800K - Ksh 1.2M',
-        organization: 'KENHA',
-        status: 'Active',
-        postedDate: '2023-11-05',
-        applications: 21
-    }
-];
-
 function OpportunitiesContent() {
     const searchParams = useSearchParams();
+    const router = useRouter();
     const categoryParam = searchParams.get('category');
+
+    const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [filters, setFilters] = useState({
         industry: '',
@@ -80,6 +41,42 @@ function OpportunitiesContent() {
     const [sortBy, setSortBy] = useState('newest');
     const [showFilters, setShowFilters] = useState(false);
 
+    // Fetch opportunities
+    const fetchOpportunities = async () => {
+        setLoading(true);
+        try {
+            const queryParams = new URLSearchParams();
+            if (filters.industry) queryParams.append('industry', filters.industry);
+            if (filters.category) queryParams.append('category', filters.category);
+            if (filters.status) queryParams.append('status', filters.status);
+            if (filters.search) queryParams.append('search', filters.search);
+
+            const response = await fetch(`http://localhost:5000/api/opportunities?${queryParams.toString()}`);
+            if (response.ok) {
+                const data = await response.json();
+                setOpportunities(data);
+            }
+        } catch (error) {
+            console.error('Error fetching opportunities:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchOpportunities();
+    }, [filters.industry, filters.category, filters.status, filters.search]); // Re-fetch on filter change (or handle client-side filtering if preferred)
+
+    // Handle Post Opportunity Click
+    const handlePostClick = () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/login');
+        } else {
+            setIsModalOpen(true);
+        }
+    };
+
     // Update filters when category param changes
     useEffect(() => {
         if (categoryParam) {
@@ -87,21 +84,8 @@ function OpportunitiesContent() {
         }
     }, [categoryParam]);
 
-    const filteredOpportunities = opportunities.filter(opportunity => {
-        return (
-            (filters.industry === '' || opportunity.industry === filters.industry) &&
-            (filters.location === '' || opportunity.location.includes(filters.location)) &&
-            (filters.category === '' || opportunity.category === filters.category) &&
-            (filters.status === '' || opportunity.status === filters.status) &&
-            (filters.search === '' ||
-                opportunity.title.toLowerCase().includes(filters.search.toLowerCase()) ||
-                opportunity.description.toLowerCase().includes(filters.search.toLowerCase()) ||
-                opportunity.organization.toLowerCase().includes(filters.search.toLowerCase()))
-        );
-    });
-
-    // Sort opportunities
-    const sortedOpportunities = [...filteredOpportunities].sort((a, b) => {
+    // Sort opportunities (client-side for now)
+    const sortedOpportunities = [...opportunities].sort((a, b) => {
         if (sortBy === 'newest') {
             return new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime();
         } else if (sortBy === 'deadline') {
@@ -112,9 +96,9 @@ function OpportunitiesContent() {
         return 0;
     });
 
-    const industries = [...new Set(opportunities.map(t => t.industry))];
+    const industries = ['Technology', 'Construction', 'Consulting', 'Marketing', 'Healthcare', 'Education', 'Logistics', 'Finance', 'Legal', 'Manufacturing', 'Other'];
     const locations = [...new Set(opportunities.map(t => t.location))];
-    const categories = [...new Set(opportunities.map(t => t.category))];
+    const categories = ['Tender', 'Grant', 'Contract', 'Partnership', 'Subcontracting'];
     const statuses = ['Active', 'Upcoming', 'Closed'];
 
     // Date format
@@ -142,7 +126,10 @@ function OpportunitiesContent() {
                             <h1 className="text-2xl font-bold text-gray-900">Opportunities Portal</h1>
                             <p className="text-sm text-gray-600">Discover and apply for tenders, grants, fundings, patnerships and contracts</p>
                         </div>
-                        <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md flex items-center transition-colors font-semibold">
+                        <button
+                            onClick={handlePostClick}
+                            className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md flex items-center transition-colors font-semibold"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
                             </svg>
@@ -304,7 +291,7 @@ function OpportunitiesContent() {
 
                     <div className="flex items-center gap-2 self-stretch md:self-auto">
                         <p className="text-sm text-gray-700 whitespace-nowrap font-medium">
-                            <span className="text-gray-900">{filteredOpportunities.length}</span> of <span className="text-gray-900">{opportunities.length}</span> opportunities
+                            <span className="text-gray-900">{opportunities.length}</span> opportunities
                         </p>
                         <div className="h-4 w-px bg-gray-400"></div>
                         <div className="flex items-center">
@@ -323,7 +310,9 @@ function OpportunitiesContent() {
                 </div>
 
                 {/* Opportunities Table */}
-                {sortedOpportunities.length > 0 ? (
+                {loading ? (
+                    <div className="text-center py-12">Loading opportunities...</div>
+                ) : sortedOpportunities.length > 0 ? (
                     <div className="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
                         <table className="min-w-full divide-y divide-gray-200">
                             <thead className="bg-gray-50">
@@ -433,6 +422,15 @@ function OpportunitiesContent() {
                     </div>
                 )}
             </div>
+
+            <PostOpportunityModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSuccess={() => {
+                    fetchOpportunities();
+                    // Optionally redirect to analytics or show success message
+                }}
+            />
 
             <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');

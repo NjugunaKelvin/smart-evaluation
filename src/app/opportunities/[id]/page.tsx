@@ -3,62 +3,90 @@ import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect, use } from 'react';
 import Navbar from '@/components/Navbar';
+import { getToken, isAuthenticated } from '@/lib/auth';
 
 interface TenderDetailPageProps {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
-const tenderData = {
-    id: 1,
-    title: 'Website Development Project',
-    description: 'We are seeking an experienced web development team to create a comprehensive corporate website with e-commerce functionality. The project requires modern design, responsive layout, and integration with our existing systems.',
-    requirements: [
-        '5+ years of web development experience',
-        'Proficiency in React/Next.js and Node.js',
-        'Experience with e-commerce platforms',
-        'Strong UI/UX design skills',
-        'Knowledge of SEO best practices',
-        'Experience with government projects is a plus',
-        'Ability to meet tight deadlines'
-    ],
-    deadline: '2026-12-15',
-    publishedDate: '2023-11-01',
-    evaluationDate: '2023-12-20',
-    awardDate: '2026-12-25',
-    value: 'Ksh 150,000 - Ksh 200,000',
-    industry: 'Technology',
-    location: 'Remote',
-    duration: '3 months',
-    organization: 'Ministry of ICT',
-    documents: ['RFP Document', 'Technical Specifications', 'Contract Template', 'Evaluation Criteria'],
-    contact: {
-        name: 'Procurement Department',
-        email: 'procurement@ict.go.ke',
-        phone: '+254 700 123 456'
-    }
-};
-
 export default function TenderDetailPage({ params }: TenderDetailPageProps) {
+    const { id } = use(params);
     const router = useRouter();
     const [showSubmissionOptions, setShowSubmissionOptions] = useState(false);
+    const [opportunity, setOpportunity] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
+    useEffect(() => {
+        const fetchOpportunity = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/opportunities/${id}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setOpportunity(data);
+                } else {
+                    setError('Opportunity not found');
+                }
+            } catch (err) {
+                console.error('Error fetching opportunity:', err);
+                setError('Failed to load opportunity details');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchOpportunity();
+    }, [id]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-[#ebe1f2] flex items-center justify-center">
+                <Navbar />
+                <div className="text-center mt-20">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-700 mx-auto"></div>
+                    <p className="mt-4 text-gray-600">Loading opportunity details...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (error || !opportunity) {
+        return (
+            <div className="min-h-screen bg-[#ebe1f2]">
+                <Navbar />
+                <div className="max-w-6xl mx-auto px-4 py-20 text-center">
+                    <h1 className="text-2xl font-bold text-gray-900 mb-4">Error</h1>
+                    <p className="text-red-600 mb-6">{error || 'Opportunity not found'}</p>
+                    <Button onClick={() => router.push('/opportunities')} variant="primary">
+                        Back to Opportunities
+                    </Button>
+                </div>
+            </div>
+        );
+    }
 
     // Calculate days until deadline
-    const deadlineDate = new Date(tenderData.deadline);
+    const deadlineDate = new Date(opportunity.deadline);
     const today = new Date();
     const daysUntilDeadline = Math.ceil((deadlineDate.getTime() - today.getTime()) / (1000 * 3600 * 24));
 
     // Function to handle document actions
     const handleDocumentAction = (action: 'view' | 'download', documentName: string) => {
         console.log(`${action}ing ${documentName}`);
+        // In a real app, this would open the document URL
+        alert(`Document action: ${action} - ${documentName}`);
     };
 
     // Function to handle proposal submission options
     const handleShowSubmissionOptions = () => {
+        if (!isAuthenticated()) {
+            router.push(`/login?redirect=/opportunities/${id}`);
+            return;
+        }
         setShowSubmissionOptions(true);
     };
 
@@ -66,12 +94,12 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
     const handlePdfSubmission = () => {
         // Logic to handle PDF upload
         console.log('PDF submission selected');
-
+        router.push(`/opportunities/${id}/apply?method=pdf`);
     };
 
     // Function to handle form submission 
     const handleFormSubmission = () => {
-        router.push(`/opportunities/${params.id}/apply`);
+        router.push(`/opportunities/${id}/apply?method=form`);
     };
 
     return (
@@ -94,7 +122,7 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
                             </Link>
                         </li>
                         <li className="text-gray-500">/</li>
-                        <li className="text-gray-700 truncate">Tender Details</li>
+                        <li className="text-gray-700 truncate max-w-xs">{opportunity.title}</li>
                     </ol>
                 </nav>
 
@@ -104,24 +132,29 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
                         <div className="flex-1">
                             <div className="flex items-center gap-3 mb-4">
                                 <span className="inline-block px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">
-                                    {tenderData.industry}
+                                    {opportunity.industry}
                                 </span>
                                 <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
-                                    {tenderData.location}
+                                    {opportunity.location || 'Remote'}
+                                </span>
+                                <span className="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                                    {opportunity.category}
                                 </span>
                             </div>
-                            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{tenderData.title}</h1>
-                            <p className="text-gray-600">Published by <span className="font-semibold">{tenderData.organization}</span></p>
+                            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{opportunity.title}</h1>
+                            <p className="text-gray-600">Published by <span className="font-semibold">{opportunity.organization}</span></p>
                         </div>
                         <div className="text-right bg-gray-50 p-4 rounded-lg border border-gray-200">
                             <div className="text-xs text-gray-500 uppercase tracking-wide">Reference #</div>
-                            <div className="text-gray-900 font-mono text-lg font-semibold">ICT/{tenderData.id.toString().padStart(4, '0')}/2023</div>
+                            <div className="text-gray-900 font-mono text-lg font-semibold">
+                                {opportunity.id.substring(0, 8).toUpperCase()}
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Deadline Alert */}
-                <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl shadow-md p-5 mb-6">
+                <div className={`bg-gradient-to-r ${daysUntilDeadline > 0 ? 'from-purple-600 to-blue-600' : 'from-red-600 to-red-800'} text-white rounded-xl shadow-md p-5 mb-6`}>
                     <div className="flex items-center">
                         <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -132,7 +165,7 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
                             <h3 className="text-lg font-semibold">
                                 {daysUntilDeadline > 0 ? `${daysUntilDeadline} days left to apply` : 'Deadline passed'}
                             </h3>
-                            <p className="text-white/90">Submission deadline: {new Date(tenderData.deadline).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                            <p className="text-white/90">Submission deadline: {new Date(opportunity.deadline).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                         </div>
                     </div>
                 </div>
@@ -194,137 +227,147 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
                 )}
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="lg:col-span-2 space-y-6">
+                    <div className={`space-y-6 ${(!opportunity.value && !opportunity.location && !opportunity.contactName && !opportunity.contactEmail && !opportunity.contactPhone) ? 'lg:col-span-3' : 'lg:col-span-2'}`}>
                         {/* Description */}
                         <Card className="bg-white rounded-xl shadow-sm border border-gray-200">
                             <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
                                 Description
                             </h2>
-                            <p className="text-gray-700 leading-relaxed">{tenderData.description}</p>
+                            <p className="text-gray-700 leading-relaxed whitespace-pre-line">{opportunity.description}</p>
                         </Card>
 
                         {/* Requirements */}
-                        <Card className="bg-white rounded-xl shadow-sm border border-gray-200">
-                            <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
-                                Requirements
-                            </h2>
-                            <ul className="space-y-3">
-                                {tenderData.requirements.map((req, index) => (
-                                    <li key={index} className="flex items-start p-2 rounded-md hover:bg-gray-50 transition-colors duration-200">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                        </svg>
-                                        <span className="text-gray-700">{req}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </Card>
+                        {opportunity.requirements && opportunity.requirements.length > 0 && (
+                            <Card className="bg-white rounded-xl shadow-sm border border-gray-200">
+                                <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
+                                    Requirements
+                                </h2>
+                                <ul className="space-y-3">
+                                    {opportunity.requirements.map((req: string, index: number) => (
+                                        <li key={index} className="flex items-start p-2 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                            </svg>
+                                            <span className="text-gray-700">{req}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </Card>
+                        )}
 
                         {/* Documents */}
-                        <Card className="bg-white rounded-xl shadow-sm border border-gray-200">
-                            <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
-                                Review Documents
-                            </h2>
-                            <div className="space-y-3">
-                                {tenderData.documents.map((doc, index) => (
-                                    <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-all duration-200 border border-gray-200">
-                                        <div className="flex items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                            </svg>
-                                            <span className="text-gray-900 font-medium">{doc}</span>
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <Button
-                                                variant="outline"
-                                                className="border-purple-200 hover:bg-purple-50 text-purple-700 text-xs py-1 px-3 transition-all duration-200"
-                                                onClick={() => handleDocumentAction('view', doc)}
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        {opportunity.documents && opportunity.documents.length > 0 && (
+                            <Card className="bg-white rounded-xl shadow-sm border border-gray-200">
+                                <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
+                                    Review Documents
+                                </h2>
+                                <div className="space-y-3">
+                                    {opportunity.documents.map((doc: string, index: number) => (
+                                        <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-all duration-200 border border-gray-200">
+                                            <div className="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                 </svg>
-                                                View
-                                            </Button>
-                                            <Button
-                                                variant="outline"
-                                                className="border-blue-200 hover:bg-blue-50 text-blue-700 text-xs py-1 px-3 transition-all duration-200"
-                                                onClick={() => handleDocumentAction('download', doc)}
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                                </svg>
-                                                Download
-                                            </Button>
+                                                <span className="text-gray-900 font-medium">{doc}</span>
+                                            </div>
+                                            <div className="flex gap-2">
+                                                <Button
+                                                    variant="outline"
+                                                    className="border-purple-200 hover:bg-purple-50 text-purple-700 text-xs py-1 px-3 transition-all duration-200"
+                                                    onClick={() => handleDocumentAction('view', doc)}
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg>
+                                                    View
+                                                </Button>
+                                                <Button
+                                                    variant="outline"
+                                                    className="border-blue-200 hover:bg-blue-50 text-blue-700 text-xs py-1 px-3 transition-all duration-200"
+                                                    onClick={() => handleDocumentAction('download', doc)}
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                                    </svg>
+                                                    Download
+                                                </Button>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </Card>
+                                    ))}
+                                </div>
+                            </Card>
+                        )}
                     </div>
 
                     <div className="space-y-6">
                         {/* Key Information */}
-                        <Card className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                            <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
-                                Key Information
-                            </h2>
-                            <div className="space-y-4 max-h-96 overflow-y-auto pr-2 py-2">
-                                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
-                                    <h3 className="text-sm font-medium text-gray-500 mb-1">Project Value</h3>
-                                    <p className="text-purple-700 font-semibold">{tenderData.value}</p>
+                        {(opportunity.value || opportunity.location || opportunity.postedDate || opportunity.deadline) && (
+                            <Card className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                                <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
+                                    Key Information
+                                </h2>
+                                <div className="space-y-4 max-h-96 overflow-y-auto pr-2 py-2">
+                                    {opportunity.value && (
+                                        <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                                            <h3 className="text-sm font-medium text-gray-500 mb-1">Project Value</h3>
+                                            <p className="text-purple-700 font-semibold">{opportunity.value}</p>
+                                        </div>
+                                    )}
+                                    {opportunity.location && (
+                                        <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                                            <h3 className="text-sm font-medium text-gray-500 mb-1">Location</h3>
+                                            <p className="text-gray-900">{opportunity.location}</p>
+                                        </div>
+                                    )}
+                                    {opportunity.postedDate && (
+                                        <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                                            <h3 className="text-sm font-medium text-gray-500 mb-1">Published</h3>
+                                            <p className="text-gray-900">{new Date(opportunity.postedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                        </div>
+                                    )}
+                                    {opportunity.deadline && (
+                                        <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
+                                            <h3 className="text-sm font-medium text-gray-500 mb-1">Deadline</h3>
+                                            <p className="text-red-600 font-medium">{new Date(opportunity.deadline).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
-                                    <h3 className="text-sm font-medium text-gray-500 mb-1">Location</h3>
-                                    <p className="text-gray-900">{tenderData.location}</p>
-                                </div>
-                                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
-                                    <h3 className="text-sm font-medium text-gray-500 mb-1">Duration</h3>
-                                    <p className="text-gray-900">{tenderData.duration}</p>
-                                </div>
-                                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
-                                    <h3 className="text-sm font-medium text-gray-500 mb-1">Published</h3>
-                                    <p className="text-gray-900">{new Date(tenderData.publishedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                                </div>
-                                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
-                                    <h3 className="text-sm font-medium text-gray-500 mb-1">Deadline</h3>
-                                    <p className="text-red-600 font-medium">{new Date(tenderData.deadline).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                                </div>
-                                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
-                                    <h3 className="text-sm font-medium text-gray-500 mb-1">Evaluation</h3>
-                                    <p className="text-gray-900">{new Date(tenderData.evaluationDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                                </div>
-                                <div className="p-3 rounded-md hover:bg-gray-50 transition-colors duration-200">
-                                    <h3 className="text-sm font-medium text-gray-500 mb-1">Award Notification</h3>
-                                    <p className="text-gray-900">{new Date(tenderData.awardDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                                </div>
-                            </div>
-                        </Card>
+                            </Card>
+                        )}
 
                         {/* Contact Information */}
-                        <Card className="bg-white rounded-xl shadow-sm border border-gray-200">
-                            <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
-                                Contact Information
-                            </h2>
-                            <div className="space-y-4">
-                                <div className="p-3 rounded-md bg-gray-50">
-                                    <h3 className="text-sm font-medium text-gray-500 mb-1">Contact Person</h3>
-                                    <p className="text-gray-900">{tenderData.contact.name}</p>
+                        {(opportunity.contactName || opportunity.contactEmail || opportunity.contactPhone) && (
+                            <Card className="bg-white rounded-xl shadow-sm border border-gray-200">
+                                <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-3 border-b border-gray-200">
+                                    Contact Information
+                                </h2>
+                                <div className="space-y-4">
+                                    {opportunity.contactName && (
+                                        <div className="p-3 rounded-md bg-gray-50">
+                                            <h3 className="text-sm font-medium text-gray-500 mb-1">Contact Person</h3>
+                                            <p className="text-gray-900">{opportunity.contactName}</p>
+                                        </div>
+                                    )}
+                                    {opportunity.contactEmail && (
+                                        <div className="p-3 rounded-md bg-gray-50">
+                                            <h3 className="text-sm font-medium text-gray-500 mb-1">Email</h3>
+                                            <a href={`mailto:${opportunity.contactEmail}`} className="text-blue-600 hover:text-blue-800 break-all transition-colors">
+                                                {opportunity.contactEmail}
+                                            </a>
+                                        </div>
+                                    )}
+                                    {opportunity.contactPhone && (
+                                        <div className="p-3 rounded-md bg-gray-50">
+                                            <h3 className="text-sm font-medium text-gray-500 mb-1">Phone</h3>
+                                            <a href={`tel:${opportunity.contactPhone}`} className="text-gray-900 hover:text-blue-600 transition-colors">
+                                                {opportunity.contactPhone}
+                                            </a>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="p-3 rounded-md bg-gray-50">
-                                    <h3 className="text-sm font-medium text-gray-500 mb-1">Email</h3>
-                                    <a href={`mailto:${tenderData.contact.email}`} className="text-blue-600 hover:text-blue-800 break-all transition-colors">
-                                        {tenderData.contact.email}
-                                    </a>
-                                </div>
-                                <div className="p-3 rounded-md bg-gray-50">
-                                    <h3 className="text-sm font-medium text-gray-500 mb-1">Phone</h3>
-                                    <a href={`tel:${tenderData.contact.phone}`} className="text-gray-900 hover:text-blue-600 transition-colors">
-                                        {tenderData.contact.phone}
-                                    </a>
-                                </div>
-                            </div>
-                        </Card>
+                            </Card>
+                        )}
 
                         {/* CTA Buttons */}
                         <div className="flex flex-col gap-3 sticky top-6">
@@ -332,11 +375,12 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
                                 variant="primary"
                                 className="bg-purple-600 hover:bg-purple-700 py-3 transition-all duration-300 shadow-md"
                                 onClick={handleShowSubmissionOptions}
+                                disabled={daysUntilDeadline <= 0}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 11115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                                 </svg>
-                                Submit Proposal
+                                {daysUntilDeadline > 0 ? 'Submit Proposal' : 'Deadline Passed'}
                             </Button>
                             <Button variant="outline" className="border-gray-300 hover:bg-gray-100 text-gray-700 py-3 transition-all duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -344,15 +388,9 @@ export default function TenderDetailPage({ params }: TenderDetailPageProps) {
                                 </svg>
                                 Save for Later
                             </Button>
-                            <Button variant="outline" className="border-gray-300 hover:bg-gray-100 text-gray-700 py-3 transition-all duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2z" />
-                                </svg>
-                                Print Details
-                            </Button>
                         </div>
                     </div>
-                    <div className="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
+                    <div className="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg lg:col-span-3">
                         <div className="flex items-start">
                             <div className="flex-shrink-0">
                                 <svg className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
