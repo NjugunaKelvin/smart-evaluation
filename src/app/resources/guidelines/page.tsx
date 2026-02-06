@@ -13,7 +13,7 @@ export default function ApplicationGuidelinesPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-12">
-        {/* Introduction */}
+        {}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Getting Started</h2>
           <p className="text-gray-600 leading-relaxed">
@@ -22,7 +22,7 @@ export default function ApplicationGuidelinesPage() {
           </p>
         </div>
 
-        {/* Strategy 1 */}
+        {}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 mb-6">
           <div className="flex items-start gap-4">
             <div className="bg-purple-100 p-3 rounded-lg flex-shrink-0">
@@ -48,7 +48,7 @@ export default function ApplicationGuidelinesPage() {
           </div>
         </div>
 
-        {/* Strategy 2 */}
+        {}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 mb-6">
           <div className="flex items-start gap-4">
             <div className="bg-blue-100 p-3 rounded-lg flex-shrink-0">
@@ -81,7 +81,7 @@ export default function ApplicationGuidelinesPage() {
           </div>
         </div>
 
-        {/* Strategy 3 */}
+        {}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 mb-6">
           <div className="flex items-start gap-4">
             <div className="bg-green-100 p-3 rounded-lg flex-shrink-0">
@@ -107,7 +107,7 @@ export default function ApplicationGuidelinesPage() {
           </div>
         </div>
 
-        {/* Strategy 4 */}
+        {}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 mb-6">
           <div className="flex items-start gap-4">
             <div className="bg-yellow-100 p-3 rounded-lg flex-shrink-0">
@@ -125,7 +125,7 @@ export default function ApplicationGuidelinesPage() {
           </div>
         </div>
 
-        {/* Strategy 5 */}
+        {}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 mb-6">
           <div className="flex items-start gap-4">
             <div className="bg-red-100 p-3 rounded-lg flex-shrink-0">
@@ -152,7 +152,7 @@ export default function ApplicationGuidelinesPage() {
           </div>
         </div>
 
-        {/* CTA */}
+        {}
         <div className="bg-gradient-to-r from-purple-700 to-purple-900 text-white rounded-xl shadow-lg p-8 text-center">
           <h3 className="text-2xl font-bold mb-4">Ready to Apply?</h3>
           <p className="text-purple-100 mb-6">

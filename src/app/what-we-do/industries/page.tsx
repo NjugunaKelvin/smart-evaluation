@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import { 
@@ -69,7 +69,7 @@ const IndustriesServed = () => {
       <Navbar />
       
       <div className="max-w-7xl mx-auto mt-16">
-        {/* Header Section */}
+        {}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Industries <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-500">Served</span>
@@ -79,14 +79,14 @@ const IndustriesServed = () => {
           </p>
         </div>
 
-        {/* Industries Grid */}
+        {}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-16">
           {industries.map((industry) => (
             <div 
               key={industry.id} 
               className="flex flex-col rounded-xl shadow-lg overflow-hidden bg-gray-800 border border-gray-700 hover:border-blue-500/40 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
-              {/* Industry Header */}
+              {}
               <div className="p-5 bg-gray-700/30 flex items-center">
                 <div className="p-3 rounded-lg bg-gray-700">
                   {industry.icon}
@@ -94,7 +94,7 @@ const IndustriesServed = () => {
                 <h3 className="ml-4 text-xl font-semibold text-white">{industry.name}</h3>
               </div>
               
-              {/* Content */}
+              {}
               <div className="flex-1 px-5 py-6">
                 <p className="text-gray-300 mb-6">{industry.description}</p>
                 
@@ -110,7 +110,7 @@ const IndustriesServed = () => {
                   </ul>
                 </div>
                 
-                {/* Stats */}
+                {}
                 <div className="pt-5 border-t border-gray-700">
                   <div className="flex flex-wrap gap-2">
                     {industry.stats.map((stat, index) => (
@@ -125,7 +125,7 @@ const IndustriesServed = () => {
                 </div>
               </div>
               
-              {/* CTA Button */}
+              {}
               <div className="px-5 py-4 bg-gray-800/50">
                 <button className="w-full flex justify-center items-center px-4 py-3 text-sm font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 transition-all duration-300 group">
                   Explore Opportunities
@@ -136,7 +136,7 @@ const IndustriesServed = () => {
           ))}
         </div>
 
-        {/* Bottom CTA Section */}
+        {}
         <div className="bg-gray-800 rounded-2xl p-8 md:p-12 text-center border border-gray-700">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Don't see your industry?</h2>
           <p className="text-gray-300 max-w-2xl mx-auto mb-6">

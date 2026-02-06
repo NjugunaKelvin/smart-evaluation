@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -11,7 +11,7 @@ interface FormsProps {
 }
 
 interface FormData {
-  // Organization Details
+  
   organizationName: string;
   registrationNumber: string;
   taxId: string;
@@ -20,14 +20,14 @@ interface FormData {
   address: string;
   country: string;
   
-  // Contact Information
+  
   contactName: string;
   contactPosition: string;
   contactEmail: string;
   contactPhone: string;
   alternateContact: string;
   
-  // Company Profile
+  
   companyOverview: string;
   coreBusiness: string;
   totalEmployees: string;
@@ -35,28 +35,28 @@ interface FormData {
   pastClients: string;
   certifications: string;
   
-  // Technical Proposal
+  
   technicalApproach: string;
   methodology: string;
   projectTimeline: string;
   keyPersonnel: string;
   riskManagement: string;
   
-  // Financial Proposal
+  
   totalProposedAmount: string;
   costBreakdown: string;
   paymentTerms: string;
   validityPeriod: string;
   additionalCosts: string;
   
-  // Supporting Documents
+  
   companyRegistration: File | null;
   taxCompliance: File | null;
   financialStatements: File | null;
   proposalDocument: File | null;
   additionalDocuments: File[];
   
-  // Terms and Conditions
+  
   agreeTerms: boolean;
   agreeAccuracy: boolean;
 }
@@ -161,13 +161,13 @@ export default function Forms({ tenderId }: FormsProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement actual backend submission logic here
+    
     console.log('Form submitted:', formData);
     alert('Proposal submitted successfully!');
     router.push('/opportunities');
   };
 
-  // Render the appropriate form step with a key for smooth re-renders
+  
   const renderStep = () => {
     switch (currentStep) {
       case 1:
@@ -630,7 +630,7 @@ export default function Forms({ tenderId }: FormsProps) {
                 <label htmlFor="companyRegistration" className="block text-sm font-medium text-gray-700 mb-2">Company Registration Certificate *</label>
                 <div className="flex items-center">
                   <label htmlFor="companyRegistration" className="cursor-pointer bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http:
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                     </svg>
                     Choose File
@@ -987,7 +987,7 @@ export default function Forms({ tenderId }: FormsProps) {
           <p className="text-gray-600">Tender Reference: ICT/{tenderId.padStart(4, '0')}/2023</p>
         </div>
 
-        {/* Progress Steps */}
+        {}
         <Card className="bg-white border border-gray-300 shadow-sm mb-8 p-6">
           <div className="flex justify-between items-center mb-4">
             {steps.map((step) => (
@@ -1024,7 +1024,7 @@ export default function Forms({ tenderId }: FormsProps) {
           </div>
         </Card>
 
-        {/* Form */}
+        {}
         <Card className="bg-white border border-gray-300 shadow-sm p-8">
           <form onSubmit={handleSubmit}>
             {renderStep()}

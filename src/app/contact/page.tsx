@@ -20,7 +20,7 @@ export default function ContactPage() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 pb-24 relative z-10">
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
-                    {/* Contact Info */}
+                    {}
                     <div className="bg-gray-900 text-white p-10 md:w-2/5 flex flex-col justify-between">
                         <div>
                             <h3 className="text-2xl font-bold mb-8">Get in Touch</h3>
@@ -68,7 +68,7 @@ export default function ContactPage() {
                         <div className="mt-12">
                             <h4 className="font-semibold text-lg mb-4">Follow Us</h4>
                             <div className="flex space-x-4">
-                                {/* Social Icons Placeholder */}
+                                {}
                                 <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-purple-600 transition-colors cursor-pointer">
                                     <span className="text-white font-bold">In</span>
                                 </div>
@@ -82,7 +82,7 @@ export default function ContactPage() {
                         </div>
                     </div>
 
-                    {/* Contact Form */}
+                    {}
                     <div className="p-10 md:w-3/5">
                         <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h3>
                         <form className="space-y-6">

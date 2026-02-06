@@ -36,7 +36,7 @@ export default function AnalyticsPage() {
                     const analyticsData = await response.json();
                     setData(analyticsData);
                 } else {
-                    // Handle error (e.g. token expired)
+                    
                     if (response.status === 401) {
                         router.push('/login');
                     }
@@ -60,7 +60,7 @@ export default function AnalyticsPage() {
     }
 
     if (!data) {
-        return null; // Or error state
+        return null; 
     }
 
     return (
@@ -69,7 +69,7 @@ export default function AnalyticsPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <h1 className="text-3xl font-bold text-gray-900 mb-8">Dashboard Analytics</h1>
 
-                {/* Stats Grid */}
+                {}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                         <h3 className="text-sm font-medium text-gray-500 mb-1">Total Opportunities</h3>
@@ -89,7 +89,7 @@ export default function AnalyticsPage() {
                     </div>
                 </div>
 
-                {/* Recent Activity / Opportunities */}
+                {}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                     <div className="px-6 py-4 border-b border-gray-200">
                         <h2 className="text-lg font-bold text-gray-900">Recent Opportunities</h2>

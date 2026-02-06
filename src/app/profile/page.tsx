@@ -34,7 +34,7 @@ export default function ProfilePage() {
     }, [router]);
 
     const handleSave = async () => {
-        // TODO: Implement profile update API
+        
         alert('Profile update API not yet implemented');
         setEditing(false);
     };
@@ -50,7 +50,7 @@ export default function ProfilePage() {
 
             <div className="max-w-4xl mx-auto px-4 py-8">
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
-                    {/* Profile Header */}
+                    {}
                     <div className="flex items-center gap-6 mb-8 pb-8 border-b border-gray-200">
                         <div className="bg-gradient-to-br from-purple-600 to-purple-800 w-24 h-24 rounded-full flex items-center justify-center text-white text-3xl font-bold">
                             {user?.contactName?.charAt(0) || user?.email?.charAt(0) || 'U'}
@@ -72,7 +72,7 @@ export default function ProfilePage() {
                         )}
                     </div>
 
-                    {/* Profile Form */}
+                    {}
                     <div className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
@@ -160,7 +160,7 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                {/* Danger Zone */}
+                {}
                 <div className="mt-8 bg-white rounded-xl shadow-sm border border-red-200 p-8">
                     <h3 className="text-lg font-bold text-red-600 mb-4">Danger Zone</h3>
                     <p className="text-gray-600 mb-4">

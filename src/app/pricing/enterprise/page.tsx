@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+
 'use client'
 import { useState, useEffect } from 'react';
 
@@ -43,7 +43,7 @@ const CountdownTimer = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center px-4 py-12">
       <div className="max-w-2xl w-full text-center">
-        {/* Main Heading */}
+        {}
         <h1 className="text-4xl md:text-6xl font-bold text-white mb-2">
           We will drop the
         </h1>
@@ -54,7 +54,7 @@ const CountdownTimer = () => {
           <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"></div>
         </div>
         
-        {/* Description */}
+        {}
         <p className="text-gray-300 text-lg mb-12 max-w-xl mx-auto">
           We're working towards implementing a budget friendly plan for you:
         </p>

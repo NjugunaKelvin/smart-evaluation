@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 import Button from './ui/Button';
 import { JSX } from '@emotion/react/jsx-dev-runtime';
-import { isAuthenticated, logout, isProvider } from '@/lib/auth';
+import { isAuthenticated, logout, isProvider, getUser } from '@/lib/auth';
 
 interface DropdownItem {
   name: string;
@@ -19,7 +20,7 @@ interface NavItem {
   dropdown?: DropdownItem[];
 }
 
-// Professional SVG Icons
+
 const Icons = {
   All: (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -144,6 +145,7 @@ const Icons = {
 };
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [loggedIn, setLoggedIn] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -158,6 +160,13 @@ export default function Navbar() {
   useEffect(() => {
     setLoggedIn(isAuthenticated());
   }, []);
+
+  
+  useEffect(() => {
+    setActiveDropdown(null);
+    setMobileMenuOpen(false);
+    setMobileDropdown(null);
+  }, [pathname]);
 
   const navItems: NavItem[] = [
     { name: 'Home', href: '/' },
@@ -327,7 +336,7 @@ export default function Navbar() {
     }
   ];
 
-  // Secondary nav items for LOGGED IN users
+  
   const loggedInSecondaryNav: NavItem[] = [
     { name: 'Dashboard', href: isProvider() ? '/provider/dashboard' : '/dashboard' },
     { name: 'My Applications', href: '/applications' },
@@ -337,7 +346,7 @@ export default function Navbar() {
     { name: 'Contact Support', href: '/contact' }
   ];
 
-  //Secondary nav items for GUESTS
+  
   const guestSecondaryNav: NavItem[] = [
     { name: 'Help Center', href: '/help' },
     { name: 'Contact Support', href: '/contact' }
@@ -383,7 +392,7 @@ export default function Navbar() {
     logout();
   };
 
-  // Track scroll position
+  
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -404,7 +413,7 @@ export default function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  // Close dropdown when clicking outside
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -426,7 +435,7 @@ export default function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  // SVG Chevron component
+  
   const ChevronIcon = ({ isActive }: { isActive: boolean }) => (
     <svg
       className={`ml-1 transition-transform duration-200 ${isActive ? 'rotate-180' : ''}`}
@@ -442,13 +451,14 @@ export default function Navbar() {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
+        fill="none"
       />
     </svg>
   );
 
   return (
     <nav className={`sticky top-0 z-50 bg-[#3e0369] shadow-2xl border-b border-purple-500/50 transition-all duration-300 ${isScrolled ? 'py-0' : 'py-0'}`}>
-      {/* Top Navigation Row */}
+      {}
       <div className="hidden md:block bg-gradient-to-r from-purple-800/40 to-purple-600/30 border-b border-purple-500/30">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-2">
@@ -473,10 +483,10 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Main Navigation Row */}
+      {}
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex justify-between items-center">
-          {/* Logo */}
+          {}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-3 group">
               <div className="bg-white text-[#3e0369] p-2 rounded-lg group-hover:scale-105 transition-transform duration-300 shadow-lg">
@@ -491,7 +501,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Middle Navigation */}
+          {}
           <div className="hidden xl:flex items-center justify-center flex-1 mx-8">
             <div className="flex items-baseline space-x-1" ref={dropdownRef}>
               {navItems.map((item) => (
@@ -519,7 +529,7 @@ export default function Navbar() {
                     </button>
                   )}
 
-                  {/* Refined Dropdown Menu */}
+                  {}
                   {item.dropdown && activeDropdown === item.name && (
                     <div
                       className="absolute left-0 transform mt-2 w-80 rounded-xl shadow-2xl bg-gradient-to-br from-[#4d047f] to-[#3e0369] border border-purple-400/50 backdrop-blur-sm overflow-hidden z-50 animate-in fade-in-0 zoom-in-95 duration-200"
@@ -541,7 +551,6 @@ export default function Navbar() {
                               key={dropdownItem.name}
                               href={dropdownItem.href}
                               className="flex items-start p-3 rounded-lg hover:bg-white/10 transition-all duration-200 group border border-transparent hover:border-white/20"
-                              onClick={() => setActiveDropdown(null)}
                             >
                               <div className="text-purple-200 mr-3 group-hover:text-white transition-colors duration-200">
                                 {dropdownItem.icon}
@@ -568,7 +577,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Right Buttons */}
+          {}
           <div className="hidden md:flex items-center space-x-3">
             {loggedIn ? (
               <div className="relative" ref={dropdownRef}>
@@ -577,23 +586,37 @@ export default function Navbar() {
                   className="flex items-center space-x-2 text-purple-100 hover:text-white focus:outline-none bg-white/10 px-3 py-2 rounded-lg hover:bg-white/20 transition-all"
                 >
                   <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold shadow-md border-2 border-purple-300">
-                    U
+                    {(() => {
+                      const user = getUser();
+                      if (!user) return 'U';
+                      const name = user.companyName || user.name || 'User';
+                      return name.substring(0, 2).toUpperCase();
+                    })()}
                   </div>
-                  <span className="font-medium text-sm">Account</span>
+                  <span className="font-medium text-sm">
+                    {(() => {
+                      const user = getUser();
+                      return user?.companyName || user?.name || 'Account';
+                    })()}
+                  </span>
                   <ChevronIcon isActive={activeDropdown === 'user'} />
                 </button>
 
                 {activeDropdown === 'user' && (
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 animate-in fade-in-0 zoom-in-95 duration-200">
                     <div className="p-3 border-b border-gray-100 bg-gray-50">
-                      <p className="text-sm font-bold text-gray-900">My Account</p>
-                      <p className="text-xs text-gray-500 truncate">Manage your preferences</p>
+                      <p className="text-sm font-bold text-gray-900">
+                        {(() => {
+                          const user = getUser();
+                          return user?.companyName || user?.name || 'My Account';
+                        })()}
+                      </p>
+                      <p className="text-xs text-gray-500 truncate">{getUser()?.email || 'Manage your preferences'}</p>
                     </div>
                     <div className="py-1">
                       <Link
                         href="/profile"
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
-                        onClick={() => setActiveDropdown(null)}
                       >
                         <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -603,7 +626,6 @@ export default function Navbar() {
                       <Link
                         href={isProvider() ? '/provider/dashboard' : '/dashboard'}
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
-                        onClick={() => setActiveDropdown(null)}
                       >
                         <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -613,7 +635,6 @@ export default function Navbar() {
                       <Link
                         href="/applications"
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
-                        onClick={() => setActiveDropdown(null)}
                       >
                         <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -623,7 +644,6 @@ export default function Navbar() {
                       <Link
                         href="/opportunities/saved"
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors"
-                        onClick={() => setActiveDropdown(null)}
                       >
                         <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
@@ -666,7 +686,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile menu button */}
+          {}
           <div className="xl:hidden flex items-center">
             <button
               ref={hamburgerButtonRef}
@@ -684,7 +704,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {}
         <div
           ref={mobileMenuRef}
           className={`xl:hidden transition-all duration-300 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-screen opacity-100 mt-4' : 'max-h-0 opacity-0'}`}
@@ -696,7 +716,6 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     className="block px-4 py-3 text-purple-100 hover:text-white hover:bg-purple-600/30 rounded-lg transition-colors font-medium"
-                    onClick={closeMobileMenu}
                   >
                     {item.name}
                   </Link>
@@ -717,7 +736,6 @@ export default function Navbar() {
                           key={dropdownItem.name}
                           href={dropdownItem.href}
                           className="flex items-center px-4 py-2 text-sm text-purple-200 hover:text-white hover:bg-purple-600/20 rounded-lg transition-colors"
-                          onClick={closeMobileMenu}
                         >
                           <span className="mr-3 opacity-70">{dropdownItem.icon}</span>
                           {dropdownItem.name}
@@ -729,34 +747,36 @@ export default function Navbar() {
               </div>
             ))}
 
-            {/* Mobile Auth Buttons */}
+            {}
             <div className="pt-4 mt-4 border-t border-purple-500/30 space-y-3">
               {loggedIn ? (
                 <>
-                  <Link href="/profile" onClick={closeMobileMenu} className="block w-full">
+                  <Link href="/profile" className="block w-full">
                     <Button variant="outline" className="w-full justify-center border-purple-400 text-purple-200 hover:bg-purple-400 hover:text-[#3e0369]">
                       My Profile
                     </Button>
                   </Link>
-                  <Link href={isProvider() ? '/provider/dashboard' : '/dashboard'} onClick={closeMobileMenu} className="block w-full">
+                  <Link href={isProvider() ? '/provider/dashboard' : '/dashboard'} className="block w-full">
                     <Button variant="primary" className="w-full justify-center bg-white text-[#3e0369] hover:bg-purple-100">
                       Dashboard
                     </Button>
                   </Link>
-                  <button onClick={() => { handleLogout(); closeMobileMenu(); }} className="w-full">
-                    <Button variant="outline" className="w-full justify-center border-red-400 text-red-300 hover:bg-red-500 hover:text-white">
-                      Logout
-                    </Button>
-                  </button>
+                  <Button
+                    onClick={() => { handleLogout(); closeMobileMenu(); }}
+                    variant="outline"
+                    className="w-full justify-center border-red-400 text-red-300 hover:bg-red-500 hover:text-white"
+                  >
+                    Logout
+                  </Button>
                 </>
               ) : (
                 <>
-                  <Link href="/login" onClick={closeMobileMenu} className="block w-full">
+                  <Link href="/login" className="block w-full">
                     <Button variant="outline" className="w-full justify-center border-purple-400 text-purple-200 hover:bg-purple-400 hover:text-[#3e0369]">
                       Sign In
                     </Button>
                   </Link>
-                  <Link href="/register" onClick={closeMobileMenu} className="block w-full">
+                  <Link href="/register" className="block w-full">
                     <Button variant="primary" className="w-full justify-center bg-gradient-to-r from-white to-purple-100 text-[#3e0369]">
                       Get Started
                     </Button>

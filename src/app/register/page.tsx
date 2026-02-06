@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { FiArrowLeft } from 'react-icons/fi';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -24,12 +25,12 @@ export default function RegisterPage() {
     interests: [] as string[]
   });
 
-  // Validation State
+  
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [passwordError, setPasswordError] = useState('');
   const [emailError, setEmailError] = useState('');
 
-  // Password Visibility State
+  
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -60,7 +61,7 @@ export default function RegisterPage() {
     'Medical Supplies'
   ];
 
-  // Calculate Password Strength
+  
   useEffect(() => {
     const password = formData.password;
     let strength = 0;
@@ -85,14 +86,14 @@ export default function RegisterPage() {
       [name]: type === 'checkbox' ? checked : value
     }));
 
-    // Clear errors on change
+    
     if (name === 'email') setEmailError('');
     if (name === 'password' || name === 'confirmPassword') setPasswordError('');
   };
 
   const handleNext = () => {
     if (step === 1) {
-      // Step 1 Validation
+      
       if (!formData.contactName || !formData.email || !formData.password || !formData.confirmPassword) {
         alert("Please fill in all required fields.");
         return;
@@ -113,7 +114,7 @@ export default function RegisterPage() {
         return;
       }
     } else if (step === 2) {
-      // Step 2 Validation
+      
       if (!formData.companyName || !formData.sector) {
         alert("Please fill in all required fields.");
         return;
@@ -139,7 +140,7 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Final check before submit
+    
     if (formData.password !== formData.confirmPassword) {
       setPasswordError("Passwords do not match!");
       return;
@@ -173,7 +174,7 @@ export default function RegisterPage() {
     }
   };
 
-  // Helper for password strength color
+  
   const getStrengthColor = () => {
     if (passwordStrength === 0) return 'bg-gray-200';
     if (passwordStrength <= 2) return 'bg-red-500';
@@ -190,9 +191,13 @@ export default function RegisterPage() {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* Left Form Panel */}
+      {}
       <div className="flex-1 flex flex-col justify-center px-6 md:px-12 lg:px-16 relative z-10">
         <div className="max-w-md w-full mx-auto">
+          <Link href="/" className="inline-flex items-center text-sm text-gray-500 hover:text-purple-600 transition-colors mb-8 group">
+            <FiArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
+            Back to Home
+          </Link>
           <div className="mb-8">
             <Link href="/" className="inline-block mb-6">
               <span className="text-2xl font-bold bg-gradient-to-r from-purple-700 to-purple-500 bg-clip-text text-transparent">
@@ -211,7 +216,7 @@ export default function RegisterPage() {
             </p>
           </div>
 
-          {/* Progress Steps */}
+          {}
           <div className="flex items-center mb-8 space-x-2">
             {[1, 2, 3].map((i) => (
               <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${step >= i ? 'w-8 bg-purple-600' : 'w-4 bg-gray-200'}`} />
@@ -306,13 +311,13 @@ export default function RegisterPage() {
                     </div>
                   </div>
 
-                  {/* Password Strength Indicator */}
+                  {}
                   {formData.password && (
                     <div className="space-y-1">
                       <div className="flex justify-between text-xs">
                         <span className="text-gray-500">Strength</span>
                         <span className={`font-medium ${passwordStrength <= 2 ? 'text-red-500' :
-                            passwordStrength === 3 ? 'text-yellow-600' : 'text-green-600'
+                          passwordStrength === 3 ? 'text-yellow-600' : 'text-green-600'
                           }`}>
                           {getStrengthText()}
                         </span>
@@ -469,7 +474,7 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      {/* Right Image Panel */}
+      {}
       <div className="hidden lg:block lg:w-1/2 relative overflow-hidden bg-gray-900">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/90 to-black/50 z-10" />
         <img

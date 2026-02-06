@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="bg-black text-gray-300">
       <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
-          {/* Brand section */}
+          {}
           <div className="lg:col-span-2">
             <div className="flex items-center mb-4">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-purple-600 to-purple-500 flex items-center justify-center mr-3">
@@ -22,8 +22,8 @@ export default function Footer() {
             <p className="text-gray-400 mb-6 max-w-md">
               Transforming how service providers connect with meaningful projects through our transparent, equitable evaluation platform.
             </p>
-            
-            {/* Contact Info */}
+
+            {}
             <div className="mb-6 space-y-2">
               <div className="flex items-start">
                 <svg className="w-4 h-4 mt-1 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -45,14 +45,14 @@ export default function Footer() {
                 <span className="text-sm">info@nothing.com</span>
               </div>
             </div>
-            
-            {/* Newsletter signup */}
+
+            {}
             <div className="mb-6">
               <h4 className="text-sm font-semibold text-white mb-3">SUBSCRIBE TO UPDATES</h4>
               <div className="flex">
-                <input 
-                  type="email" 
-                  placeholder="Your email address" 
+                <input
+                  type="email"
+                  placeholder="Your email address"
                   className="bg-gray-900 border border-gray-700 rounded-l-md px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent w-full"
                 />
                 <button className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-4 py-2 rounded-r-md transition-colors">
@@ -62,8 +62,8 @@ export default function Footer() {
               <p className="text-xs text-gray-500 mt-2">Get the latest tender opportunities and updates</p>
             </div>
           </div>
-          
-          {/* Tender Categories */}
+
+          {}
           <div>
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Categories</h3>
             <ul className="space-y-3">
@@ -93,36 +93,36 @@ export default function Footer() {
               </Link></li>
             </ul>
           </div>
-          
-          {/* For Providers */}
+
+          {}
           <div>
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">For Providers</h3>
             <ul className="space-y-3">
-              <li><Link href="/providers/register" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
-                Create Provider Account
+              <li><Link href="/provider/register" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
+                Create Funder Account
               </Link></li>
-              <li><Link href="/providers/dashboard" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
-                Provider Dashboard
+              <li><Link href="/provider/dashboard" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
+                Funder Dashboard
               </Link></li>
-              <li><Link href="/providers/verification" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
+              <li><Link href="/provider/dashboard?view=verification" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
                 Verification Process
               </Link></li>
-              <li><Link href="/providers/resources" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
+              <li><Link href="/provider/dashboard" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
                 Go to the dashboard
               </Link></li>
-              <li><Link href="/providers/success-stories" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
+              <li><Link href="/provider/dashboard?view=success_stories" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
                 Success Stories
               </Link></li>
-              <li><Link href="/providers/training" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
+              <li><Link href="/provider/dashboard?view=training" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
                 Training & Certification
               </Link></li>
-              <li><Link href="/providers/performance" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
+              <li><Link href="/provider/dashboard?view=performance" className="text-gray-400 hover:text-purple-400 transition-colors text-sm block py-1">
                 Performance Metrics
               </Link></li>
             </ul>
           </div>
-          
-          {/* For Clients */}
+
+          {}
           <div>
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">For Clients</h3>
             <ul className="space-y-3">
@@ -149,8 +149,8 @@ export default function Footer() {
               </Link></li>
             </ul>
           </div>
-          
-          {/* Resources */}
+
+          {}
           <div>
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Resources</h3>
             <ul className="space-y-3">
@@ -178,10 +178,10 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        
-        {/* Additional Links Section */}
+
+        {}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12 pt-8 border-t border-gray-800">
-          {/* Company */}
+          {}
           <div>
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Company</h3>
             <ul className="space-y-3">
@@ -205,8 +205,8 @@ export default function Footer() {
               </Link></li>
             </ul>
           </div>
-          
-          {/* Legal */}
+
+          {}
           <div>
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Legal</h3>
             <ul className="space-y-3">
@@ -230,8 +230,8 @@ export default function Footer() {
               </Link></li>
             </ul>
           </div>
-          
-          {/* Support */}
+
+          {}
           <div>
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Support</h3>
             <ul className="space-y-3">
@@ -252,8 +252,8 @@ export default function Footer() {
               </Link></li>
             </ul>
           </div>
-          
-          {/* Global Offices */}
+
+          {}
           <div>
             <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Global Offices</h3>
             <ul className="space-y-3">
@@ -265,13 +265,13 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        
-        {/* Bottom section */}
+
+        {}
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm">
             &copy; {new Date().getFullYear()} SmartEval, Inc. All rights reserved.
           </p>
-          
+
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/accessibility" className="text-gray-500 hover:text-purple-400 text-sm transition-colors">
               Accessibility
@@ -285,8 +285,8 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      
-      {/* Trust badges */}
+
+      {}
       <div className="bg-gray-900 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8 text-gray-500 text-sm">

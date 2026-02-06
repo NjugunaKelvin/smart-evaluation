@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// components/home/ClientShowcase.tsx
+
+
 'use client'
 import { useEffect, useRef, useState } from 'react';
 
@@ -33,7 +33,7 @@ export default function ClientShowcase() {
       ref={sectionRef}
       className="py-20 bg-[#031736] relative overflow-hidden"
     >
-      {/* Background pattern */}
+      {}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620121478247-ec786b9be2fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80')] bg-cover bg-center mix-blend-overlay"></div>
       </div>
@@ -49,12 +49,12 @@ export default function ClientShowcase() {
           </p>
         </div>
         
-        {/* Data Visualization Section */}
+        {}
         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 transition-all duration-700 delay-150 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="bg-[#0a2955] rounded-xl p-8 border border-[#1a3b6c]">
             <h3 className="text-2xl font-medium text-white mb-6">Opportunity Distribution</h3>
             
-            {/* Chart bars */}
+            {}
             <div className="space-y-6">
               <div>
                 <div className="flex justify-between text-gray-300 mb-2">
@@ -103,7 +103,7 @@ export default function ClientShowcase() {
             
             <div className="flex items-center justify-center h-64">
               <div className="relative w-56 h-56">
-                {/* Pie chart segments */}
+                {}
                 <div className="absolute inset-0 rounded-full overflow-hidden">
                   <div className="absolute w-full h-full bg-[#0c2044]"></div>
                   <div className="absolute w-full h-full bg-purple-700" style={{ clipPath: 'polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 50% 100%)' }}></div>
@@ -111,7 +111,7 @@ export default function ClientShowcase() {
                   <div className="absolute w-full h-full bg-purple-800" style={{ clipPath: 'polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%)' }}></div>
                 </div>
                 
-                {/* Center circle */}
+                {}
                 <div className="absolute inset-8 bg-[#0a2955] rounded-full flex items-center justify-center">
                   <div className="text-center">
                     <div className="text-white text-2xl font-medium">500+</div>
@@ -142,7 +142,7 @@ export default function ClientShowcase() {
           </div>
         </div>
         
-        {/* Value Metrics */}
+        {}
         <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="bg-[#0a2955] rounded-xl p-8 border border-[#1a3b6c] text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-900/30 rounded-full mb-6">
@@ -175,7 +175,7 @@ export default function ClientShowcase() {
           </div>
         </div>
         
-        {/* Global Reach */}
+        {}
         <div className={`bg-[#0a2955] rounded-xl p-8 border border-[#1a3b6c] transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h3 className="text-2xl font-medium text-white mb-6 text-center">Global Presence</h3>
           
@@ -191,7 +191,7 @@ export default function ClientShowcase() {
               </div>
             </div>
             
-            {/* Map markers */}
+            {}
             <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
             <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
             <div className="absolute bottom-1/3 left-2/4 w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>

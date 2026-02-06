@@ -1,10 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
+
 'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
+import { FiArrowLeft } from 'react-icons/fi';
 
 export default function ProviderRegisterPage() {
     const router = useRouter();
@@ -16,7 +17,8 @@ export default function ProviderRegisterPage() {
         phone: '',
         password: '',
         confirmPassword: '',
-        agreeToTerms: false
+        agreeToTerms: false,
+        opportunityTypes: ''
     });
     const [loading, setLoading] = useState(false);
 
@@ -26,7 +28,7 @@ export default function ProviderRegisterPage() {
         'Legal', 'Manufacturing', 'Other'
     ];
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value, type } = e.target;
         const checked = (e.target as HTMLInputElement).checked;
 
@@ -54,7 +56,7 @@ export default function ProviderRegisterPage() {
                 },
                 body: JSON.stringify({
                     ...formData,
-                    userType: 'provider' // Register as provider
+                    userType: 'provider'
                 })
             });
 
@@ -77,47 +79,85 @@ export default function ProviderRegisterPage() {
 
     return (
         <div className="flex min-h-screen bg-gray-50">
+            {}
             <div className="flex-1 flex flex-col justify-center px-6 md:px-12 lg:px-16 relative z-10">
-                <div className="max-w-md w-full mx-auto">
-                    <div className="mb-8">
-                        <Link href="/" className="inline-block mb-6">
+                <div className="max-w-md w-full mx-auto py-8">
+                    <Link href="/" className="inline-flex items-center text-sm text-gray-500 hover:text-purple-600 transition-colors mb-8 group">
+                        <FiArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
+                        Back to Home
+                    </Link>
+                    <div className="mb-6">
+                        <Link href="/" className="inline-block mb-4">
                             <span className="text-2xl font-bold bg-gradient-to-r from-purple-700 to-purple-500 bg-clip-text text-transparent">
                                 SmartEval
                             </span>
                         </Link>
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">Provider Account</h1>
+                        <h1 className="text-3xl font-bold text-gray-900 mb-1">Provider Account</h1>
                         <p className="text-gray-600 text-sm font-medium">
-                            Register as a provider to post opportunities and manage applications.
+                            Register as a provider to post opportunities.
                         </p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
-                            <label className="block text-xs font-bold text-gray-700 mb-1">Contact Name *</label>
-                            <input
-                                type="text"
-                                name="contactName"
-                                required
-                                value={formData.contactName}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
-                                placeholder="John Doe"
-                            />
+                        {}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs font-bold text-gray-700 mb-1">Contact Name *</label>
+                                <input
+                                    type="text"
+                                    name="contactName"
+                                    required
+                                    value={formData.contactName}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
+                                    placeholder="John Doe"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-700 mb-1">Phone Number</label>
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
+                                    placeholder="+254..."
+                                />
+                            </div>
                         </div>
 
-                        <div>
-                            <label className="block text-xs font-bold text-gray-700 mb-1">Company Name *</label>
-                            <input
-                                type="text"
-                                name="companyName"
-                                required
-                                value={formData.companyName}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
-                                placeholder="Acme Corp Ltd."
-                            />
+                        {}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs font-bold text-gray-700 mb-1">Company Name *</label>
+                                <input
+                                    type="text"
+                                    name="companyName"
+                                    required
+                                    value={formData.companyName}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
+                                    placeholder="Acme Corp"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-700 mb-1">Industry Sector *</label>
+                                <select
+                                    name="sector"
+                                    required
+                                    value={formData.sector}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
+                                >
+                                    <option value="">Select sector</option>
+                                    {sectors.map(sector => (
+                                        <option key={sector} value={sector}>{sector}</option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
 
+                        {}
                         <div>
                             <label className="block text-xs font-bold text-gray-700 mb-1">Email Address *</label>
                             <input
@@ -126,40 +166,26 @@ export default function ProviderRegisterPage() {
                                 required
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
+                                className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
                                 placeholder="john@company.com"
                             />
                         </div>
 
+                        {}
                         <div>
-                            <label className="block text-xs font-bold text-gray-700 mb-1">Industry Sector *</label>
-                            <select
-                                name="sector"
+                            <label className="block text-xs font-bold text-gray-700 mb-1">What opportunities will you be sharing? *</label>
+                            <textarea
+                                name="opportunityTypes"
                                 required
-                                value={formData.sector}
+                                value={formData.opportunityTypes}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
-                            >
-                                <option value="">Select sector</option>
-                                {sectors.map(sector => (
-                                    <option key={sector} value={sector}>{sector}</option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <div>
-                            <label className="block text-xs font-bold text-gray-700 mb-1">Phone Number</label>
-                            <input
-                                type="tel"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
-                                placeholder="+254 700 000 000"
+                                className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all min-h-[60px]"
+                                placeholder="Briefly describe the types of opportunities..."
                             />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3">
+                        {}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-xs font-bold text-gray-700 mb-1">Password *</label>
                                 <input
@@ -168,7 +194,7 @@ export default function ProviderRegisterPage() {
                                     required
                                     value={formData.password}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
+                                    className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
                                     placeholder="Password"
                                 />
                             </div>
@@ -180,13 +206,14 @@ export default function ProviderRegisterPage() {
                                     required
                                     value={formData.confirmPassword}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
+                                    className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-600/20 focus:border-purple-600 bg-white text-gray-900 transition-all"
                                     placeholder="Confirm"
                                 />
                             </div>
                         </div>
 
-                        <div className="flex items-start space-x-3">
+                        {}
+                        <div className="flex items-start space-x-3 pt-2">
                             <input
                                 type="checkbox"
                                 name="agreeToTerms"
@@ -206,21 +233,22 @@ export default function ProviderRegisterPage() {
                         <Button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-3.5 text-sm bg-purple-700 font-bold rounded-xl hover:bg-purple-800 transition-colors shadow-lg shadow-purple-700/20 disabled:opacity-70"
+                            className="w-full py-3.5 text-sm bg-purple-700 font-bold rounded-xl hover:bg-purple-800 transition-colors shadow-lg shadow-purple-700/20 disabled:opacity-70 mt-4"
                         >
                             {loading ? 'Creating Account...' : 'Create Provider Account'}
                         </Button>
                     </form>
 
-                    <div className="mt-8 pt-6 border-t border-gray-100">
+                    <div className="mt-6 pt-6 border-t border-gray-100">
                         <p className="text-center text-sm text-gray-600">
                             Already have an account?{' '}
-                            <Link href="/login" className="text-purple-600 font-bold hover:underline">Sign in</Link>
+                            <Link href="/provider/login" className="text-purple-600 font-bold hover:underline">Sign in</Link>
                         </p>
                     </div>
                 </div>
             </div>
 
+            {}
             <div className="hidden lg:block lg:w-1/2 relative overflow-hidden bg-gray-900">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/90 to-black/50 z-10" />
                 <img

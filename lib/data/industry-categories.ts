@@ -1,5 +1,5 @@
 export const INDUSTRY_CATEGORIES = [
-  // Major Sectors
+  
   { id: "construction", name: "Construction & Engineering", subcategories: [
     "Building Construction", "Civil Engineering", "Specialty Trade Contractors",
     "Architecture & Design", "Project Management"
@@ -61,7 +61,7 @@ export const INDUSTRY_CATEGORIES = [
   ]}
 ];
 
-// Simplified version for quick selection
+
 export const SIMPLIFIED_INDUSTRIES = [
   "Construction & Engineering",
   "Technology & IT",

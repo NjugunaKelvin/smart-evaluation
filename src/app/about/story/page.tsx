@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+
 import React from 'react';
 import Navbar from '@/components/Navbar';
 
@@ -47,7 +47,7 @@ const OurStory = () => {
         </div>
       </section>
 
-      {/* Full-width Image Break */}
+      {}
       <div className="relative h-[60vh] w-full">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed"
@@ -148,7 +148,7 @@ const OurStory = () => {
         </div>
       </section>
 
-      {/* Impact Section */}
+      {}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">Our Impact</h2>
@@ -186,7 +186,7 @@ const OurStory = () => {
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')" }}
+          style={{ backgroundImage: "url('https:
         ></div>
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold mb-8">Our Mission</h2>

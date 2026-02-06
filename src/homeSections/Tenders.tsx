@@ -71,13 +71,13 @@ export default function TendersSection() {
     }
   ];
 
-  // Format date to more readable form
+  
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
 
-  // Get deadline status
+  
   const getDeadlineStatus = (dateString: string) => {
     const today = new Date();
     const deadline = new Date(dateString);
@@ -90,7 +90,7 @@ export default function TendersSection() {
     return { status: 'normal', text: 'Open', color: 'text-blue-400 bg-blue-400/10' };
   };
 
-  // Get category color class
+  
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'Technology':
@@ -112,7 +112,7 @@ export default function TendersSection() {
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
-      {/* Background elements */}
+      {}
       <div className="absolute top-0 left-0 w-full h-full opacity-5">
         <div className="absolute top-20 left-10 w-40 h-40 rounded-full bg-blue-500/20 blur-xl"></div>
         <div className="absolute bottom-20 right-10 w-32 h-32 rounded-full bg-purple-500/20 blur-xl"></div>

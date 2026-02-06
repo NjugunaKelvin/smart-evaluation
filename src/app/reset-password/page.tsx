@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -67,7 +67,7 @@ export default function ResetPasswordPage() {
 
     return (
         <div className="flex min-h-screen bg-gray-50">
-            {/* Left Form Panel */}
+            {}
             <div className="flex-1 flex flex-col justify-center px-6 md:px-12 lg:px-16 relative z-10">
                 <div className="max-w-md w-full mx-auto">
                     <div className="mb-8">
@@ -134,7 +134,7 @@ export default function ResetPasswordPage() {
                 </div>
             </div>
 
-            {/* Right Image Panel */}
+            {}
             <div className="hidden lg:block lg:w-1/2 relative overflow-hidden bg-gray-900">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900/90 to-black/50 z-10" />
                 <img

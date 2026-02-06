@@ -1,8 +1,8 @@
-// Firebase Client Configuration
+
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
-// Firebase config
+
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyAWruPbGCJdCERqTDN_pCBDrnh1z0IcBn4",
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "opportunities-portal-d2206.firebaseapp.com",
@@ -12,11 +12,11 @@ const firebaseConfig = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "1:494908303788:web:646be6650de6e73964b209"
 };
 
-// Initialize Firebase (only if not already initialized)
+
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const auth = getAuth(app);
 
-// Google Provider
+
 const googleProvider = new GoogleAuthProvider();
 
 export { auth, googleProvider, signInWithPopup };

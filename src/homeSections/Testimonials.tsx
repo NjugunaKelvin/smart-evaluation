@@ -1,5 +1,5 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable @next/next/no-img-element */
+
+
 'use client'
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function TestimonialsSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [direction, setDirection] = useState(0); // 0: next, 1: prev
+  const [direction, setDirection] = useState(0); 
   
   const testimonials = [
     {
@@ -44,7 +44,7 @@ export default function TestimonialsSection() {
     }
   ];
 
-  // Memoized slide navigation functions
+  
   const goToNext = useCallback(() => {
     setDirection(0);
     setCurrentSlide((prev) => (prev + 1) % testimonials.length);
@@ -63,7 +63,7 @@ export default function TestimonialsSection() {
     setIsAutoPlaying(true);
   };
 
-  // Auto-play with pause on hover
+  
   useEffect(() => {
     let interval: NodeJS.Timeout;
     
@@ -76,7 +76,7 @@ export default function TestimonialsSection() {
     };
   }, [isAutoPlaying, goToNext]);
 
-  // Animation variants for smoother transitions
+  
   const slideVariants = {
     enter: (direction: number) => ({
       x: direction === 0 ? 300 : -300,
@@ -101,7 +101,7 @@ export default function TestimonialsSection() {
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
     >
-      {/* Background Image with smooth transition */}
+      {}
       <AnimatePresence mode="wait">
         <motion.div
           key={testimonials[currentSlide].id}
@@ -120,7 +120,7 @@ export default function TestimonialsSection() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Testimonial Content */}
+      {}
       <div className="relative z-10 max-w-6xl mx-auto h-full flex items-center px-4 md:px-8 lg:px-12">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
@@ -154,7 +154,7 @@ export default function TestimonialsSection() {
         </AnimatePresence>
       </div>
 
-      {/* Navigation Buttons */}
+      {}
       <button
         onClick={goToPrev}
         className="absolute top-1/2 left-3 md:left-6 -translate-y-1/2 bg-black/40 hover:bg-black/60 backdrop-blur-md p-3 rounded-full text-white transition-all duration-300 shadow-lg hover:scale-110 z-20"
@@ -174,7 +174,7 @@ export default function TestimonialsSection() {
         </svg>
       </button>
 
-      {/* Indicators */}
+      {}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
         {testimonials.map((_, index) => (
           <button
@@ -190,7 +190,7 @@ export default function TestimonialsSection() {
         ))}
       </div>
 
-      {/* Progress Bar */}
+      {}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-20">
         <motion.div
           className="h-full bg-white"

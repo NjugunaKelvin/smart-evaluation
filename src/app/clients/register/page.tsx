@@ -11,7 +11,7 @@ export default function ClientRegisterPage() {
             <Navbar />
 
             <div className="flex flex-col lg:flex-row min-h-[calc(100vh-80px)]">
-                {/* Left Content */}
+                {}
                 <div className="lg:w-1/2 bg-[#3e0369] text-white p-12 flex flex-col justify-center relative overflow-hidden">
                     <div className="absolute inset-0 overflow-hidden">
                         <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-purple-500/20 blur-3xl"></div>
@@ -57,7 +57,7 @@ export default function ClientRegisterPage() {
                     </div>
                 </div>
 
-                {/* Right Form */}
+                {}
                 <div className="lg:w-1/2 p-12 flex flex-col justify-center bg-white">
                     <div className="max-w-md mx-auto w-full">
                         <h2 className="text-3xl font-bold text-gray-900 mb-2">Create Client Account</h2>

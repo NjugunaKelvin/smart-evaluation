@@ -9,7 +9,7 @@ export default function AboutPage() {
         <div className="min-h-screen bg-white">
             <Navbar />
 
-            {/* Hero Section */}
+            {}
             <div className="relative bg-[#3e0369] py-24 overflow-hidden">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-purple-500/20 blur-3xl"></div>
@@ -35,7 +35,7 @@ export default function AboutPage() {
                 </div>
             </div>
 
-            {/* Stats Section */}
+            {}
             <div className="py-16 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
@@ -55,7 +55,7 @@ export default function AboutPage() {
                 </div>
             </div>
 
-            {/* Mission Section */}
+            {}
             <div className="py-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -70,7 +70,7 @@ export default function AboutPage() {
                         </div>
                         <div className="relative">
                             <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gray-900">
-                                {/* Placeholder for mission image */}
+                                {}
                                 <div className="w-full h-full bg-gradient-to-br from-purple-900 to-gray-900 flex items-center justify-center text-white/20 text-6xl font-bold">
                                     Mission
                                 </div>
@@ -82,7 +82,7 @@ export default function AboutPage() {
                 </div>
             </div>
 
-            {/* Values Section */}
+            {}
             <div className="py-24 bg-gray-900 text-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">

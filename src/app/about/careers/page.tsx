@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+
 'use client'
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
@@ -62,7 +62,7 @@ const Careers = () => {
   return (
     <div className="bg-gray-900 text-white">
         <Navbar />
-      {/* Landing */}
+      {}
       <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center opacity-20"
@@ -88,7 +88,7 @@ const Careers = () => {
         </div>
       </section>
 
-      {/* Mission & Values */}
+      {}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">Our Mission & Values</h2>
@@ -135,7 +135,7 @@ const Careers = () => {
         </div>
       </section>
 
-      {/* Team Culture */}
+      {}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Our Working Environment</h2>
@@ -157,7 +157,7 @@ const Careers = () => {
             <div className="h-full min-h-[400px] rounded-2xl overflow-hidden">
               <div 
                 className="h-full w-full bg-cover bg-center"
-                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')" }}
+                style={{ backgroundImage: "url('https:
               ></div>
             </div>
           </div>
@@ -183,13 +183,13 @@ const Careers = () => {
         </div>
       </section>
 
-      {/* Open Positions */}
+      {}
       <section id="open-positions" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Open Positions</h2>
           <p className="text-xl text-gray-300 mb-12 text-center">Current opportunities to join our team</p>
           
-          {/* Department Filter */}
+          {}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {departments.map(dept => (
               <button
@@ -247,7 +247,7 @@ const Careers = () => {
         </div>
       </section>
 
-      {/* Application Process */}
+      {}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Our Hiring Process</h2>

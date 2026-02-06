@@ -41,7 +41,7 @@ function OpportunitiesContent() {
     const [sortBy, setSortBy] = useState('newest');
     const [showFilters, setShowFilters] = useState(false);
 
-    // Fetch opportunities
+    
     const fetchOpportunities = async () => {
         setLoading(true);
         try {
@@ -65,9 +65,9 @@ function OpportunitiesContent() {
 
     useEffect(() => {
         fetchOpportunities();
-    }, [filters.industry, filters.category, filters.status, filters.search]); // Re-fetch on filter change (or handle client-side filtering if preferred)
+    }, [filters.industry, filters.category, filters.status, filters.search]); 
 
-    // Handle Post Opportunity Click
+    
     const handlePostClick = () => {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -77,14 +77,14 @@ function OpportunitiesContent() {
         }
     };
 
-    // Update filters when category param changes
+    
     useEffect(() => {
         if (categoryParam) {
             setFilters(prev => ({ ...prev, category: categoryParam }));
         }
     }, [categoryParam]);
 
-    // Sort opportunities (client-side for now)
+    
     const sortedOpportunities = [...opportunities].sort((a, b) => {
         if (sortBy === 'newest') {
             return new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime();
@@ -101,13 +101,13 @@ function OpportunitiesContent() {
     const categories = ['Tender', 'Grant', 'Contract', 'Partnership', 'Subcontracting'];
     const statuses = ['Active', 'Upcoming', 'Closed'];
 
-    // Date format
+    
     const formatDate = (dateString: string) => {
         const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
         return new Date(dateString).toLocaleDateString('en-US', options);
     };
 
-    // Calculate days until deadline
+    
     const daysUntilDeadline = (deadline: string) => {
         const today = new Date();
         const deadlineDate = new Date(deadline);
@@ -118,7 +118,7 @@ function OpportunitiesContent() {
     return (
         <div className="min-h-screen bg-gray-50">
             <Navbar />
-            {/* Secondary Navigation */}
+            {}
             <div className="bg-white shadow-sm border-b border-gray-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center py-4">
@@ -155,13 +155,13 @@ function OpportunitiesContent() {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {/* Page Header */}
+                {}
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Available Opportunities</h1>
                     <p className="text-gray-700">Discover projects from government agencies, NGOs, and international institutions</p>
                 </div>
 
-                {/* Search and Filter Section */}
+                {}
                 <div className="bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-200">
                     <div className="flex flex-col md:flex-row gap-4 mb-4">
                         <div className="flex-1">
@@ -201,7 +201,7 @@ function OpportunitiesContent() {
                         </div>
                     </div>
 
-                    {/* Expandable Filters */}
+                    {}
                     {showFilters && (
                         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-gray-200">
                             <div>
@@ -263,7 +263,7 @@ function OpportunitiesContent() {
                     )}
                 </div>
 
-                {/* Quick Filters and Results Header */}
+                {}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                     <div className="flex flex-wrap gap-2">
                         <button
@@ -309,7 +309,7 @@ function OpportunitiesContent() {
                     </div>
                 </div>
 
-                {/* Opportunities Table */}
+                {}
                 {loading ? (
                     <div className="text-center py-12">Loading opportunities...</div>
                 ) : sortedOpportunities.length > 0 ? (
@@ -399,7 +399,7 @@ function OpportunitiesContent() {
                     </div>
                 )}
 
-                {/* Pagination */}
+                {}
                 {sortedOpportunities.length > 0 && (
                     <div className="flex justify-center mt-8">
                         <nav className="flex items-center space-x-2">
@@ -428,7 +428,7 @@ function OpportunitiesContent() {
                 onClose={() => setIsModalOpen(false)}
                 onSuccess={() => {
                     fetchOpportunities();
-                    // Optionally redirect to analytics or show success message
+                    
                 }}
             />
 
@@ -443,7 +443,7 @@ function OpportunitiesContent() {
     );
 }
 
-// Loading component
+
 function OpportunitiesLoading() {
     return (
         <div className="min-h-screen bg-gray-50">
@@ -492,7 +492,7 @@ function OpportunitiesLoading() {
     );
 }
 
-// Main page component with Suspense boundary
+
 export default function OpportunitiesPage() {
     return (
         <Suspense fallback={<OpportunitiesLoading />}>

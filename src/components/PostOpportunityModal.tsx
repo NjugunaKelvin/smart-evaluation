@@ -9,7 +9,7 @@ interface PostOpportunityModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSuccess?: () => void;
-    initialData?: any; // For editing
+    initialData?: any; 
     isEditing?: boolean;
 }
 
@@ -53,7 +53,7 @@ export default function PostOpportunityModal({ isOpen, onClose, onSuccess, initi
                 documents: initialData.documents || []
             });
         } else {
-            // Reset form when opening in create mode
+            
             setFormData({
                 title: '',
                 description: '',
@@ -78,7 +78,7 @@ export default function PostOpportunityModal({ isOpen, onClose, onSuccess, initi
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            // In a real app, upload to storage here. For now, we just store the name.
+            
             const fileNames = Array.from(e.target.files).map(f => f.name);
             setFormData(prev => ({ ...prev, documents: [...prev.documents, ...fileNames] }));
         }
@@ -104,7 +104,7 @@ export default function PostOpportunityModal({ isOpen, onClose, onSuccess, initi
                 return;
             }
 
-            // Process requirements into an array
+            
             const processedData = {
                 ...formData,
                 requirements: formData.requirements.split('\n').filter(r => r.trim() !== '')
@@ -204,7 +204,7 @@ export default function PostOpportunityModal({ isOpen, onClose, onSuccess, initi
                                     </div>
                                 )}
 
-                                {/* Basic Info Section */}
+                                {}
                                 <div className="space-y-4">
                                     <h3 className="text-sm font-bold text-purple-700 uppercase tracking-wide border-b border-purple-100 pb-2">Basic Information</h3>
                                     <div>
@@ -301,7 +301,7 @@ export default function PostOpportunityModal({ isOpen, onClose, onSuccess, initi
                                     </div>
                                 </div>
 
-                                {/* Details Section */}
+                                {}
                                 <div className="space-y-4">
                                     <h3 className="text-sm font-bold text-purple-700 uppercase tracking-wide border-b border-purple-100 pb-2">Detailed Description</h3>
                                     <div>
@@ -373,7 +373,7 @@ export default function PostOpportunityModal({ isOpen, onClose, onSuccess, initi
                                     </div>
                                 </div>
 
-                                {/* Contact Section */}
+                                {}
                                 <div className="space-y-4">
                                     <h3 className="text-sm font-bold text-purple-700 uppercase tracking-wide border-b border-purple-100 pb-2">Contact Information</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

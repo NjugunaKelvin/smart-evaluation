@@ -1,5 +1,5 @@
 export const NAICS_CODES = [
-  // Construction Sector
+  
   { code: "236110", description: "Residential Building Construction" },
   { code: "236210", description: "Industrial Building Construction" },
   { code: "236220", "description": "Commercial and Institutional Building Construction" },
@@ -29,7 +29,7 @@ export const NAICS_CODES = [
   { code: "238910", description: "Site Preparation Contractors" },
   { code: "238990", description: "All Other Specialty Trade Contractors" },
 
-  // Technology Sector
+  
   { code: "511210", description: "Software Publishers" },
   { code: "518210", description: "Data Processing, Hosting, and Related Services" },
   { code: "519130", description: "Internet Publishing and Broadcasting and Web Search Portals" },
@@ -40,7 +40,7 @@ export const NAICS_CODES = [
   { code: "561499", description: "All Other Business Support Services" },
   { code: "611420", description: "Computer Training" },
 
-  // Logistics & Transportation
+  
   { code: "484110", description: "General Freight Trucking, Local" },
   { code: "484121", description: "General Freight Trucking, Long-Distance, Truckload" },
   { code: "484122", description: "General Freight Trucking, Long-Distance, Less Than Truckload" },
@@ -62,7 +62,7 @@ export const NAICS_CODES = [
   { code: "493130", description: "Farm Product Warehousing and Storage" },
   { code: "493190", description: "Other Warehousing and Storage" },
 
-  // Healthcare
+  
   { code: "621111", description: "Offices of Physicians (except Mental Health Specialists)" },
   { code: "621112", description: "Offices of Physicians, Mental Health Specialists" },
   { code: "621210", description: "Offices of Dentists" },
@@ -85,7 +85,7 @@ export const NAICS_CODES = [
   { code: "621991", description: "Blood and Organ Banks" },
   { code: "621999", description: "All Other Miscellaneous Ambulatory Health Care Services" },
 
-  // Consulting & Professional Services
+  
   { code: "541110", description: "Offices of Lawyers" },
   { code: "541211", description: "Offices of Certified Public Accountants" },
   { code: "541219", description: "Other Accounting Services" },
@@ -116,7 +116,7 @@ export const NAICS_CODES = [
   { code: "541940", description: "Veterinary Services" },
   { code: "541990", description: "All Other Professional, Scientific, and Technical Services" },
 
-  // Education & Training
+  
   { code: "611110", description: "Elementary and Secondary Schools" },
   { code: "611210", description: "Junior Colleges" },
   { code: "611310", description: "Colleges, Universities, and Professional Schools" },
@@ -134,7 +134,7 @@ export const NAICS_CODES = [
   { code: "611699", description: "All Other Miscellaneous Schools and Instruction" },
   { code: "611710", description: "Educational Support Services" },
 
-  // Manufacturing
+  
   { code: "311211", description: "Flour Milling" },
   { code: "311212", description: "Rice Milling" },
   { code: "311213", description: "Malt Manufacturing" },
@@ -184,7 +184,7 @@ export const NAICS_CODES = [
   { code: "312140", description: "Distilleries" },
   { code: "312230", description: "Tobacco Manufacturing" },
 
-  // Retail & Wholesale
+  
   { code: "423110", description: "Automobile and Other Motor Vehicle Merchant Wholesalers" },
   { code: "423120", description: "Motor Vehicle Supplies and New Parts Merchant Wholesalers" },
   { code: "423130", description: "Tire and Tube Merchant Wholesalers" },
@@ -253,7 +253,7 @@ export const NAICS_CODES = [
   { code: "424950", description: "Paint, Varnish, and Supplies Merchant Wholesalers" },
   { code: "424990", description: "Other Miscellaneous Nondurable Goods Merchant Wholesalers" },
 
-  // Other Services
+  
   { code: "561110", description: "Office Administrative Services" },
   { code: "561210", description: "Facilities Support Services" },
   { code: "561310", description: "Employment Placement Agencies" },

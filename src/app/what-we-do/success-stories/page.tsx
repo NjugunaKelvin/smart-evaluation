@@ -50,7 +50,7 @@ const SuccessStories = () => {
       <Navbar />
       
       <div className="max-w-7xl mx-auto mt-16">
-        {/* Header Section */}
+        {}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Success <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-500">Stories</span>
@@ -60,14 +60,14 @@ const SuccessStories = () => {
           </p>
         </div>
 
-        {/* Success Stories Grid */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {successStories.map((story) => (
             <div 
               key={story.id} 
               className="bg-gradient-to-br from-gray-800 to-gray-700 rounded-2xl shadow-xl overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
             >
-              {/* Category Header */}
+              {}
               <div className={`bg-gradient-to-r ${story.color} p-4 flex items-center justify-between`}>
                 <div className="flex items-center">
                   <div className="bg-white bg-opacity-20 p-2 rounded-full">
@@ -77,12 +77,12 @@ const SuccessStories = () => {
                 </div>
               </div>
               
-              {/* Content */}
+              {}
               <div className="p-6">
                 <h3 className="text-xl font-bold text-white mb-4">{story.title}</h3>
                 <p className="text-gray-300 mb-6">{story.description}</p>
                 
-                {/* Metrics */}
+                {}
                 <div className="grid grid-cols-3 gap-4 mb-6">
                   {story.metrics.map((metric, index) => (
                     <div key={index} className="text-center bg-gray-700 bg-opacity-50 rounded-lg p-3">
@@ -95,7 +95,7 @@ const SuccessStories = () => {
                   ))}
                 </div>
                 
-                {/* CTA Button */}
+                {}
                 <button className="w-full flex items-center justify-center px-4 py-3 bg-gray-700 bg-opacity-50 hover:bg-opacity-70 text-white rounded-lg transition-all duration-300 group">
                   Read full case study
                   <FaArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
@@ -105,7 +105,7 @@ const SuccessStories = () => {
           ))}
         </div>
 
-        {/* CTA Section */}
+        {}
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             Ready to create your success story?

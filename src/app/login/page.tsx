@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+
 'use client';
 
 import { useState } from 'react';
@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import { auth, googleProvider, signInWithPopup } from '@/lib/firebase';
+import { FiArrowLeft } from 'react-icons/fi';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -44,11 +45,17 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Store token and user data
+        
+        if (data.user.userType === 'provider') {
+          alert('Access Denied: Provider accounts must use the Provider Portal.');
+          return;
+        }
+
+        
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
 
-        // Redirect to opportunities
+        
         router.push('/opportunities');
       } else {
         alert(data.message || 'Login failed');
@@ -67,7 +74,7 @@ export default function LoginPage() {
       const result = await signInWithPopup(auth, googleProvider);
       const idToken = await result.user.getIdToken();
 
-      // Send token to backend
+      
       const response = await fetch('http://localhost:5000/api/auth/social-login', {
         method: 'POST',
         headers: {
@@ -99,9 +106,14 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* Left Form Panel */}
+      {}
       <div className="flex-1 flex flex-col justify-center px-6 md:px-12 lg:px-16 relative z-10">
         <div className="max-w-md w-full mx-auto">
+          <Link href="/" className="inline-flex items-center text-sm text-gray-500 hover:text-purple-600 transition-colors mb-8 group">
+            <FiArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
+            Back to Home
+          </Link>
+
           <div className="mb-8">
             <Link href="/" className="inline-block mb-6">
               <span className="text-2xl font-bold bg-gradient-to-r from-purple-700 to-purple-500 bg-clip-text text-transparent">
@@ -216,7 +228,7 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Right Image Panel */}
+      {}
       <div className="hidden lg:block lg:w-1/2 relative overflow-hidden bg-gray-900">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/90 to-black/50 z-10" />
         <img

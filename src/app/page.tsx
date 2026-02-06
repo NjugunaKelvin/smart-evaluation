@@ -1,4 +1,4 @@
-// app/page.tsx
+
 import Landing from '@/homeSections/Landing';
 import Clients from '@/homeSections/Clients';
 import Services from '@/homeSections/Services';

@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// src/pages/Resources/WebinarsEvents.tsx
+
+
+
 'use client'
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';

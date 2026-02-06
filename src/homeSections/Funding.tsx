@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+
 'use client'
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
@@ -14,10 +14,10 @@ export default function FundingSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
+      {}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/home/bg.webp" // Replace with your actual image path
+          src="/images/home/bg.webp" 
           alt="Global funding opportunities"
           fill
           className="object-cover"

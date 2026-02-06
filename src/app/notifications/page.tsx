@@ -79,7 +79,7 @@ export default function NotificationsPage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Header */}
+            {}
             <div className="bg-white border-b border-gray-200 px-4 py-6">
                 <div className="max-w-4xl mx-auto">
                     <h1 className="text-3xl font-bold text-gray-900">Notifications</h1>
@@ -88,7 +88,7 @@ export default function NotificationsPage() {
             </div>
 
             <div className="max-w-4xl mx-auto px-4 py-8">
-                {/* Actions */}
+                {}
                 <div className="mb-6 flex gap-3">
                     <button className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition text-sm font-medium">
                         Mark All as Read
@@ -98,7 +98,7 @@ export default function NotificationsPage() {
                     </button>
                 </div>
 
-                {/* Notifications List */}
+                {}
                 <div className="space-y-3">
                     {notifications.length === 0 ? (
                         <div className="bg-white rounded-xl shadow-sm p-12 text-center">

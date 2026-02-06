@@ -6,17 +6,17 @@ import Image from 'next/image';
 export default function Landing() {
   return (
     <section className="relative py-16 bg-[#ebe1f2] border-b border-gray-200 overflow-hidden min-h-screen flex items-center">
-      {/* Background pattern with subtle animation */}
+      {}
       <div className="absolute inset-0 opacity-3">
         <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMDMiPjxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjEwIi8+PHBhdGggZD0iTTMwIDBhMzAgMzAgMCAwIDEgMCA2MFYweiIvPjwvZz48L2c+PC9zdmc+')] animate-pulse-slow"></div>
       </div>
       
-      {/* Animated grid overlay */}
+      {}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48cGF0aCBkPSJNIDEwMCAwIEwgMCAwIDAgMTAwIiBzdHJva2U9InJnYmEoMCwwLDAsMC4wMykiIGZpbGw9Im5vbmUiLz48L3N2Zz4=')]"></div>
       </div>
       
-      {/* Floating elements */}
+      {}
       <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl animate-float-slow"></div>
       <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-float-medium"></div>
       
@@ -119,7 +119,7 @@ export default function Landing() {
         </div>
         
         <div className="relative">
-          {/* Main card with happy business people */}
+          {}
           <div className="relative h-96 w-full rounded-xl overflow-hidden border border-white shadow-2xl bg-white">
             <Image
               src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80"
@@ -131,7 +131,7 @@ export default function Landing() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#ebe1f2]/40 via-transparent to-transparent"></div>
           </div>
           
-          {/* Floating card 1 */}
+          {}
           <div className="absolute -bottom-6 -right-6 bg-white/95 backdrop-blur-md p-5 rounded-xl shadow-lg border border-purple-100 w-64">
             <div className="flex items-center mb-3">
               <div className="bg-purple-100 p-1.5 rounded-md mr-3">
@@ -145,7 +145,7 @@ export default function Landing() {
             <p className="text-gray-600 text-sm">by our business partners in the last year</p>
           </div>
           
-          {/* Floating card 2 */}
+          {}
           <div className="absolute -top-6 -left-6 bg-white/95 backdrop-blur-md p-5 rounded-xl shadow-lg border border-purple-100 w-64">
             <div className="flex items-center mb-3">
               <div className="bg-green-100 p-1.5 rounded-md mr-3">
@@ -159,7 +159,7 @@ export default function Landing() {
             <p className="text-gray-600 text-sm">currently available across multiple sectors</p>
           </div>
 
-          {/* Additional happy faces collage */}
+          {}
           <div className="absolute -bottom-16 left-10 flex gap-2">
             <div className="w-16 h-16 rounded-full border-2 border-white overflow-hidden shadow-md">
               <Image
@@ -183,7 +183,7 @@ export default function Landing() {
         </div>
       </div>
       
-      {/* Custom animations */}
+      {}
       <style jsx global>{`
         @keyframes float {
           0%, 100% { transform: translateY(0) rotate(0deg); }
